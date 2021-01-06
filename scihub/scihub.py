@@ -9,25 +9,23 @@ Sci-API Unofficial API
 """
 
 import re
-import argparse
+import asyncio
 import hashlib
 import logging
 import os
-
+import aiohttp
 import requests
-import urllib3
 from bs4 import BeautifulSoup
-from retrying import retry
 
 # log config
 logging.basicConfig()
 logger = logging.getLogger('Sci-Hub')
-logger.setLevel(logging.DEBUG)
-urllib3.disable_warnings()
+logger.setLevel(logging.INFO)
 
 # constants
 SCHOLARS_BASE_URL = 'https://www.sciencedirect.com/search'
 HEADERS = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:27.0) Gecko/20100101 Firefox/27.0'}
+
 
 class SciHub(object):
     """
@@ -118,7 +116,6 @@ class SciHub(object):
 
             start += 10
 
-    @retry(wait_random_min=100, wait_random_max=1000, stop_max_attempt_number=10)
     def download(self, identifier, destination='', path=None):
         """
         Downloads a paper from sci-hub given an indentifier (DOI, PMID, URL).
@@ -154,12 +151,6 @@ class SciHub(object):
                 self._change_base_url()
                 logger.info('Failed to fetch pdf with identifier %s '
                                            '(resolved url %s) due to captcha' % (identifier, url))
-                raise CaptchaNeedException('Failed to fetch pdf with identifier %s '
-                                           '(resolved url %s) due to captcha' % (identifier, url))
-                # return {
-                #     'err': 'Failed to fetch pdf with identifier %s (resolved url %s) due to captcha'
-                #            % (identifier, url)
-                # }
             else:
                 return {
                     'pdf': res.content,
@@ -242,68 +233,49 @@ class SciHub(object):
         pdf_hash = hashlib.md5(res.content).hexdigest()
         return '%s-%s' % (pdf_hash, name[-20:])
 
-class CaptchaNeedException(Exception):
-    pass
-
-def main():
-    sh = SciHub()
-
-    parser = argparse.ArgumentParser(description='SciHub - To remove all barriers in the way of science.')
-    parser.add_argument('-d', '--download', metavar='(DOI|PMID|URL)', help='tries to find and download the paper',
-                        type=str)
-    parser.add_argument('-f', '--file', metavar='path', help='pass file with list of identifiers and download each',
-                        type=str)
-    parser.add_argument('-s', '--search', metavar='query', help='search Google Scholars', type=str)
-    parser.add_argument('-sd', '--search_download', metavar='query',
-                        help='search Google Scholars and download if possible', type=str)
-    parser.add_argument('-l', '--limit', metavar='N', help='the number of search results to limit to', default=10,
-                        type=int)
-    parser.add_argument('-o', '--output', metavar='path', help='directory to store papers', default='', type=str)
-    parser.add_argument('-v', '--verbose', help='increase output verbosity', action='store_true')
-    parser.add_argument('-p', '--proxy', help='via proxy format like socks5://user:pass@host:port', action='store', type=str)
-
-    args = parser.parse_args()
-
-    if args.verbose:
-        logger.setLevel(logging.DEBUG)
-    if args.proxy:
-        sh.set_proxy(args.proxy)
-
-    if args.download:
-        result = sh.download(args.download, args.output)
-        if 'err' in result:
-            logger.debug('%s', result['err'])
-        else:
-            logger.debug('Successfully downloaded file with identifier %s', args.download)
-    elif args.search:
-        results = sh.search(args.search, args.limit)
-        if 'err' in results:
-            logger.debug('%s', results['err'])
-        else:
-            logger.debug('Successfully completed search with query %s', args.search)
-        print(results)
-    elif args.search_download:
-        results = sh.search(args.search_download, args.limit)
-        if 'err' in results:
-            logger.debug('%s', results['err'])
-        else:
-            logger.debug('Successfully completed search with query %s', args.search_download)
-            for paper in results['papers']:
-                result = sh.download(paper['url'], args.output)
-                if 'err' in result:
-                    logger.debug('%s', result['err'])
+    async def async_get_direct_url(self, identifier):
+        """
+        异步获取scihub直链
+        """
+        async with aiohttp.ClientSession() as sess:
+            async with sess.get(self.base_url + identifier) as res:
+                logger.info(f"Fetching {self.base_url + identifier}...")
+                # await 等待任务完成
+                html = await res.text(encoding='utf-8')
+                s = self._get_soup(html)
+                iframe = s.find('iframe')
+                if iframe:
+                    return iframe.get('src') if not iframe.get('src').startswith('//') \
+                        else 'http:' + iframe.get('src')
                 else:
-                    logger.debug('Successfully downloaded file with identifier %s', paper['url'])
-    elif args.file:
-        with open(args.file, 'r') as f:
-            identifiers = f.read().splitlines()
-            for identifier in identifiers:
-                result = sh.download(identifier, args.output)
-                if 'err' in result:
-                    logger.debug('%s', result['err'])
-                else:
-                    logger.debug('Successfully downloaded file with identifier %s', identifier)
+                    return None
 
+    async def job(self, session, url, destination='', path=None):
+        """
+        异步下载文件
+        """
+        file_name = url.split("/")[-1].split("#")[0]
+        logger.info(f"正在读取并写入 {file_name} 中...")
+        # 异步读取内容
+        try:
+            url_handler = await session.get(url)
+            content = await url_handler.read()
+        except:
+            logger.error("获取源文件超时，请检查网络环境或增加超时时限")
+            return str(url)
+        with open(os.path.join(destination, path + file_name), 'wb') as f:
+            # 写入至文件
+            f.write(content)
+        return str(url)
 
-if __name__ == '__main__':
-    main()
+    async def async_download(self, loop, urls, destination='', path=None):
+        """
+        触发异步下载任务
+        """
+        async with aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(total=600)) as session:
+            # 建立会话session
+            tasks = [loop.create_task(self.job(session, url, destination, path)) for url in urls]
+            # 建立所有任务
+            finished, unfinished = await asyncio.wait(tasks)
+            # 触发await，等待任务完成
+            [r.result() for r in finished]

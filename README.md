@@ -1,6 +1,6 @@
 中文环境下可用的scihub论文下载器
 
-感谢作者[@zaytoun/scihub.py](https://github.com/zaytoun/scihub.py)
+感谢原作者[@zaytoun/scihub.py](https://github.com/zaytoun/scihub.py)
 
 # 更新日志
 

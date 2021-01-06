@@ -1,15 +1,30 @@
+import asyncio
 from scihub import SciHub
 
-sh = SciHub()
 
-# 搜索词
-keywords = "Dragon Boat Festival"
+def search(keywords: str, limit: int):
+    """
+    搜索相关论文并下载
 
-# 搜索该关键词相关的论文，limit为篇数
-result = sh.search(keywords, limit=10)
+    Args:
+        keywords (str): 关键词
+        limit (int): 篇数
+    """
 
-print(result)
+    sh = SciHub()
+    result = sh.search(keywords, limit=limit)
+    print(result)
 
-for index, paper in enumerate(result.get("papers", [])):
-    # 批量下载这些论文
-    sh.download(paper["url"], path=f"files/{keywords.replace(' ', '_')}_{index}.pdf")
+    loop = asyncio.get_event_loop()
+    # 获取所有需要下载的scihub直链
+    tasks = [sh.async_get_direct_url(paper["url"]) for paper in result.get("papers", [])]
+    all_direct_urls = loop.run_until_complete(asyncio.gather(*tasks))
+    print(all_direct_urls)
+
+    # 下载所有论文
+    loop.run_until_complete(sh.async_download(loop, all_direct_urls, path=f"files/"))
+    loop.close()
+
+
+if __name__ == '__main__':
+    search("quant", 5)
