@@ -260,8 +260,8 @@ class SciHub(object):
         try:
             url_handler = await session.get(url)
             content = await url_handler.read()
-        except:
-            logger.error("获取源文件超时，请检查网络环境或增加超时时限")
+        except Exception as e:
+            logger.error(f"获取源文件出错: {e}，大概率是下载超时，请检查")
             return str(url)
         with open(os.path.join(destination, path + file_name), 'wb') as f:
             # 写入至文件

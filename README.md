@@ -8,11 +8,13 @@
 
 2020-06-25 补充：增加关键词搜索批量下载论文功能。
 
+2021-01-07 补充：异步下载优化，增加超时控制
 
 # 使用教程
 
 见[你不得不知道的python超级文献下载搜索工具](https://pythondict.com/life-intelligent/tools/python-paper-downloader/)
 
 # 更多
+PS: 如果你要增加超时时间，请修改async_download函数中的 total=600，把这个请求总时间调高即可。
 
 更多有趣的工具和组件的使用，可以关注Python实用宝典网站或公众号, 会定时更新[Python实战教程](https://pythondict.com)
