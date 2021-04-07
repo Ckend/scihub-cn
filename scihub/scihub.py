@@ -13,6 +13,7 @@ import asyncio
 import hashlib
 import logging
 import os
+import json
 import aiohttp
 import requests
 from bs4 import BeautifulSoup
@@ -23,8 +24,11 @@ logger = logging.getLogger('Sci-Hub')
 logger.setLevel(logging.INFO)
 
 # constants
-SCHOLARS_BASE_URL = 'https://www.sciencedirect.com/search'
-HEADERS = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:27.0) Gecko/20100101 Firefox/27.0'}
+SCHOLARS_BASE_URL = 'https://www.sciencedirect.com/search/api'
+HEADERS = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36',
+    'Cookie': 'Your Cookie'
+}
 
 
 class SciHub(object):
@@ -80,39 +84,33 @@ class SciHub(object):
 
         while True:
             try:
-                res = self.sess.get(SCHOLARS_BASE_URL, params={'qs': query, 'start': start})
+                res = self.sess.get(SCHOLARS_BASE_URL, params={'qs': query, 'start': start,
+                                                               "hostname": "www.sciencedirect.com"})
             except requests.exceptions.RequestException as e:
                 results['err'] = 'Failed to complete search with query %s (connection error)' % query
                 return results
+            try:
+                s = json.loads(res.content)
+            except Exception as e:
+                logger.exception(e)
+                return results
 
-            s = self._get_soup(res.content)
-            papers = s.find_all('div', class_="result-item-content")
+            papers = s.get('searchResults')
 
             if not papers:
-                if 'CAPTCHA' in str(res.content):
-                    results['err'] = 'Failed to complete search with query %s (captcha)' % query
                 return results
 
             for paper in papers:
-                if not paper.find('table'):
-                    source = None
-                    # 统一使用scihub下载，因此去除pdf链接爬取
-                    # pdf = paper.find('span', class_='preview-link')
-                    # source = pdf.find('a')['href']
-                    link = paper.find('h2')
+                source = paper.get("link")
+                source_name = paper.get('sourceTitle')
 
-                    if link.find('a'):
-                        source = link.find('a')['href']
-                    else:
-                        continue
+                results['papers'].append({
+                    'name': source_name,
+                    'url': f"https://www.sciencedirect.com{source}"
+                })
 
-                    results['papers'].append({
-                        'name': link.text,
-                        'url': f"https://www.sciencedirect.com{source}"
-                    })
-
-                    if len(results['papers']) >= limit:
-                        return results
+                if len(results['papers']) >= limit:
+                    return results
 
             start += 10
 
