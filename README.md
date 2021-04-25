@@ -70,7 +70,7 @@ ieee文章
 
 然后在scihub-cn文件夹里新建一个文件叫 my\_test.py 输入以下代码：
 
-```
+```python
 from scihub import SciHub
 sh = SciHub()
 # 第一个参数输入论文的网站地址
@@ -82,7 +82,7 @@ result = sh.download('http://ieeexplore.ieee.org/xpl/login.jsp?tp=&arnumber=1648
 
 进入该文件夹后在cmd/terminal中运行：  
 
-```
+```shell script
 python my_test.py
 ```
 
@@ -96,7 +96,7 @@ python my_test.py
 
 将DOI号填入download函数中：
 
-```
+```python
 from scihub import SciHub
 sh = SciHub()
 result = sh.download('10.1016/j.compeleceng.2020.106640', path='paper2.pdf')
@@ -123,7 +123,7 @@ result = sh.download('10.1016/j.compeleceng.2020.106640', path='paper2.pdf')
 
 支持使用搜索的形式批量下载论文，比如说搜索关键词 端午节（Dragon Boat Festival）：
 
-```
+```python
 from scihub import SciHub
 
 sh = SciHub()
@@ -172,7 +172,7 @@ for index, paper in enumerate(result.get("papers", [])):
 
 **2.使用sciencedirect搜索时**，需要用 **`search_by_science_direct`** 函数，并将cookie作为参数之一传入：
 
-```
+```python
 from scihub import SciHub
 
 sh = SciHub()
@@ -200,7 +200,7 @@ for index, paper in enumerate(result.get("papers", [])):
 
 使用publons渠道搜索下载其实很简单，你只需要更改搜索的函数名即可，不需要配置Cookie：
 
-```
+```python
 from scihub import SciHub
 
 sh = SciHub()
@@ -235,7 +235,7 @@ for index, paper in enumerate(result.get("papers", [])):
 
 首先，新增异步获取scihub直链的方法，改为异步获取相关论文的scihub直链：
 
-```
+```python
 async def async_get_direct_url(self, identifier):
     """
     异步获取scihub直链
@@ -258,7 +258,7 @@ async def async_get_direct_url(self, identifier):
 
 这样，在搜索论文后，调用该接口就能获取所有需要下载的scihub直链，速度很快：
 
-```
+```python
 def search(keywords: str, limit: int):
     """
     搜索相关论文并下载
@@ -287,7 +287,7 @@ def search(keywords: str, limit: int):
 
 获取直链后，需要下载论文，同样也是IO密集型操作，增加2个异步函数：
 
-```
+```python
 async def job(self, session, url, destination='', path=None):
     """
     异步下载文件
@@ -326,7 +326,7 @@ async def async_download(self, loop, urls, destination='', path=None):
 
 最后，在search函数中补充下载操作：
 
-```
+```python
 import asyncio
 from scihub import SciHub
 
