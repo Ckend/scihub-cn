@@ -25,9 +25,11 @@ logger.setLevel(logging.INFO)
 
 # constants
 SCHOLARS_BASE_URL = 'https://www.sciencedirect.com/search/api'
+GOOGLE_SCHOLAR_URL = 'https://scholar.google.com/scholar'
+WEB_OF_SCIENCE_URL = 'https://publons.com/publon/list/'
+BAIDU_XUESHU_URL = 'https://xueshu.baidu.com/s'
 HEADERS = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36',
-    'Cookie': 'Your Cookie'
 }
 
 
@@ -73,18 +75,16 @@ class SciHub(object):
         self.base_url = self.available_base_url_list[0] + '/'
         logger.info("I'm changing to {}".format(self.available_base_url_list[0]))
 
-    def search(self, query, limit=10, download=False):
+    def search_by_science_direct(self, query, cookie, limit=10):
         """
-        Performs a query on scholar.google.com, and returns a dictionary
-        of results in the form {'papers': ...}. Unfortunately, as of now,
-        captchas can potentially prevent searches after a certain limit.
+        通过science direct搜索，需要配置Cookie
         """
         start = 0
         results = {'papers': []}
-
+        self.sess.headers["Cookie"] = cookie
         while True:
             try:
-                res = self.sess.get(SCHOLARS_BASE_URL, params={'qs': query, 'start': start,
+                res = self.sess.get(SCHOLARS_BASE_URL, params={'qs': query, 'offset': start,
                                                                "hostname": "www.sciencedirect.com"})
             except requests.exceptions.RequestException as e:
                 results['err'] = 'Failed to complete search with query %s (connection error)' % query
@@ -106,11 +106,85 @@ class SciHub(object):
 
                 results['papers'].append({
                     'name': source_name,
-                    'url': f"https://www.sciencedirect.com{source}"
+                    'url': f"https://www.sciencedirect.com{source}",
+                    'doi': paper['doi']
                 })
 
                 if len(results['papers']) >= limit:
                     return results
+
+            start += 25
+
+    def search_by_publons(self, query, limit=10):
+        """
+        使用publons进行文献搜索
+        """
+        start = 0
+        results = {'papers': []}
+        while True:
+            try:
+                res = self.sess.get(WEB_OF_SCIENCE_URL, params={'title': query, 'page': start})
+            except requests.exceptions.RequestException as e:
+                results['err'] = 'Failed to complete search with query %s (connection error)' % query
+                return results
+
+            papers = json.loads(res.content).get("results", [])
+
+
+            for paper in papers:
+                name = paper['publon']['name']
+                link = f"https://publons.com/{paper['publon']['url']}#{name}"
+                doi = paper['altmetric_score']['doi']
+
+                results['papers'].append({
+                    'name': name,
+                    'url': link,
+                    'doi': doi,
+                })
+
+                if len(results['papers']) >= limit:
+                    return results
+
+            start += 1
+
+    def search(self, query, limit=10):
+        """
+        默认使用百度学术进行文献搜索
+        """
+        def fetch_doi(url):
+            res = self.sess.get(url)
+            s = self._get_soup(res.content)
+            dois = [doi.text.replace("DOI：", "").replace("ISBN：", "").strip() for doi in s.find_all('div', class_='doi_wr')]
+            if dois:
+                return dois[0]
+            else:
+                return ""
+
+        start = 0
+
+        results = {'papers': []}
+        while True:
+            try:
+                res = self.sess.get(BAIDU_XUESHU_URL, params={'wd': query, 'pn': start, 'filter': 'sc_type%3D%7B1%7D'})
+            except requests.exceptions.RequestException as e:
+                results['err'] = 'Failed to complete search with query %s (connection error)' % query
+                return results
+
+            s = self._get_soup(res.content)
+            papers = s.find_all('div', class_="result")
+
+            for paper in papers:
+                if not paper.find('table'):
+                    link = paper.find('h3', class_='t c_font')
+                    url = "http:"+str(link.find('a')['href'].replace("\n", "").strip())
+                    results['papers'].append({
+                        'name': link.text,
+                        'url': url,
+                        'doi': fetch_doi(url),
+                    })
+
+                    if len(results['papers']) >= limit:
+                        return results
 
             start += 10
 
@@ -121,7 +195,8 @@ class SciHub(object):
         limit has been reached.
         """
         data = self.fetch(identifier)
-
+        if not data:
+            return
         if not 'err' in data:
             self._save(data['pdf'],
                        os.path.join(destination, path if path else data['name']))
@@ -252,6 +327,8 @@ class SciHub(object):
         """
         异步下载文件
         """
+        if not url:
+            return
         file_name = url.split("/")[-1].split("#")[0]
         logger.info(f"正在读取并写入 {file_name} 中...")
         # 异步读取内容

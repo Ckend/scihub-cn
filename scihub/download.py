@@ -17,7 +17,7 @@ def search(keywords: str, limit: int):
 
     loop = asyncio.get_event_loop()
     # 获取所有需要下载的scihub直链
-    tasks = [sh.async_get_direct_url(paper["url"]) for paper in result.get("papers", [])]
+    tasks = [sh.async_get_direct_url(paper["doi"]) for paper in result.get("papers", [])]
     all_direct_urls = loop.run_until_complete(asyncio.gather(*tasks))
     print(all_direct_urls)
 
@@ -27,4 +27,4 @@ def search(keywords: str, limit: int):
 
 
 if __name__ == '__main__':
-    search("quant", 5)
+    search("quant", 10)
