@@ -1,26 +1,35 @@
-中文环境下可用的scihub论文下载器
+文献搜索对于广大学子来说真的是个麻烦事![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/880f5b5d72e54ed6b86913494b8c1cd9~tplv-k3u1fbpfcp-zoom-1.image)，如果你的学校购买的论文下载权限不够多，或者你不在校园网覆盖的范围内，想必会令你非常头痛。
 
-感谢原作者[@zaytoun/scihub.py](https://github.com/zaytoun/scihub.py)
+  
 
-# 更新日志
+幸好，我们有Python制作的这个论文搜索工具，简化了我们学习的复杂性![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/dcb414b1082c47408d7e4cfb4ccef5b4~tplv-k3u1fbpfcp-zoom-1.image)  
 
-2020-05-28 补充：基于@zaytoun的源码更新scihub提取网，目前项目可用，感谢@lisenjor的分享。
+  
 
-2020-06-25 补充：增加关键词搜索批量下载论文功能。
+更新日志：
 
-2021-01-07 补充：异步下载优化，增加超时控制。
+**2020-05-28补充**：已用最新的scihub提取网，目前项目可用，感谢@lisenjor的分享。
 
-2021-04-08 补充：由于sciencedirect增加了机器人检验，现在搜索下载功能需要先在HEADERS中填入Cookie才可爬取。
+**2020-06-25补充**：增加关键词搜索，批量下载论文功能。
 
-# 使用教程
-文献搜索对于广大学子来说真的是个麻烦事![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/44a11fa694f54146b3dd17523a6952b0~tplv-k3u1fbpfcp-zoom-1.image)，如果你的学校购买的论文下载权限不够多，或者不在校园内，那就很头痛了。幸好，我们有Python制作的这个论文搜索工具，简化了我们学习的复杂性![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a1046c0b610e43fba681b9c34f30d378~tplv-k3u1fbpfcp-zoom-1.image)
+**2021-01-07补充：**增加异步下载方式，加快下载速度；加强下载稳定性，不再出现文件损坏的情况。
+
+**2021-04-08补充：**由于sciencedirect增加了机器人检验，现在搜索下载功能需要先在HEADERS中填入Cookie才可爬取，详见第4步。
+
+**2021-04-25补充**：搜索下载增加百度学术、publons渠道。
+
+本文完整源代码可在 GitHub 找到：
+
+https://github.com/Ckend/scihub-cn
+
+  
 
 **1\. 什么是Scihub**
 -----------------
 
-首先给大家介绍一下Sci-hub这个线上数据库，这个数据库提供了约8千万篇科学学术论文和文章下载。由一名叫亚历珊卓·艾尔巴金的研究生建立，她过去在哈佛大学从事研究时发现支付所需要的数百篇论文的费用实在是太高了，因此就萌生了创建这个网站，让更多人获得知识的想法![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6f632f0b0e9e49fd8d117f6405863ad8~tplv-k3u1fbpfcp-zoom-1.image)
+首先给大家介绍一下Sci-hub这个线上数据库，这个数据库提供了约8千万篇科学学术论文和文章下载。由一名叫亚历珊卓·艾尔巴金的研究生建立，她过去在哈佛大学从事研究时发现支付所需要的数百篇论文的费用实在是太高了，因此就萌生了创建这个网站，让更多人获得知识的想法![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/985a5a6ffa484e1a92742b064c374b59~tplv-k3u1fbpfcp-zoom-1.image)
 
-![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/c5333e806e7c444d9c6441146da042ab~tplv-k3u1fbpfcp-zoom-1.image)
+![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/aa82fbe1ba1342fb8c124cafeb4e0f30~tplv-k3u1fbpfcp-zoom-1.image)
 
   
 
@@ -29,7 +38,7 @@
 **2\. 为什么我们需要用Python工具下载**
 --------------------------
 
-在起初，这个网站是所有人都能够访问的，但是随着其知名度的提升，越来越多的出版社盯上了他们，在2015年时被美国法院封禁后其在美国的服务器便无法被继续访问，因此从那个时候开始，他们就跟出版社们打起了游击战![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6e102348998a43099306f443817f5905~tplv-k3u1fbpfcp-zoom-1.image)
+在起初，这个网站是所有人都能够访问的，但是随着其知名度的提升，越来越多的出版社盯上了他们，在2015年时被美国法院封禁后其在美国的服务器便无法被继续访问，因此从那个时候开始，他们就跟出版社们打起了游击战![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/50d43ab74bf74707873c3cb40be0a87e~tplv-k3u1fbpfcp-zoom-1.image)
 
 游击战的缺点就是导致scihub的地址需要经常更换，所以我们没办法准确地一直使用某一个地址访问这个数据库。当然也有一些别的方法可让我们长时间访问这个网站，比如说修改DNS，修改hosts文件，不过这些方法不仅麻烦，而且也不是长久之计，还是存在失效的可能的。
 
@@ -49,17 +58,17 @@ https://github.com/Ckend/scihub-cn
 pip install -r requirements.txt
 ```
 
-然后我们就可以准备开始使用啦！![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/617b017b22c54904bec61d349a7b59c3~tplv-k3u1fbpfcp-zoom-1.image)
+然后我们就可以准备开始使用啦！![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/4488c5ae98544f92b293fbe7e7fd72f8~tplv-k3u1fbpfcp-zoom-1.image)
 
 这个工具使用起来非常简单，有两种方式，第一种方式你可以先在 Google 学术（搜索到论文的网址即可）或ieee上找到你需要的论文，复制论文网址如：
 
 http://ieeexplore.ieee.org/xpl/login.jsp?tp=&arnumber=1648853
 
-![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/931ba8fea2d34839a2316ffd110d7516~tplv-k3u1fbpfcp-zoom-1.image)
+![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6ccd905b9ab94e798cd039f08ce87a28~tplv-k3u1fbpfcp-zoom-1.image)
 
 ieee文章  
 
-然后在scihub文件夹的scihub里新建一个文件叫download.py, 输入以下代码：
+然后在scihub-cn文件夹里新建一个文件叫 my\_test.py 输入以下代码：
 
 ```
 `from scihub import SciHub`
@@ -74,16 +83,16 @@ ieee文章
 进入该文件夹后在cmd/terminal中运行：  
 
 ```
-python download.py
+python my_test.py
 ```
 
   
 
-你就会发现文件成功下载到你的当前目录啦，名字为paper.pdf![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/de6406bb889e481c9fe7d08e232e214e~tplv-k3u1fbpfcp-zoom-1.image)如果不行，多试几次就可以啦，还是不行的话，可以在下方留言区询问哦。
+你就会发现文件成功下载到你的当前目录啦，名字为paper.pdf![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/90e09c851d8448c0898b77483a05d299~tplv-k3u1fbpfcp-zoom-1.image)如果不行，有可能是网络问题，多试几次。实在不行可以在下方留言区询问哦。
 
 上述是第一种下载方式，第二种方式你可以通过在知网或者百度学术上搜索论文拿到DOI号进行下载，比如：
 
-![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/33befb619ea945849ad696ac7c1823c5~tplv-k3u1fbpfcp-zoom-1.image)
+![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/7568bf21fec347c193a573dc2015d65e~tplv-k3u1fbpfcp-zoom-1.image)
 
 将DOI号填入download函数中：
 
@@ -99,14 +108,20 @@ python download.py
 
   
 
-![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f93f7a06c77d4823b37c88351c85cc85~tplv-k3u1fbpfcp-zoom-1.image)
+![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b881bec169884a9c82f82c8469be17b1~tplv-k3u1fbpfcp-zoom-1.image)
 
   
+
+除了这种最简单的方式，我们还提供了 **论文关键词搜索批量下载** 及 **论文关键词批量异步下载** 两种高级的下载方法。
+
+我们在下文将会详细地讲解这两种方法的使用，大家可以看项目内的  **`test.py`** 文件，你可以了解到论文搜索批量下载的方法。
+
+进一步的高级方法在**`download.py`** 中可以找到，它可以实现论文搜索批量异步下载，大大加快下载速度。具体实现请看后文。
 
 **4\. 基于关键词的论文批量下载**
 --------------------
 
-今天更新了一波接口，现在支持使用搜索的形式批量下载论文，比如说搜索关键词 端午节（Dragon Boat Festival）：
+支持使用搜索的形式批量下载论文，比如说搜索关键词 端午节（Dragon Boat Festival）：
 
 ```
 `from scihub import SciHub`
@@ -118,16 +133,26 @@ python download.py
 `print(result)`
 `for index, paper in enumerate(result.get("papers", [])):`
  `# 批量下载这些论文`
- `sh.download(paper["url"], path=f"files/{keywords.replace(' ', '_')}_{index}.pdf")`
+ `sh.download(paper["doi"], path=f"files/{keywords.replace(' ', '_')}_{index}.pdf")`
 ```
 
   
 
-**运行结果，下载成功：**  
+**默认会使用百度学术进行论文搜索，拿到DOI号后再通过scihub下载，运行成功：**  
 
-![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/bdd07424373e4de9b004f5760b38b4ee~tplv-k3u1fbpfcp-zoom-1.image)  
+![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/4865fed715f044c7be2e85bd0f405261~tplv-k3u1fbpfcp-zoom-1.image)
 
-**2021-04-08 更新：**
+**2021-04-25 更新：**
+
+由于读者们觉得Sciencedirect的搜索实在太难用了，加上Sciencedirect现在必须要使用Cookie才能正常下载，因此我新增了百度学术和publons这2个检索渠道。
+
+由于 Web of Science 有权限限制，很遗憾我们无法直接使用它来检索，不过百度学术作为一个替代方案也是非常不错的。
+
+现在默认的 **`search`** 函数调用了百度学术的接口进行搜索，大家不需要配置任何东西，只需要拉一下最新的代码，使用上述例子中的代码就可以正常搜索下载论文。
+
+其他两个渠道的使用方式如下：
+
+**sciencedirect渠道：**
 
 由于 sciencedirect 加强了他们的爬虫防护能力，增加了机器人校验机制，所以现在必须在HEADER中填入Cookie才能进行爬取。
 
@@ -135,18 +160,36 @@ python download.py
 
 **1.获取Cookie**
 
-![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/4e51c65887e842fe85db6cf336caee7b~tplv-k3u1fbpfcp-zoom-1.image)
+![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/1bd1c541b9334e6892bfe49c1b6b8ae8~tplv-k3u1fbpfcp-zoom-1.image)
 
   
 
-**2.将Cookie粘贴到scihub文件夹下scihub.py文件的HEADERS变量中**，如下图示：
+**2.使用sciencedirect搜索时**，需要用 **`search_by_science_direct`** 函数，并将cookie作为参数之一传入：
+
+![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/67f7d7808a624a7b914b910ab8308890~tplv-k3u1fbpfcp-zoom-1.image)  
+
+这样大概率就能顺利通过sciencedirect搜索并下载文献了。  
+
+**publons渠道：**
+
+其实有了百度学术的默认渠道，大部分文献我们都能覆盖到了。但是考虑到publons的特殊性，这里还是给大家一个通过publons渠道搜索下载的选项。
+
+使用publons渠道搜索下载其实很简单，你只需要更改搜索的函数名即可，不需要配置Cookie：
+
+```
+`from scihub import SciHub`
+`sh = SciHub()`
+`# 搜索词`
+`keywords = "Dragon Boat Festival"`
+`# 搜索该关键词相关的论文，limit为篇数`
+`result = sh.search_by_publons(keywords, limit=10)`
+`print(result)`
+`for index, paper in enumerate(result.get("papers", [])):`
+ `# 批量下载这些论文`
+ `sh.download(paper["doi"], path=f"files/{keywords.replace(' ', '_')}_{index}.pdf")`
+```
 
   
-
-![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/3170777089544228864c813665896636~tplv-k3u1fbpfcp-zoom-1.image)  
-  
-
-再进行关键词搜索就能正常获取论文了。
 
 **5\. 异步下载优化，增加超时控制**
 ---------------------
@@ -199,14 +242,14 @@ python download.py
  `print(result)`
  `loop = asyncio.get_event_loop()`
  `# 获取所有需要下载的scihub直链`
- `tasks = [sh.async_get_direct_url(paper["url"]) for paper in result.get("papers", [])]`
+ `tasks = [sh.async_get_direct_url(paper["doi"]) for paper in result.get("papers", [])]`
  `all_direct_urls = loop.run_until_complete(asyncio.gather(*tasks))`
  `print(all_direct_urls)`
 ```
 
   
 
-![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/0315d75025e544ef8f3ae0b30c068751~tplv-k3u1fbpfcp-zoom-1.image)
+![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/e157d17f977748469081ea93013bff45~tplv-k3u1fbpfcp-zoom-1.image)
 
   
 
@@ -263,7 +306,7 @@ python download.py
  `print(result)`
  `loop = asyncio.get_event_loop()`
  `# 获取所有需要下载的scihub直链`
- `tasks = [sh.async_get_direct_url(paper["url"]) for paper in result.get("papers", [])]`
+ `tasks = [sh.async_get_direct_url(paper["doi"]) for paper in result.get("papers", [])]`
  `all_direct_urls = loop.run_until_complete(asyncio.gather(*tasks))`
  `print(all_direct_urls)`
  `# 下载所有论文`
@@ -277,7 +320,7 @@ python download.py
 
 一个完整的下载过程就OK了：
 
-![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/39e359bdfec24495ac6b07c1fbef3230~tplv-k3u1fbpfcp-zoom-1.image)  
+![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/5cd59e2d2ade48968b35a80c438a2cd0~tplv-k3u1fbpfcp-zoom-1.image)  
 
   
 比以前的方式舒服太多太多了... 如果你要增加超时时间，请修改async\_download函数中的 total=300，把这个请求总时间调高即可。
@@ -289,7 +332,7 @@ https://github.com/Ckend/scihub-cn
 
 **6.工作原理**  
 
-这个API的源代码其实非常好读懂![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/2c11beda391142b69fed766343d74bf0~tplv-k3u1fbpfcp-zoom-1.image)
+这个API的源代码其实非常好读懂![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6d17291433304019bcca7ecb5da7296b~tplv-k3u1fbpfcp-zoom-1.image)
 
 **6.1、找到sci-hub目前可用的域名**  
 
@@ -297,13 +340,13 @@ https://github.com/Ckend/scihub-cn
 
 https://whereisscihub.now.sh/
 
-![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/0be90a14d2774bc188c306b8cbb3930b~tplv-k3u1fbpfcp-zoom-1.image)
+![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/7fd6788588ff464586e94d4675738ff6~tplv-k3u1fbpfcp-zoom-1.image)
 
   
 
 可惜的是，作者常年不维护，该地址已经失效了，我们就是在这里修改了该域名，使得项目得以重新正常运作：
 
-![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/023b722b02944c689667de45c41a6781~tplv-k3u1fbpfcp-zoom-1.image)
+![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/fe631767c0fd465a8dfe6fe67a1f13d5~tplv-k3u1fbpfcp-zoom-1.image)
 
 ### **6.2、对用户输入的论文地址进行解析，找到相应论文**
 
@@ -311,7 +354,7 @@ https://whereisscihub.now.sh/
 
 2\. 如果scihub的网址无法使用则切换另一个网址使用，除非所有网址都无法使用。
 
-![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a512851c73364eb6b0c68bc01a1b02e3~tplv-k3u1fbpfcp-zoom-1.image)
+![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/225c7a5201ee43dc9ddf7d81e9c6074b~tplv-k3u1fbpfcp-zoom-1.image)
 
   
 
@@ -323,7 +366,7 @@ https://whereisscihub.now.sh/
 
 2\. 然后将data变量存储为文件即可
 
-![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b9fb1bb056a7474595da49cb017039eb~tplv-k3u1fbpfcp-zoom-1.image)
+![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/876380c67b5b4b02a4e6f2aa953790f3~tplv-k3u1fbpfcp-zoom-1.image)
 
   
 
@@ -343,11 +386,4 @@ Python实用宝典 (pythondict.com)
 不只是一个宝典  
 欢迎关注公众号：Python实用宝典
 
-![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/ac193725fe784a77b291c92b9f53fde7~tplv-k3u1fbpfcp-zoom-1.image)
-
-源文：[你不得不知道的python超级文献下载搜索工具](https://pythondict.com/life-intelligent/tools/python-paper-downloader/)
-
-# 更多
-PS: 如果你要增加超时时间，请修改async_download函数中的 total=600，把这个请求总时间调高即可。
-
-更多有趣的工具和组件的使用，可以关注Python实用宝典网站或公众号, 会定时更新[Python实战教程](https://pythondict.com)
+![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/98075aacf0c14ac9920cbc74a64e20a6~tplv-k3u1fbpfcp-zoom-1.image)
