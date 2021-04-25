@@ -12,9 +12,9 @@
 
 **2020-06-25补充**：增加关键词搜索，批量下载论文功能。
 
-**2021-01-07补充：**增加异步下载方式，加快下载速度；加强下载稳定性，不再出现文件损坏的情况。
+**2021-01-07补充**：增加异步下载方式，加快下载速度；加强下载稳定性，不再出现文件损坏的情况。
 
-**2021-04-08补充：**由于sciencedirect增加了机器人检验，现在搜索下载功能需要先在HEADERS中填入Cookie才可爬取，详见第4步。
+**2021-04-08补充**：由于sciencedirect增加了机器人检验，现在搜索下载功能需要先在HEADERS中填入Cookie才可爬取，详见第4步。
 
 **2021-04-25补充**：搜索下载增加百度学术、publons渠道。
 
@@ -71,11 +71,11 @@ ieee文章
 然后在scihub-cn文件夹里新建一个文件叫 my\_test.py 输入以下代码：
 
 ```
-`from scihub import SciHub`
-`sh = SciHub()`
-`# 第一个参数输入论文的网站地址`
-`# path: 文件保存路径`
-`result = sh.download('http://ieeexplore.ieee.org/xpl/login.jsp?tp=&arnumber=1648853', path='paper.pdf')`
+from scihub import SciHub
+sh = SciHub()
+# 第一个参数输入论文的网站地址
+# path: 文件保存路径
+result = sh.download('http://ieeexplore.ieee.org/xpl/login.jsp?tp=&arnumber=1648853', path='paper.pdf')
 ```
 
   
@@ -97,9 +97,9 @@ python my_test.py
 将DOI号填入download函数中：
 
 ```
-`from scihub import SciHub`
-`sh = SciHub()`
-`result = sh.download('10.1016/j.compeleceng.2020.106640', path='paper2.pdf')`
+from scihub import SciHub
+sh = SciHub()
+result = sh.download('10.1016/j.compeleceng.2020.106640', path='paper2.pdf')
 ```
 
   
@@ -124,16 +124,21 @@ python my_test.py
 支持使用搜索的形式批量下载论文，比如说搜索关键词 端午节（Dragon Boat Festival）：
 
 ```
-`from scihub import SciHub`
-`sh = SciHub()`
-`# 搜索词`
-`keywords = "Dragon Boat Festival"`
-`# 搜索该关键词相关的论文，limit为篇数`
-`result = sh.search(keywords, limit=10)`
-`print(result)`
-`for index, paper in enumerate(result.get("papers", [])):`
- `# 批量下载这些论文`
- `sh.download(paper["doi"], path=f"files/{keywords.replace(' ', '_')}_{index}.pdf")`
+from scihub import SciHub
+
+sh = SciHub()
+
+# 搜索词
+keywords = "Dragon Boat Festival"
+
+# 搜索该关键词相关的论文，limit为篇数
+result = sh.search(keywords, limit=10)
+
+print(result)
+
+for index, paper in enumerate(result.get("papers", [])):
+    # 批量下载这些论文
+    sh.download(paper["doi"], path=f"files/{keywords.replace(' ', '_')}_{index}.pdf")
 ```
 
   
@@ -162,11 +167,30 @@ python my_test.py
 
 ![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/1bd1c541b9334e6892bfe49c1b6b8ae8~tplv-k3u1fbpfcp-zoom-1.image)
 
+
   
 
 **2.使用sciencedirect搜索时**，需要用 **`search_by_science_direct`** 函数，并将cookie作为参数之一传入：
 
-![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/67f7d7808a624a7b914b910ab8308890~tplv-k3u1fbpfcp-zoom-1.image)  
+```
+from scihub import SciHub
+
+sh = SciHub()
+
+# 搜索词
+keywords = "Dragon Boat Festival"
+
+# 搜索该关键词相关的论文，limit为篇数
+result = sh.search_by_science_direct(keywords, cookie="你的cookie", limit=10)
+
+print(result)
+
+for index, paper in enumerate(result.get("papers", [])):
+    # 批量下载这些论文
+    sh.download(paper["doi"], path=f"files/{keywords.replace(' ', '_')}_{index}.pdf")
+```
+
+  
 
 这样大概率就能顺利通过sciencedirect搜索并下载文献了。  
 
@@ -177,16 +201,21 @@ python my_test.py
 使用publons渠道搜索下载其实很简单，你只需要更改搜索的函数名即可，不需要配置Cookie：
 
 ```
-`from scihub import SciHub`
-`sh = SciHub()`
-`# 搜索词`
-`keywords = "Dragon Boat Festival"`
-`# 搜索该关键词相关的论文，limit为篇数`
-`result = sh.search_by_publons(keywords, limit=10)`
-`print(result)`
-`for index, paper in enumerate(result.get("papers", [])):`
- `# 批量下载这些论文`
- `sh.download(paper["doi"], path=f"files/{keywords.replace(' ', '_')}_{index}.pdf")`
+from scihub import SciHub
+
+sh = SciHub()
+
+# 搜索词
+keywords = "Dragon Boat Festival"
+
+# 搜索该关键词相关的论文，limit为篇数
+result = sh.search_by_publons(keywords, limit=10)
+
+print(result)
+
+for index, paper in enumerate(result.get("papers", [])):
+    # 批量下载这些论文
+    sh.download(paper["doi"], path=f"files/{keywords.replace(' ', '_')}_{index}.pdf")
 ```
 
   
@@ -207,22 +236,22 @@ python my_test.py
 首先，新增异步获取scihub直链的方法，改为异步获取相关论文的scihub直链：
 
 ```
-`async def async_get_direct_url(self, identifier):`
- `"""`
- `异步获取scihub直链`
- `"""`
- `async with aiohttp.ClientSession() as sess:`
- `async with sess.get(self.base_url + identifier) as res:`
- `logger.info(f"Fetching {self.base_url + identifier}...")`
- `# await 等待任务完成`
- `html = await res.text(encoding='utf-8')`
- `s = self._get_soup(html)`
- `iframe = s.find('iframe')`
- `if iframe:`
- `return iframe.get('src') if not iframe.get('src').startswith('//') \`
- `else 'http:' + iframe.get('src')`
- `else:`
- `return None`
+async def async_get_direct_url(self, identifier):
+    """
+    异步获取scihub直链
+    """
+    async with aiohttp.ClientSession() as sess:
+        async with sess.get(self.base_url + identifier) as res:
+            logger.info(f"Fetching {self.base_url + identifier}...")
+            # await 等待任务完成
+            html = await res.text(encoding='utf-8')
+            s = self._get_soup(html)
+            iframe = s.find('iframe')
+            if iframe:
+                return iframe.get('src') if not iframe.get('src').startswith('//') \
+                    else 'http:' + iframe.get('src')
+            else:
+                return None
 ```
 
   
@@ -230,21 +259,24 @@ python my_test.py
 这样，在搜索论文后，调用该接口就能获取所有需要下载的scihub直链，速度很快：
 
 ```
-`def search(keywords: str, limit: int):`
- `"""`
- `搜索相关论文并下载`
- `Args:`
- `keywords (str): 关键词`
- `limit (int): 篇数`
- `"""`
- `sh = SciHub()`
- `result = sh.search(keywords, limit=limit)`
- `print(result)`
- `loop = asyncio.get_event_loop()`
- `# 获取所有需要下载的scihub直链`
- `tasks = [sh.async_get_direct_url(paper["doi"]) for paper in result.get("papers", [])]`
- `all_direct_urls = loop.run_until_complete(asyncio.gather(*tasks))`
- `print(all_direct_urls)`
+def search(keywords: str, limit: int):
+    """
+    搜索相关论文并下载
+
+    Args:
+        keywords (str): 关键词
+        limit (int): 篇数
+    """
+
+    sh = SciHub()
+    result = sh.search(keywords, limit=limit)
+    print(result)
+
+    loop = asyncio.get_event_loop()
+    # 获取所有需要下载的scihub直链
+    tasks = [sh.async_get_direct_url(paper["doi"]) for paper in result.get("papers", [])]
+    all_direct_urls = loop.run_until_complete(asyncio.gather(*tasks))
+    print(all_direct_urls)
 ```
 
   
@@ -256,35 +288,38 @@ python my_test.py
 获取直链后，需要下载论文，同样也是IO密集型操作，增加2个异步函数：
 
 ```
-`async def job(self, session, url, destination='', path=None):`
- `"""`
- `异步下载文件`
- `"""`
- `file_name = url.split("/")[-1].split("#")[0]`
- `logger.info(f"正在读取并写入 {file_name} 中...")`
- `# 异步读取内容`
- `try:`
- `url_handler = await session.get(url)`
- `content = await url_handler.read()`
- `except:`
- `logger.error("获取源文件超时，请检查网络环境或增加超时时限")`
- `return str(url)`
- `with open(os.path.join(destination, path + file_name), 'wb') as f:`
- `# 写入至文件`
- `f.write(content)`
- `return str(url)`
-`async def async_download(self, loop, urls, destination='', path=None):`
- `"""`
- `触发异步下载任务`
- `如果你要增加超时时间，请修改 total=300`
- `"""`
- `async with aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(total=300)) as session:`
- `# 建立会话session`
- `tasks = [loop.create_task(self.job(session, url, destination, path)) for url in urls]`
- `# 建立所有任务`
- `finished, unfinished = await asyncio.wait(tasks)`
- `# 触发await，等待任务完成`
- `[r.result() for r in finished]`
+async def job(self, session, url, destination='', path=None):
+    """
+    异步下载文件
+    """
+    if not url:
+        return
+    file_name = url.split("/")[-1].split("#")[0]
+    logger.info(f"正在读取并写入 {file_name} 中...")
+    # 异步读取内容
+    try:
+        url_handler = await session.get(url)
+        content = await url_handler.read()
+    except Exception as e:
+        logger.error(f"获取源文件出错: {e}，大概率是下载超时，请检查")
+        return str(url)
+    with open(os.path.join(destination, path + file_name), 'wb') as f:
+        # 写入至文件
+        f.write(content)
+    return str(url)
+
+async def async_download(self, loop, urls, destination='', path=None):
+    """
+    触发异步下载任务
+    如果你要增加超时时间，请修改 total=300
+    """
+    async with aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(total=300)) as session:
+        # 建立会话session
+        tasks = [loop.create_task(self.job(session, url, destination, path)) for url in urls]
+        # 建立所有任务
+        finished, unfinished = await asyncio.wait(tasks)
+        # 触发await，等待任务完成
+        [r.result() for r in finished]
 ```
 
   
@@ -292,28 +327,37 @@ python my_test.py
 最后，在search函数中补充下载操作：
 
 ```
-`import asyncio`
-`from scihub import SciHub`
-`def search(keywords: str, limit: int):`
- `"""`
- `搜索相关论文并下载`
- `Args:`
- `keywords (str): 关键词`
- `limit (int): 篇数`
- `"""`
- `sh = SciHub()`
- `result = sh.search(keywords, limit=limit)`
- `print(result)`
- `loop = asyncio.get_event_loop()`
- `# 获取所有需要下载的scihub直链`
- `tasks = [sh.async_get_direct_url(paper["doi"]) for paper in result.get("papers", [])]`
- `all_direct_urls = loop.run_until_complete(asyncio.gather(*tasks))`
- `print(all_direct_urls)`
- `# 下载所有论文`
- `loop.run_until_complete(sh.async_download(loop, all_direct_urls, path=f"files/"))`
- `loop.close()`
-`if __name__ == '__main__':`
- `search("quant", 5)`
+import asyncio
+from scihub import SciHub
+
+
+def search(keywords: str, limit: int):
+    """
+    搜索相关论文并下载
+
+    Args:
+        keywords (str): 关键词
+        limit (int): 篇数
+    """
+
+    sh = SciHub()
+    result = sh.search(keywords, limit=limit)
+    print(result)
+
+    loop = asyncio.get_event_loop()
+    # 获取所有需要下载的scihub直链
+    tasks = [sh.async_get_direct_url(paper["doi"]) for paper in result.get("papers", [])]
+    all_direct_urls = loop.run_until_complete(asyncio.gather(*tasks))
+    print(all_direct_urls)
+
+    # 下载所有论文
+    loop.run_until_complete(sh.async_download(loop, all_direct_urls, path=f"files/"))
+    loop.close()
+
+
+if __name__ == '__main__':
+    search("quant", 10)
+
 ```
 
   
