@@ -75,7 +75,7 @@ from scihub import SciHub
 sh = SciHub()
 # 第一个参数输入论文的网站地址
 # path: 文件保存路径
-result = sh.download('http://ieeexplore.ieee.org/xpl/login.jsp?tp=&arnumber=1648853', path='paper.pdf')
+result = sh.download('https://ieeexplore.ieee.org/document/26502', path='paper.pdf')
 ```
 
   
@@ -373,12 +373,46 @@ if __name__ == '__main__':
 https://github.com/Ckend/scihub-cn
 
 或者从Python实用宝典公众号后台回复 **scihub** 下载。
+**6.根据DOI号下载文献**
 
-**6.工作原理**  
+最近有同学希望直接通过DOI号下载文献，因此补充了这部分内容。
+
+```python
+import asyncio
+from scihub import SciHub
+
+
+def fetch_by_doi(dois: list, path: str):
+    """
+    根据 doi 获取文档
+    Args:
+        dois: 文献DOI号列表
+        path: 存储文件夹
+    """
+
+    sh = SciHub()
+    loop = asyncio.get_event_loop()
+    # 获取所有需要下载的scihub直链
+    tasks = [sh.async_get_direct_url(doi) for doi in dois]
+    all_direct_urls = loop.run_until_complete(asyncio.gather(*tasks))
+    print(all_direct_urls)
+
+    # 下载所有论文
+    loop.run_until_complete(sh.async_download(loop, all_direct_urls, path=path))
+    loop.close()
+
+if __name__ == '__main__':
+    fetch_by_doi(["10.1088/1751-8113/42/50/504005"], f"files/")
+```
+
+默认存储到files文件夹中，你也可以根据自己的需求对代码进行修改。
+
+
+**7.工作原理**  
 
 这个API的源代码其实非常好读懂![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6d17291433304019bcca7ecb5da7296b~tplv-k3u1fbpfcp-zoom-1.image)
 
-**6.1、找到sci-hub目前可用的域名**  
+**7.1、找到sci-hub目前可用的域名**  
 
 首先它会在这个网址里找到sci-hub当前可用的域名，用于下载论文：
 
@@ -392,7 +426,7 @@ https://whereisscihub.now.sh/
 
 ![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/fe631767c0fd465a8dfe6fe67a1f13d5~tplv-k3u1fbpfcp-zoom-1.image)
 
-### **6.2、对用户输入的论文地址进行解析，找到相应论文**
+### **7.2、对用户输入的论文地址进行解析，找到相应论文**
 
 1\. 如果用户输入的链接不是直接能下载的，则使用sci-hub进行下载
 
@@ -404,7 +438,7 @@ https://whereisscihub.now.sh/
 
 3.值得注意的是，如果用户输入的是论文的关键词，我们将调用sciencedirect的接口，拿到论文地址，再使用scihub进行论文的下载。  
 
-### **6.3、下载**  
+### **7.3、下载**  
 
 1\. 拿到论文后，它保存到data变量中
 

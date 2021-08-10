@@ -177,11 +177,13 @@ class SciHub(object):
                 if not paper.find('table'):
                     link = paper.find('h3', class_='t c_font')
                     url = "http:"+str(link.find('a')['href'].replace("\n", "").strip())
-                    results['papers'].append({
-                        'name': link.text,
-                        'url': url,
-                        'doi': fetch_doi(url),
-                    })
+                    doi = fetch_doi(url)
+                    if doi:
+                        results['papers'].append({
+                            'name': link.text,
+                            'url': url,
+                            'doi': fetch_doi(url),
+                        })
 
                     if len(results['papers']) >= limit:
                         return results
@@ -222,8 +224,8 @@ class SciHub(object):
 
             if res.headers['Content-Type'] != 'application/pdf':
                 self._change_base_url()
-                logger.info('Failed to fetch pdf with identifier %s '
-                                           '(resolved url %s) due to captcha' % (identifier, url))
+                logger.info('由于验证码问题，获取 pdf 失败 identifier: %s '
+                                           '(resolved url %s)' % (identifier, url))
             else:
                 return {
                     'pdf': res.content,
@@ -236,10 +238,10 @@ class SciHub(object):
             self._change_base_url()
 
         except requests.exceptions.RequestException as e:
-            logger.info('Failed to fetch pdf with identifier %s (resolved url %s) due to request exception.'
+            logger.info('由于请求失败，获取pdf失败 %s (resolved url %s).'
                        % (identifier, url))
             return {
-                'err': 'Failed to fetch pdf with identifier %s (resolved url %s) due to request exception.'
+                'err': '由于请求失败，获取pdf失败 %s (resolved url %s).'
                        % (identifier, url)
             }
 
@@ -258,11 +260,12 @@ class SciHub(object):
         source url which looks something like https://moscow.sci-hub.io/.../....pdf.
         """
         res = self.sess.get(self.base_url + identifier, verify=False)
+        logger.info(f"获取 {self.base_url + identifier} 中...")
         s = self._get_soup(res.content)
-        iframe = s.find('iframe')
-        if iframe:
-            return iframe.get('src') if not iframe.get('src').startswith('//') \
-                else 'http:' + iframe.get('src')
+        frame = s.find('iframe') or s.find('embed')
+        if frame:
+            return frame.get('src') if not frame.get('src').startswith('//') \
+                else 'http:' + frame.get('src')
 
     def _classify(self, identifier):
         """
@@ -316,10 +319,10 @@ class SciHub(object):
                 # await 等待任务完成
                 html = await res.text(encoding='utf-8')
                 s = self._get_soup(html)
-                iframe = s.find('iframe') or s.find('embed')
-                if iframe:
-                    return iframe.get('src') if not iframe.get('src').startswith('//') \
-                        else 'http:' + iframe.get('src')
+                frame = s.find('iframe') or s.find('embed')
+                if frame:
+                    return frame.get('src') if not frame.get('src').startswith('//') \
+                        else 'http:' + frame.get('src')
                 else:
                     logger.error("Error: 可能是 Scihub 上没有收录该文章, 请直接访问上述页面看是否正常。")
                     return html
