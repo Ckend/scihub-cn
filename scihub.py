@@ -312,16 +312,17 @@ class SciHub(object):
         """
         async with aiohttp.ClientSession() as sess:
             async with sess.get(self.base_url + identifier) as res:
-                logger.info(f"Fetching {self.base_url + identifier}...")
+                logger.info(f"获取 {self.base_url + identifier} 中...")
                 # await 等待任务完成
                 html = await res.text(encoding='utf-8')
                 s = self._get_soup(html)
-                iframe = s.find('iframe')
+                iframe = s.find('iframe') or s.find('embed')
                 if iframe:
                     return iframe.get('src') if not iframe.get('src').startswith('//') \
                         else 'http:' + iframe.get('src')
                 else:
-                    return None
+                    logger.error("Error: 可能是 Scihub 上没有收录该文章, 请直接访问上述页面看是否正常。")
+                    return html
 
     async def job(self, session, url, destination='', path=None):
         """
