@@ -176,7 +176,7 @@ class SciHub(object):
             for paper in papers:
                 if not paper.find('table'):
                     link = paper.find('h3', class_='t c_font')
-                    url = "http:"+str(link.find('a')['href'].replace("\n", "").strip())
+                    url = str(link.find('a')['href'].replace("\n", "").strip())
                     doi = fetch_doi(url)
                     if doi:
                         results['papers'].append({
