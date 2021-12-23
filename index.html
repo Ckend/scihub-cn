@@ -1,0 +1,5516 @@
+<!doctype html>
+<html>
+
+<head>
+	<title>Google 学术搜索</title>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<meta name="referrer" content="origin-when-cross-origin">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=2">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="shortcut icon" href="/favicon.ico">
+	<style>
+		html,
+		body,
+		form,
+		table,
+		div,
+		h1,
+		h2,
+		h3,
+		h4,
+		h5,
+		h6,
+		img,
+		ol,
+		ul,
+		li,
+		button {
+			margin: 0;
+			padding: 0;
+			border: 0;
+		}
+
+		table {
+			border-collapse: collapse;
+			border-width: 0;
+			empty-cells: show;
+		}
+
+		html,
+		body {
+			height: 100%
+		}
+
+		#gs_top {
+			position: relative;
+			box-sizing: border-box;
+			min-height: 100%;
+			min-width: 964px;
+			-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+		}
+
+		#gs_top>*:not(#x) {
+			-webkit-tap-highlight-color: rgba(204, 204, 204, .5);
+		}
+
+		.gs_el_ph #gs_top,
+		.gs_el_ta #gs_top {
+			min-width: 320px;
+		}
+
+		#gs_top.gs_nscl {
+			position: fixed;
+			width: 100%;
+		}
+
+		body,
+		td,
+		input,
+		button {
+			font-size: 13px;
+			font-family: Arial, sans-serif;
+			line-height: 1.24;
+		}
+
+		body {
+			background: #fff;
+			color: #222;
+			-webkit-text-size-adjust: 100%;
+			-moz-text-size-adjust: none;
+		}
+
+		.gs_gray {
+			color: #777777
+		}
+
+		.gs_red {
+			color: #dd4b39
+		}
+
+		.gs_grn {
+			color: #006621
+		}
+
+		.gs_lil {
+			font-size: 11px
+		}
+
+		.gs_med {
+			font-size: 16px
+		}
+
+		.gs_hlt {
+			font-weight: bold;
+			color: #dd4b39;
+			font-weight: normal;
+		}
+
+		a:link {
+			color: #1a0dab;
+			text-decoration: none
+		}
+
+		a:visited {
+			color: #660099;
+			text-decoration: none
+		}
+
+		a:hover,
+		a:hover .gs_lbl {
+			text-decoration: underline
+		}
+
+		a:active,
+		a:active .gs_lbl,
+		a .gs_lbl:active {
+			color: #d14836
+		}
+
+		.gs_el_tc a:hover,
+		.gs_el_tc a:hover .gs_lbl {
+			text-decoration: none
+		}
+
+		.gs_pfcs a:focus,
+		.gs_pfcs button:focus,
+		.gs_pfcs input:focus,
+		.gs_pfcs label:focus {
+			outline: none
+		}
+
+		.gs_a,
+		.gs_a a:link,
+		.gs_a a:visited {
+			color: #006621
+		}
+
+		.gs_a a:active {
+			color: #d14836
+		}
+
+		a.gs_fl:link,
+		.gs_fl a:link {
+			color: #1a0dab
+		}
+
+		a.gs_fl:visited,
+		.gs_fl a:visited {
+			color: #660099
+		}
+
+		a.gs_fl:active,
+		.gs_fl a:active {
+			color: #d14836
+		}
+
+		.gs_fl {
+			color: #777777
+		}
+
+		.gs_ctc,
+		.gs_ctu {
+			vertical-align: middle;
+			font-size: 13px;
+			font-weight: normal
+		}
+
+		.gs_ctc {
+			color: #1a0dab
+		}
+
+		.gs_ctg,
+		.gs_ctg2 {
+			font-size: 13px;
+			font-weight: bold
+		}
+
+		.gs_ctg {
+			color: #1a0dab
+		}
+
+		a.gs_pda,
+		.gs_pda a {
+			padding: 7px 0 5px 0
+		}
+
+		.gs_alrt {
+			background: #f9edbe;
+			border: 1px solid #f0c36d;
+			padding: 0 16px;
+			text-align: center;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
+			border-radius: 2px;
+		}
+
+		.gs_alrt:empty {
+			display: none;
+		}
+
+		.gs_spc {
+			display: inline-block;
+			width: 12px
+		}
+
+		.gs_br {
+			width: 0;
+			font-size: 0
+		}
+
+		.gs_ibl {
+			display: inline-block;
+		}
+
+		.gs_scl:after {
+			content: "";
+			display: table;
+			clear: both;
+		}
+
+		.gs_ind {
+			padding-left: 8px;
+			text-indent: -8px
+		}
+
+		.gs_ico,
+		.gs_icm {
+			display: inline-block;
+			background: no-repeat url(/intl/zh-CN/scholar/images/1x/sprite_20161020.png);
+			background-position: -23px -161px;
+			background-size: 169px;
+			width: 21px;
+			height: 21px;
+		}
+
+		@media(-webkit-min-device-pixel-ratio:1.5),
+		(min-resolution:144dpi) {
+
+			.gs_ico,
+			.gs_icm {
+				background-image: url(/intl/zh-CN/scholar/images/2x/sprite_20161020.png);
+			}
+		}
+
+		.gs_el_ta .gs_nta,
+		.gs_ota,
+		.gs_el_ph .gs_nph,
+		.gs_oph {
+			display: none
+		}
+
+		.gs_el_ta .gs_ota,
+		.gs_el_ph .gs_oph {
+			display: inline
+		}
+
+		.gs_el_ta div.gs_ota,
+		.gs_el_ph div.gs_oph {
+			display: block
+		}
+
+		.gs_sth_g {
+			visibility: hidden;
+			max-height: 0;
+		}
+
+		.gs_sth_vis .gs_sth_g {
+			max-height: 1000px;
+		}
+
+		.gs_sth_vis .gs_sth_b {
+			position: fixed;
+			top: 0;
+		}
+
+		@keyframes gs_anm_spin {
+			0% {
+				transform: rotate(0deg);
+			}
+
+			100% {
+				transform: rotate(360deg);
+			}
+		}
+
+		.gs_rimg {
+			display: block;
+			background-color: #e5e5e5;
+			border-radius: 50%;
+			overflow: hidden;
+			position: relative;
+			z-index: 1;
+		}
+
+		.gs_rimg>img {
+			position: absolute;
+			margin: auto;
+			left: 0;
+			top: 0;
+			bottom: 0;
+			right: 0;
+		}
+
+		.gs_in_txtw {
+			display: inline-block;
+			vertical-align: middle;
+		}
+
+		.gs_in_txtb {
+			display: block;
+		}
+
+		.gs_in_txt {
+			color: #000;
+			background-color: #fff;
+			font-size: 16px;
+			box-sizing: border-box;
+			height: 29px;
+			line-height: 23px;
+			border: 1px solid #d9d9d9;
+			border-top-color: #c0c0c0;
+			padding: 3px 6px 1px 8px;
+			border-radius: 1px;
+			outline: none;
+			-webkit-appearance: none;
+			-moz-appearance: none;
+		}
+
+		.gs_el_tc .gs_in_txt {
+			font-size: 18px;
+		}
+
+		.gs_in_txtb .gs_in_txt {
+			width: 100%;
+		}
+
+		.gs_in_txt:hover {
+			border-color: #b9b9b9;
+			border-top-color: #a0a0a0;
+			box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+		}
+
+		.gs_in_txte .gs_in_txt {
+			border-color: #dd4b39;
+		}
+
+		.gs_in_txt:focus {
+			border-color: #4d90fe;
+			box-shadow: inset 0 1px 2px rgba(0, 0, 0, .3);
+		}
+
+		.gs_in_txt:disabled {
+			color: #b8b8b8;
+			border-color: #f1f1f1;
+			box-shadow: none;
+		}
+
+		.gs_in_txtm .gs_in_txt {
+			font-size: 13px;
+			height: 24px;
+			line-height: 16px;
+			padding: 3px 6px;
+		}
+
+		.gs_el_tc .gs_in_txtm .gs_in_txt {
+			height: 29px;
+			line-height: 21px;
+		}
+
+		.gs_in_txts {
+			font-size: 13px;
+			line-height: 18px;
+			color: #666;
+		}
+
+		.gs_in_txte .gs_in_txts {
+			color: #dd4b39;
+		}
+
+		button {
+			position: relative;
+			z-index: 1;
+			box-sizing: border-box;
+			font-size: 13px;
+			cursor: pointer;
+			height: 29px;
+			line-height: normal;
+			min-width: 72px;
+			padding: 0 8px;
+			color: #444;
+			border: 1px solid rgba(0, 0, 0, .1);
+			border-radius: 3px;
+			text-align: center;
+			background-color: #f5f5f5;
+			-webkit-user-select: none;
+			user-select: none;
+		}
+
+		button.gs_btn_rnd {
+			border-radius: 14px;
+			padding: 0 12px;
+		}
+
+		button.gs_btn_rnd.gs_btn_rndci {
+			padding-left: 4px;
+		}
+
+		button.gs_btn_lrge {
+			height: 41px;
+			min-width: 82px;
+			padding: 0 9px;
+		}
+
+		button.gs_btn_lrge.gs_btn_lrge_asym {
+			padding-left: 5px;
+			padding-right: 8px;
+		}
+
+		button.gs_btn_lrge.gs_btn_rnd {
+			border-radius: 20px;
+			padding: 0 16px;
+		}
+
+		button.gs_btn_lrge.gs_btn_rnd.gs_btn_rndci {
+			padding-left: 10px;
+		}
+
+		button.gs_btn_cir {
+			border-radius: 14.5px;
+			min-width: 29px;
+		}
+
+		button.gs_btn_lrge.gs_btn_cir {
+			border-radius: 20.5px;
+			min-width: 41px;
+		}
+
+		button.gs_btn_mini {
+			padding: 0;
+			border: 0;
+		}
+
+		.gs_el_ph button.gs_btn_mph,
+		.gs_el_ta button.gs_btn_mta {
+			height: 41px;
+		}
+
+		button .gs_wr {
+			position: relative;
+			display: inline-block;
+			width: 100%;
+			height: 100%;
+		}
+
+		button .gs_wr:before {
+			content: "";
+			width: 0;
+			height: 100%;
+		}
+
+		button .gs_wr:before,
+		button .gs_ico,
+		button .gs_rdt,
+		button .gs_lbl,
+		button .gs_icm {
+			display: inline-block;
+			vertical-align: middle;
+		}
+
+		button .gs_wr {
+			font-size: 13px;
+			text-transform: none;
+		}
+
+		.gs_btn_lrge .gs_wr {
+			font-size: 15px;
+		}
+
+		.gs_btn_half,
+		.gs_el_ta .gs_btn_hta,
+		.gs_el_ph .gs_btn_hph {
+			min-width: 36px;
+		}
+
+		.gs_btn_lrge.gs_btn_half,
+		.gs_el_ta .gs_btn_lrge.gs_btn_hta,
+		.gs_el_ph .gs_btn_lrge.gs_btn_hph,
+		.gs_el_ta .gs_btn_mta,
+		.gs_el_ph .gs_btn_mph {
+			min-width: 41px;
+		}
+
+		.gs_btn_slt {
+			border-radius: 3px 0 0 3px;
+		}
+
+		.gs_btn_srt {
+			margin-left: -1px;
+			border-radius: 0 3px 3px 0;
+		}
+
+		.gs_btn_smd {
+			margin-left: -1px;
+			border-radius: 0;
+		}
+
+		button:hover {
+			z-index: 2;
+			color: #222;
+			border-color: rgba(0, 0, 0, .2);
+			background-color: #f8f8f8;
+		}
+
+		button.gs_sel {
+			background-color: #dcdcdc;
+		}
+
+		button:active {
+			z-index: 2;
+			background-color: #f1f1f1;
+		}
+
+		button:focus {
+			z-index: 2;
+		}
+
+		button::-moz-focus-inner {
+			padding: 0;
+			border: 0
+		}
+
+		button:-moz-focusring {
+			outline: 1px dotted ButtonText
+		}
+
+		.gs_pfcs button:-moz-focusring {
+			outline: none
+		}
+
+		a.gs_in_ib {
+			position: relative;
+			display: inline-block;
+			line-height: 16px;
+			padding: 6px 0 7px 0;
+			-webkit-user-select: none;
+			user-select: none;
+		}
+
+		a.gs_btn_lrge {
+			height: 40px;
+			padding: 0;
+		}
+
+		a.gs_in_ib .gs_lbl {
+			display: inline-block;
+			padding-left: 21px;
+			color: #222;
+		}
+
+		a.gs_in_ib.gs_in_gray .gs_lbl {
+			color: #444;
+		}
+
+		a.gs_in_ib .gs_lbl:not(:empty) {
+			padding-left: 29px;
+		}
+
+		button.gs_in_ib .gs_lbl:not(:empty) {
+			padding-left: 4px;
+		}
+
+		a.gs_in_ib:active .gs_lbl,
+		a.gs_in_ib .gs_lbl:active,
+		a.gs_in_ib :active~.gs_lbl {
+			color: #d14836;
+		}
+
+		.gs_el_ta .gs_btn_hta .gs_lbl,
+		.gs_el_ph .gs_btn_hph .gs_lbl,
+		.gs_el_ta .gs_btn_mta .gs_lbl,
+		.gs_el_ph .gs_btn_mph .gs_lbl,
+		.gs_el_ta .gs_btn_cta .gs_lbl,
+		.gs_el_ph .gs_btn_cph .gs_lbl {
+			display: none;
+		}
+
+		a.gs_in_ib .gs_ico {
+			position: absolute;
+			top: 3px;
+			left: 0;
+		}
+
+		.gs_in_ib.gs_md_li .gs_ico {
+			left: 14px;
+		}
+
+		.gs_el_tc .gs_in_ib.gs_md_li .gs_ico {
+			top: 11px;
+		}
+
+		.gs_in_ib.gs_md_li.gs_md_lix .gs_ico {
+			top: 10px;
+			left: 16px;
+		}
+
+		a.gs_btn_lrge .gs_ico {
+			top: 50%;
+			left: 50%;
+			margin: -10.5px 0 0 -10.5px;
+		}
+
+		.gs_in_ib .gs_ico {
+			opacity: .55;
+		}
+
+		.gs_in_ib:hover .gs_ico {
+			opacity: .72;
+		}
+
+		.gs_in_ib:active .gs_ico,
+		.gs_in_ib .gs_ico:active,
+		.gs_in_ib :active~.gs_ico {
+			opacity: 1;
+		}
+
+		.gs_in_ib:disabled .gs_ico,
+		.gs_in_ib.gs_dis .gs_ico {
+			opacity: .28;
+		}
+
+		.gs_in_ib.gs_btn_act .gs_ico,
+		.gs_in_ib.gs_btn_cre .gs_ico {
+			opacity: 1;
+		}
+
+		.gs_btn_act:disabled .gs_ico,
+		.gs_btn_cre:disabled .gs_ico {
+			opacity: .72;
+		}
+
+		.gs_rdt {
+			position: relative;
+			width: 0;
+			height: 21px;
+		}
+
+		a.gs_in_ib .gs_rdt {
+			left: 21px;
+		}
+
+		.gs_rdt:before {
+			content: "";
+			position: absolute;
+			top: 1px;
+			right: 0;
+			width: 5px;
+			height: 5px;
+			border: 1px solid #fff;
+			border-radius: 50%;
+			background-color: #dd4b39;
+		}
+
+		.gs_notf {
+			display: inline-block;
+			vertical-align: top;
+			margin-left: 8px;
+			width: 16px;
+			line-height: 16px;
+			background-color: #d14836;
+			border-radius: 50%;
+			color: #fff;
+			text-align: center;
+			font-size: 9px;
+			font-weight: bold;
+		}
+
+		.gs_notf:empty {
+			display: none;
+		}
+
+		.gs_ind .gs_notf {
+			text-indent: 0;
+		}
+
+		button.gs_btn_flat {
+			border-color: transparent;
+			background-color: transparent;
+		}
+
+		button.gs_btn_olact {
+			color: #4d90fe;
+			background-color: transparent;
+		}
+
+		button.gs_btn_flat:hover,
+		button.gs_btn_olact:hover {
+			background-color: rgba(0, 0, 0, .05);
+		}
+
+		button.gs_btn_flat:active,
+		button.gs_btn_olact:active {
+			background-color: rgba(0, 0, 0, .1);
+		}
+
+		button.gs_btn_flat.gs_btn_flact {
+			color: #1a0dab;
+		}
+
+		button.gs_btn_act {
+			color: #fff;
+			-webkit-font-smoothing: antialiased;
+			background-color: #4d90fe;
+		}
+
+		button.gs_btn_act:hover {
+			color: #fff;
+			background-color: #3983fe;
+		}
+
+		button.gs_btn_act.gs_sel {
+			background-color: #2f6bcc;
+		}
+
+		button.gs_btn_act:active {
+			background-color: #357ae8;
+		}
+
+		button.gs_btn_cre {
+			color: #fff;
+			-webkit-font-smoothing: antialiased;
+			background-color: #d14836;
+		}
+
+		button.gs_btn_cre:hover {
+			color: #fff;
+			background-color: #c53727;
+		}
+
+		button.gs_btn_cre.gs_sel {
+			background-color: #992b1e;
+		}
+
+		html:not(.gs_pfcs) .gs_btn_act:focus:not(:active) {
+			box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .5);
+		}
+
+		button.gs_btn_cre:active {
+			background-color: #b0281a;
+		}
+
+		button:disabled,
+		button:disabled:hover,
+		button:disabled:active {
+			cursor: default;
+			color: #b8b8b8;
+			border-color: rgba(0, 0, 0, .05);
+			background-color: transparent;
+			z-index: 0;
+		}
+
+		button.gs_btn_flat:disabled {
+			color: #b8b8b8;
+			border-color: transparent;
+		}
+
+		button.gs_btn_act:disabled {
+			color: #fff;
+			background-color: #a6c8ff;
+		}
+
+		button.gs_btn_cre:disabled {
+			color: #fff;
+			background-color: #e8a49b;
+		}
+
+		a.gs_in_ib.gs_dis {
+			cursor: default;
+			pointer-events: none
+		}
+
+		a.gs_in_ib.gs_dis .gs_lbl {
+			color: #b8b8b8;
+			text-decoration: none
+		}
+
+		.gs_ttp {
+			position: absolute;
+			top: 100%;
+			right: 50%;
+			z-index: 10;
+			pointer-events: none;
+			visibility: hidden;
+			opacity: 0;
+			transition: visibility 0s .13s, opacity .13s ease-out;
+		}
+
+		button:hover .gs_ttp,
+		button:focus .gs_ttp,
+		a:hover .gs_ttp,
+		a:focus .gs_ttp {
+			transition: visibility 0s .3s, opacity .13s ease-in .3s;
+			visibility: visible;
+			opacity: 1;
+		}
+
+		.gs_md_tb.gs_sel .gs_ttp {
+			transition: none;
+			visibility: hidden;
+		}
+
+		button.gs_btn_lrge.gs_btn_cir .gs_ttp {
+			top: 75%;
+		}
+
+		.gs_ttp .gs_aro,
+		.gs_ttp .gs_aru {
+			position: absolute;
+			top: -2px;
+			right: -5px;
+			width: 0;
+			height: 0;
+			line-height: 0;
+			font-size: 0;
+			border: 5px solid transparent;
+			border-top: none;
+			border-bottom-color: #595959;
+			z-index: 1;
+		}
+
+		.gs_ttp .gs_aro {
+			top: -3px;
+			right: -6px;
+			border-width: 6px;
+			border-top: none;
+			border-bottom-color: white;
+		}
+
+		.gs_ttp .gs_txt {
+			display: block;
+			position: relative;
+			top: 2px;
+			right: -50%;
+			padding: 4px 6px;
+			background: #595959;
+			color: white;
+			font-size: 13px;
+			font-weight: normal;
+			line-height: normal;
+			white-space: nowrap;
+			border: 1px solid white;
+			border-radius: 3px;
+			box-shadow: inset 0 1px 4px rgba(0, 0, 0, .2);
+		}
+
+		.gs_press,
+		.gs_in_se,
+		.gs_tan {
+			touch-action: none;
+		}
+
+		.gs_in_se .gs_lbl:not(:empty) {
+			padding-right: 14px;
+		}
+
+		.gs_in_se .gs_icm {
+			position: absolute;
+			top: 50%;
+			margin-top: -5.5px;
+			right: 0;
+			width: 7px;
+			height: 11px;
+			background-position: -21px -88px;
+			opacity: .55;
+		}
+
+		.gs_in_se:hover .gs_icm {
+			opacity: .72;
+		}
+
+		.gs_in_se:active .gs_icm {
+			opacity: 1;
+		}
+
+		.gs_in_se:disabled .gs_icm {
+			opacity: .28;
+		}
+
+		.gs_el_ta .gs_btn_hta .gs_icm,
+		.gs_el_ph .gs_btn_hph .gs_icm,
+		.gs_el_ta .gs_btn_mta .gs_icm,
+		.gs_el_ph .gs_btn_mph .gs_icm,
+		.gs_el_ta .gs_btn_cta .gs_icm,
+		.gs_el_ph .gs_btn_cph .gs_icm {
+			display: none;
+		}
+
+		.gs_btn_mnu .gs_icm {
+			margin-top: -3.5px;
+			height: 7px;
+			background-position: 0 -110px;
+		}
+
+		.gs_in_se.gs_btn_act .gs_icm,
+		.gs_in_se.gs_btn_cre .gs_icm {
+			margin-top: -3.5px;
+			height: 7px;
+			background-position: -42px -44px;
+			opacity: 1;
+		}
+
+		.gs_btn_act:disabled .gs_icm,
+		.gs_btn_cre:disabled .gs_icm {
+			opacity: .72;
+		}
+
+		button.gs_btnG .gs_ico {
+			width: 21px;
+			height: 21px;
+			background-position: -92px -253px;
+		}
+
+		button .gs_bs {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			margin-top: -10px;
+			margin-left: -10px;
+			box-sizing: border-box;
+			width: 20px;
+			height: 20px;
+			border-radius: 50%;
+			border: 2px solid #eee;
+			border-top-color: #4d90fe;
+			visibility: hidden;
+			animation: gs_anm_spin .8s linear infinite;
+		}
+
+		button.gs_bsp .gs_bs {
+			visibility: visible;
+			transition: visibility 0s .4s;
+		}
+
+		.gs_md_d {
+			text-transform: none;
+			white-space: nowrap;
+			position: absolute;
+			top: 0;
+			left: 0;
+			border: 1px solid #ccc;
+			border-color: rgba(0, 0, 0, .2);
+			background: #fff;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
+			z-index: 1100;
+			text-align: left;
+			visibility: hidden;
+			max-height: 0;
+			margin-top: -1000px;
+			opacity: 0;
+			transition: opacity .13s, visibility 0s .13s, max-height 0s .13s, margin-top 0s .13s;
+		}
+
+		.gs_md_d.gs_vis {
+			visibility: visible;
+			max-height: 10000px;
+			margin-top: 0;
+			opacity: 1;
+			transition: all 0s;
+		}
+
+		.gs_el_tc .gs_md_d {
+			transform-origin: 100% 0;
+			transform: scale(1, 0);
+			transition: opacity .218s ease-out, transform 0s .218s, visibility 0s .218s, max-height 0s .218s, margin-top 0s .218s;
+		}
+
+		.gs_el_ios .gs_md_d {
+			-webkit-backface-visibility: hidden;
+		}
+
+		.gs_el_tc .gs_md_d.gs_ttzi {
+			transform-origin: 50% 50%;
+			transform: scale(0, 0);
+		}
+
+		.gs_el_tc .gs_md_d.gs_ttzr {
+			transform: scale(0, 0);
+		}
+
+		.gs_el_tc .gs_md_d.gs_vis {
+			transform: scale(1, 1);
+			transition: transform .218s ease-out;
+		}
+
+		.gs_md_r {
+			position: relative;
+			display: inline-block;
+		}
+
+		.gs_md_rmb>.gs_md_d {
+			top: 29px
+		}
+
+		.gs_md_rmbl>.gs_md_d {
+			top: 41px
+		}
+
+		.gs_md_ul {
+			list-style-type: none;
+			word-wrap: break-word;
+			display: inline-block;
+			vertical-align: top;
+		}
+
+		.gs_md_ul.gs_md_ul_tb {
+			display: block;
+		}
+
+		.gs_md_li,
+		.gs_in_cb.gs_md_li,
+		.gs_md_li:link,
+		.gs_md_li:visited {
+			display: block;
+			padding: 6px 44px 6px 16px;
+			font-size: 13px;
+			line-height: 16px;
+			color: #222;
+			cursor: pointer;
+			text-decoration: none;
+			position: relative;
+			z-index: 0;
+		}
+
+		a.gs_md_li:hover .gs_lbl,
+		a.gs_md_li:active .gs_lbl {
+			text-decoration: none
+		}
+
+		.gs_el_tc .gs_md_li {
+			padding-top: 14px;
+			padding-bottom: 10px;
+		}
+
+		.gs_md_li.gs_md_lix {
+			font-size: 16px;
+			line-height: 20px;
+			padding: 12px 16px 8px 16px;
+		}
+
+		.gs_md_li:before {
+			content: "";
+			background-color: #f1f1f1;
+			position: absolute;
+			left: 0;
+			right: 0;
+			top: 0;
+			bottom: 0;
+			opacity: 0;
+			transition: opacity .13s;
+			z-index: -1;
+		}
+
+		.gs_md_li:hover:before,
+		.gs_md_li:focus:before {
+			opacity: 1;
+			transition: all 0s;
+		}
+
+		a.gs_in_ib.gs_md_li .gs_lbl {
+			color: #222
+		}
+
+		a.gs_in_ib.gs_md_li.gs_in_gray .gs_lbl {
+			color: #444
+		}
+
+		.gs_md_li:active:before {
+			background-color: #ddd
+		}
+
+		.gs_md_li.gs_sel,
+		a.gs_in_ib.gs_md_li.gs_sel .gs_lbl {
+			color: #d14836
+		}
+
+		.gs_md_d:focus,
+		.gs_md_li:focus {
+			outline: none
+		}
+
+		a.gs_md_lix .gs_lbl,
+		a.gs_md_lix .gs_lbl:not(:empty) {
+			padding: 0 0 0 40px;
+		}
+
+		a.gs_in_cb:link,
+		a.gs_in_cb:visited,
+		a.gs_in_cb:active,
+		a.gs_in_cb:hover {
+			cursor: pointer;
+			color: #222;
+			text-decoration: none;
+		}
+
+		.gs_in_cb,
+		.gs_in_ra {
+			position: relative;
+			line-height: 16px;
+			display: inline-block;
+			-webkit-user-select: none;
+			user-select: none;
+		}
+
+		.gs_in_cb.gs_md_li {
+			padding: 6px 44px 6px 16px;
+		}
+
+		.gs_in_cb input,
+		.gs_in_ra input {
+			position: absolute;
+			top: 1px;
+			left: 1px;
+			width: 15px;
+			height: 15px;
+			margin: 0;
+			padding: 0;
+			opacity: 0;
+			z-index: 2;
+		}
+
+		.gs_in_ra input {
+			top: 0;
+			left: 0
+		}
+
+		.gs_el_tc .gs_in_cb input {
+			top: 9px
+		}
+
+		.gs_el_tc .gs_in_ra input {
+			top: 8px
+		}
+
+		.gs_in_cb.gs_in_cbj input {
+			top: 15px;
+			left: 15px
+		}
+
+		.gs_in_cb label,
+		.gs_in_cb .gs_lbl,
+		.gs_in_ra label {
+			display: inline-block;
+			padding-left: 21px;
+			min-height: 16px;
+		}
+
+		.gs_in_ra_lrge {
+			font-size: 15px;
+		}
+
+		.gs_in_cb label:empty:before,
+		.gs_in_cb .gs_lbl:empty:before,
+		.gs_in_ra label:empty:before {
+			content: "\200b";
+		}
+
+		.gs_el_tc .gs_in_cb label,
+		.gs_el_tc .gs_in_cb .gs_lbl,
+		.gs_el_tc .gs_in_ra label {
+			padding-top: 8px;
+			padding-bottom: 5px;
+		}
+
+		.gs_in_cb.gs_in_cbj label,
+		.gs_in_cb.gs_in_cbj .gs_lbl {
+			padding: 13px 0 12px 41px;
+		}
+
+		.gs_in_cbb,
+		.gs_in_cbb label,
+		.gs_in_cbb .gs_lbl {
+			display: block;
+		}
+
+		.gs_in_cb .gs_cbx,
+		.gs_in_ra .gs_cbx {
+			position: absolute
+		}
+
+		.gs_in_cb .gs_cbx {
+			top: 2px;
+			left: 2px;
+			width: 11px;
+			height: 11px;
+			border: 1px solid #c6c6c6;
+			border-radius: 1px;
+		}
+
+		.gs_md_li .gs_cbx {
+			top: 8px;
+			left: 18px
+		}
+
+		.gs_el_tc .gs_in_cb .gs_cbx {
+			top: 10px
+		}
+
+		.gs_el_tc .gs_md_li .gs_cbx {
+			top: 16px
+		}
+
+		.gs_in_cb.gs_in_cbj .gs_cbx {
+			top: 15px;
+			left: 15px
+		}
+
+		.gs_el_tc .gs_in_ra .gs_cbx {
+			top: 8px
+		}
+
+		.gs_in_ra .gs_cbx {
+			top: 0;
+			left: 0;
+			border: 1px solid #c6c6c6;
+			width: 13px;
+			height: 13px;
+			border-radius: 7px;
+		}
+
+		.gs_in_cb:hover .gs_cbx,
+		.gs_in_ra:hover .gs_cbx {
+			border-color: #666;
+			box-shadow: inset 0 1px 1px rgba(0, 0, 0, .1);
+		}
+
+		button.gs_in_cb:hover .gs_cbx {
+			border-color: #c6c6c6;
+		}
+
+		.gs_in_cb :focus~label,
+		.gs_in_ra :focus~label {
+			outline: 1px dotted #222;
+			outline: auto -webkit-focus-ring-color;
+		}
+
+		.gs_pfcs .gs_in_cb :focus~label,
+		.gs_pfcs .gs_in_ra :focus~label {
+			outline: none;
+		}
+
+		.gs_in_cb:active .gs_cbx,
+		.gs_in_ra:active .gs_cbx,
+		.gs_in_cb .gs_cbx:active,
+		.gs_in_ra .gs_cbx:active,
+		.gs_in_cb :active~.gs_cbx,
+		.gs_in_ra :active~.gs_cbx {
+			border-color: #666;
+			background-color: #ebebeb;
+		}
+
+		button.gs_in_cb:active .gs_cbx {
+			border-color: #a6a6a6;
+		}
+
+		.gs_in_cb :disabled~.gs_cbx,
+		.gs_in_ra :disabled~.gs_cbx,
+		button.gs_in_cb:disabled .gs_cbx {
+			border-color: #f1f1f1;
+			box-shadow: none;
+		}
+
+		.gs_in_cb :disabled~label,
+		.gs_in_ra :disabled~label {
+			color: #b8b8b8;
+		}
+
+		.gs_in_cb.gs_err .gs_cbx {
+			border-color: #eda29b;
+		}
+
+		.gs_in_cb .gs_chk,
+		.gs_in_ra .gs_chk {
+			position: absolute;
+			z-index: 1;
+			top: -3px;
+			left: -2px;
+			width: 21px;
+			height: 21px;
+		}
+
+		.gs_md_li .gs_chk {
+			top: 3px;
+			left: 14px
+		}
+
+		.gs_el_tc .gs_in_cb .gs_chk {
+			top: 5px
+		}
+
+		.gs_el_tc .gs_md_li .gs_chk {
+			top: 11px
+		}
+
+		.gs_in_cb.gs_in_cbj .gs_chk {
+			top: 10px;
+			left: 11px
+		}
+
+		.gs_in_ra .gs_chk {
+			top: 4px;
+			left: 4px;
+			width: 7px;
+			height: 7px;
+			border-radius: 4px;
+		}
+
+		.gs_el_tc .gs_in_ra .gs_chk {
+			top: 12px
+		}
+
+		.gs_in_cb input:checked~.gs_chk,
+		.gs_in_cb.gs_sel .gs_chk {
+			background: no-repeat url(/intl/zh-CN/scholar/images/1x/sprite_20161020.png) -69px -67px;
+			opacity: .62;
+		}
+
+		.gs_in_ra input:checked~.gs_chk {
+			background-color: #666
+		}
+
+		.gs_in_cb.gs_par .gs_chk {
+			background: no-repeat url(/intl/zh-CN/scholar/images/1x/sprite_20161020.png) -21px -44px;
+			opacity: .55;
+		}
+
+		@media(-webkit-min-device-pixel-ratio:1.5),
+		(min-resolution:144dpi) {
+
+			.gs_in_cb input:checked~.gs_chk,
+			.gs_in_cb.gs_sel .gs_chk,
+			.gs_in_cb.gs_par .gs_chk {
+				background-image: url(/intl/zh-CN/scholar/images/2x/sprite_20161020.png);
+				background-size: 169px;
+			}
+		}
+
+		.gs_in_cb input:checked:disabled~.gs_chk {
+			opacity: .22
+		}
+
+		.gs_in_ra input:checked:disabled~.gs_chk {
+			background-color: #f1f1f1
+		}
+
+		.gs_md_ac {
+			position: absolute;
+			top: 28px;
+			left: 0;
+			right: 0;
+			z-index: 1100;
+			white-space: normal;
+			display: none;
+			pointer-events: none;
+		}
+
+		.gs_md_ac[dir="ltr"] {
+			text-align: left;
+		}
+
+		.gs_md_ac[dir="rtl"] {
+			text-align: right;
+		}
+
+		.gs_md_ac ul {
+			list-style-type: none;
+			word-wrap: break-word;
+			line-height: 1.24;
+			border: 1px solid #e5e5e5;
+			border-color: rgba(0, 0, 0, .2);
+			background: #fff;
+			box-shadow: 0px 2px 4px rgba(0, 0, 0, .2);
+			touch-action: manipulation;
+			cursor: pointer;
+			-webkit-user-select: none;
+			user-select: none;
+			pointer-events: auto;
+		}
+
+		.gs_md_acp {
+			display: flex;
+			line-height: 0;
+		}
+
+		.gs_md_acp .gs_md_acs,
+		.gs_md_acp ul {
+			max-width: 100%;
+			box-sizing: border-box;
+			display: inline-block;
+			vertical-align: top;
+		}
+
+		.gs_md_acs {
+			visibility: hidden;
+			white-space: pre;
+			height: 0;
+			min-width: 0%;
+			flex: 0 1 auto;
+			font-size: 16px;
+		}
+
+		.gs_el_tc .gs_md_acs {
+			font-size: 18px;
+		}
+
+		.gs_md_acp ul {
+			white-space: nowrap;
+			flex: 0 0 auto;
+		}
+
+		.gs_md_ac li {
+			position: relative;
+			padding: 2px 8px;
+			font-size: 16px;
+			line-height: 20px;
+			color: #222;
+			background-color: #fff;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+
+		.gs_md_ac li.gs_sel {
+			color: #000;
+			background-color: #c6dafc;
+		}
+
+		.gs_md_ac li:active {
+			background-color: #e8f0fe;
+		}
+
+		.gs_el_ios .gs_md_ac li:active {
+			background-color: #fff;
+		}
+
+		.gs_md_ac b {
+			font-weight: normal;
+		}
+
+		.gs_md_ac li.gs_md_ac_lh,
+		.gs_md_ac li.gs_md_ac_lh b {
+			color: #660099;
+		}
+
+		.gs_el_tc .gs_md_ac li {
+			padding: 11px 8px 9px 8px;
+			font-size: 18px;
+			border-top: 1px solid #e5e5e5;
+		}
+
+		.gs_el_tc .gs_md_ac li:first-child {
+			border-top: none;
+		}
+
+		.gs_md_ac[dir="ltr"] li.gs_md_ac_lh {
+			padding-right: 29px;
+		}
+
+		.gs_md_ac[dir="rtl"] li.gs_md_ac_lh {
+			padding-left: 29px;
+		}
+
+		.gs_el_tc .gs_md_ac[dir="ltr"] li.gs_md_ac_lh {
+			padding-right: 49px;
+		}
+
+		.gs_el_tc .gs_md_ac[dir="rtl"] li.gs_md_ac_lh {
+			padding-left: 49px;
+		}
+
+		.gs_md_ac_lh .gs_ico_X {
+			position: absolute;
+			top: 0;
+		}
+
+		.gs_md_ac[dir="ltr"] .gs_md_ac_lh .gs_ico_X {
+			right: 0;
+		}
+
+		.gs_md_ac[dir="rtl"] .gs_md_ac_lh .gs_ico_X {
+			left: 0;
+		}
+
+		.gs_el_tc #gs_top .gs_md_ac .gs_md_ac_lh .gs_ico_Xt {
+			padding: 10px;
+		}
+
+		.gs_md_ac_lh .gs_ico_X:hover {
+			background-color: #eee;
+		}
+
+		.gs_ico_x {
+			background-position: -113px -22px;
+			opacity: .55;
+		}
+
+		.gs_ico_x:hover {
+			opacity: .72;
+		}
+
+		.gs_ico_x:active {
+			opacity: 1;
+		}
+
+		.gs_ico_X {
+			background-position: -71px 0;
+			opacity: .55;
+		}
+
+		.gs_ico_X:hover {
+			opacity: .72;
+		}
+
+		.gs_ico_X:active {
+			opacity: 1;
+		}
+
+		.gs_el_tc .gs_ico_Xt {
+			background-origin: content-box;
+			background-clip: content-box;
+			padding: 10px 6px 10px 14px;
+		}
+
+		.gs_ico_P {
+			background-position: 0 0;
+			opacity: .55;
+		}
+
+		.gs_ico_P:hover {
+			opacity: .72;
+		}
+
+		.gs_ico_P:active {
+			opacity: 1;
+		}
+
+		.gs_btnP .gs_ico {
+			background-position: -21px 0;
+		}
+
+		.gs_btnC .gs_ico {
+			background-position: 0 -66px;
+		}
+
+		.gs_btnL .gs_ico {
+			background-position: -92px -44px;
+		}
+
+		.gs_ico_LB {
+			background-position: -50px -44px;
+			height: 16px;
+		}
+
+		.gs_btnJ .gs_ico {
+			background-position: -92px -22px;
+		}
+
+		.gs_btnM .gs_ico {
+			background-position: -92px 0;
+		}
+
+		.gs_btnMW .gs_ico {
+			background-position: -21px -22px;
+		}
+
+		.gs_btnSB .gs_ico {
+			background-position: 0 -44px;
+		}
+
+		.gs_btnTSB .gs_ico {
+			background-position: -115px -253px;
+		}
+
+		.gs_btnPL .gs_ico {
+			background-position: -148px -66px;
+		}
+
+		.gs_btnPR .gs_ico {
+			background-position: -21px -66px;
+		}
+
+		.gs_btnPLW .gs_ico {
+			background-position: -0 -230px;
+		}
+
+		.gs_btnPRW .gs_ico {
+			background-position: -23px -230px;
+		}
+
+		.gs_btnZI .gs_ico {
+			background-position: -148px -22px;
+		}
+
+		.gs_btnZO .gs_ico {
+			background-position: -127px -44px;
+		}
+
+		.gs_btnDE .gs_ico {
+			background-position: -134px 0;
+		}
+
+		.gs_btnFI .gs_ico {
+			background-position: -50px -66px;
+		}
+
+		.gs_btnAD .gs_ico {
+			background-position: -141px -88px;
+			opacity: .55;
+		}
+
+		.gs_btnAD:hover .gs_ico {
+			opacity: .72;
+		}
+
+		.gs_btnAD:active .gs_ico,
+		.gs_btnAD .gs_ico:active,
+		.gs_btnAD :active~.gs_ico {
+			opacity: 1;
+		}
+
+		.gs_btnBA .gs_ico {
+			background-position: -50px -22px;
+		}
+
+		.gs_btnADD .gs_ico {
+			background-position: -92px -66px;
+		}
+
+		.gs_btnMRG .gs_ico {
+			background-position: -113px 0;
+		}
+
+		.gs_btnLBL .gs_ico {
+			background-position: 0 -161px;
+		}
+
+		.gs_btnCNCL .gs_ico {
+			background-position: -71px 0;
+		}
+
+		.gs_btnDWL .gs_ico {
+			background-position: -28px -88px;
+		}
+
+		.gs_btnMNU .gs_ico {
+			background-position: 0 -88px;
+		}
+
+		.gs_btnMNT .gs_ico {
+			background-position: -46px -161px;
+		}
+
+		.gs_btnALT .gs_ico {
+			background-position: -92px -161px;
+		}
+
+		.gs_btnART .gs_ico {
+			background-position: -115px -161px;
+		}
+
+		.gs_btnGSL .gs_ico {
+			background-position: -69px -161px;
+		}
+
+		.gs_btnCLS .gs_ico {
+			background-position: -138px -161px;
+		}
+
+		.gs_btnXBLU .gs_ico {
+			background-position: -138px -253px;
+		}
+
+		.gs_btnSSB .gs_ico {
+			background-position: 0 -276px;
+		}
+
+		.gs_btnSSW .gs_ico {
+			background-position: -23px -276px;
+		}
+
+		.gs_btnFLT .gs_ico {
+			background-position: 0 -184px;
+		}
+
+		.gs_btnXT .gs_ico {
+			background-position: -46px -184px;
+		}
+
+		.gs_btnPD .gs_ico {
+			background-position: -69px -184px;
+		}
+
+		.gs_btnPU .gs_ico {
+			background-position: -92px -276px;
+		}
+
+		.gs_btnCP .gs_ico {
+			background-position: -92px -184px;
+		}
+
+		.gs_btnTP .gs_ico {
+			background-position: -138px -184px;
+		}
+
+		.gs_btnML .gs_ico {
+			background-position: -115px -276px;
+		}
+
+		.gs_btnCHK .gs_ico {
+			background-position: -71px -66px;
+		}
+
+		.gs_btnDNB .gs_ico {
+			background-position: -115px -230px;
+		}
+
+		.gs_btnDNW .gs_ico {
+			background-position: 0 -207px;
+		}
+
+		.gs_btnACA .gs_ico {
+			background-position: -23px -207px;
+		}
+
+		.gs_btnAPT .gs_ico {
+			background-position: -46px -207px;
+		}
+
+		.gs_btnAPTW .gs_ico {
+			background-position: -92px -230px;
+		}
+
+		.gs_btnAFL .gs_ico {
+			background-position: -69px -207px;
+		}
+
+		.gs_btnAN .gs_ico {
+			background-position: -46px -276px;
+		}
+
+		.gs_btnAI .gs_ico {
+			background-position: -69px -276px;
+		}
+
+		.gs_btnPBL .gs_ico {
+			background-position: -92px -207px;
+		}
+
+		.gs_btnUCT .gs_ico {
+			background-position: -115px -207px;
+		}
+
+		.gs_btnVRF .gs_ico {
+			background-position: -138px -207px;
+		}
+
+		.gs_btnLSI .gs_ico {
+			background-position: -46px -230px;
+		}
+
+		.gs_btnLSG .gs_ico {
+			background-position: -69px -230px;
+		}
+
+		.gs_btnMOR .gs_ico {
+			background-position: -23px -253px;
+		}
+
+		.gs_btnADV .gs_ico {
+			background-position: -46px -253px;
+		}
+
+		.gs_btnPRO .gs_ico {
+			background-position: -69px -253px;
+		}
+
+		.gs_ico_nav_previous {
+			background-position: 0 -119px;
+			width: 53px;
+			height: 40px;
+		}
+
+		.gs_ico_nav_first {
+			background-position: -25px -119px;
+			width: 28px;
+			height: 40px;
+		}
+
+		.gs_ico_nav_current {
+			background-position: -53px -119px;
+			width: 20px;
+			height: 40px;
+		}
+
+		.gs_ico_nav_page {
+			background-position: -73px -119px;
+			width: 20px;
+			height: 40px;
+		}
+
+		.gs_ico_nav_next {
+			background-position: -93px -119px;
+			width: 71px;
+			height: 40px;
+		}
+
+		.gs_ico_nav_last {
+			background-position: -93px -119px;
+			width: 45px;
+			height: 40px;
+		}
+
+		.gs_ico_star {
+			background-position: -71px -44px;
+			width: 13px;
+			height: 13px;
+		}
+
+		.gs_btnPLSW .gs_ico {
+			background-position: -138px -230px;
+		}
+
+		.gs_btnPDF .gs_ico {
+			background-position: 0 -253px;
+		}
+
+		.gs_btnS .gs_ico {
+			background-position: -138px -276px;
+		}
+
+		.gs_btnUNS .gs_ico {
+			background-position: 0 -299px;
+		}
+
+		.gs_btnMORR .gs_ico {
+			background-position: -23px -299px;
+		}
+
+		.gs_btnTW .gs_ico {
+			background-position: -46px -299px;
+		}
+
+		.gs_btnIN .gs_ico {
+			background-position: -69px -299px;
+		}
+
+		.gs_btnFB .gs_ico {
+			background-position: -92px -299px;
+		}
+
+		.gs_btnET .gs_ico {
+			background-position: -115px -299px;
+		}
+
+		.gs_btnARC .gs_ico {
+			background-position: -138px -299px;
+		}
+
+		#gs_hdr_drs,
+		#gs_hdr_drw {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			z-index: 1200;
+			visibility: hidden;
+		}
+
+		#gs_hdr_drs {
+			opacity: 0;
+			background-color: #fff;
+			transition: opacity .15s, visibility 0s .15s;
+		}
+
+		.gs_el_ta #gs_hdr_drs,
+		.gs_el_ph #gs_hdr_drs {
+			background-color: #666;
+		}
+
+		#gs_hdr_drs.gs_vis {
+			visibility: visible;
+			opacity: .5;
+			transition: opacity .15s, visibility 0s;
+		}
+
+		.gs_el_tc #gs_hdr_drs {
+			transition: opacity .218s, visibility 0s .218s;
+		}
+
+		.gs_el_tc #gs_hdr_drs.gs_vis {
+			transition: opacity .218s, visibility 0s;
+		}
+
+		#gs_hdr_drw {
+			overflow: auto;
+			width: 236px;
+			background-color: #fff;
+			box-shadow: 2px 2px 4px rgba(0, 0, 0, .15);
+			outline: none;
+			transform: translate(-100%, 0);
+			transition: transform .15s ease-in-out, visibility 0s .15s;
+		}
+
+		#gs_hdr_drw.gs_vis {
+			visibility: visible;
+			transform: translate(0, 0);
+			transition: transform .15s ease-in-out, visibility 0s;
+		}
+
+		.gs_el_tc #gs_hdr_drw {
+			transition: transform .3s cubic-bezier(.4, 0, .6, 1), visibility 0s .3s;
+		}
+
+		.gs_el_tc #gs_hdr_drw.gs_vis {
+			transition: transform .225s cubic-bezier(0, 0, .2, 1), visibility 0s;
+		}
+
+		#gs_hdr_drw.gs_abt,
+		.gs_el_tc #gs_hdr_drw.gs_abt {
+			transition: none;
+		}
+
+		#gs_hdr_drw_in {
+			position: relative;
+			box-sizing: border-box;
+			min-height: 100%;
+			padding: 0 0 8px 0;
+		}
+
+		.gs_el_ta #gs_hdr_drw_in,
+		.gs_el_ph #gs_hdr_drw_in {
+			padding: 0 0 65px 0;
+		}
+
+		#gs_hdr_drw_top {
+			position: relative;
+			height: 63px;
+			border-bottom: 1px solid #e5e5e5;
+			margin-bottom: 8px;
+		}
+
+		.gs_el_ta #gs_hdr_drw_top,
+		.gs_el_ph #gs_hdr_drw_top {
+			height: 57px;
+		}
+
+		#gs_hdr_drw_mnu,
+		#gs_hdr_drw_lgo {
+			position: absolute;
+			top: 0;
+			height: 100%;
+		}
+
+		#gs_hdr_drw_mnu {
+			left: 0;
+			width: 55px;
+		}
+
+		#gs_hdr_drw_lgo {
+			left: 56px;
+		}
+
+		.gs_hdr_drw_sec:before {
+			display: block;
+			content: " ";
+			height: 0;
+			border-bottom: 1px solid #e5e5e5;
+			margin: 8px 0;
+		}
+
+		.gs_hdr_drw_sec:first-child:before {
+			display: none;
+		}
+
+		#gs_hdr_drw_bot {
+			display: none;
+		}
+
+		.gs_el_ta #gs_hdr_drw_bot,
+		.gs_el_ph #gs_hdr_drw_bot {
+			display: block;
+			position: absolute;
+			left: 0;
+			bottom: 0;
+			width: 100%;
+			height: 65px;
+		}
+
+		#gs_hdr_drw_bot .gs_md_li:before {
+			opacity: 0;
+		}
+
+		#gs_hdr_drw_bot .gs_hdr_pp {
+			display: block;
+			position: absolute;
+			bottom: 14px;
+			left: 15px;
+			pointer-events: none;
+		}
+
+		#gs_hdr_drw_bot .gs_lbl {
+			display: block;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+
+		#gs_hdr {
+			position: relative;
+			height: 63px;
+			background-color: #f5f5f5;
+			border-bottom: 1px solid #e5e5e5;
+			display: flex;
+		}
+
+		.gs_el_ta #gs_hdr,
+		.gs_el_ph #gs_hdr {
+			height: 57px;
+		}
+
+		#gs_hdr_mnu,
+		#gs_hdr_bck,
+		#gs_hdr_lgo,
+		#gs_hdr_lgt,
+		#gs_hdr_md,
+		#gs_hdr_sre,
+		#gs_hdr_act {
+			display: inline-block;
+			vertical-align: top;
+			position: relative;
+			height: 100%;
+			flex: 0 0 auto;
+		}
+
+		#gs_hdr_md {
+			flex: 1 1 auto;
+		}
+
+		#gs_hdr .gs_hdr_mbo,
+		#gs_hdr .gs_hdr_mbo,
+		.gs_el_ta #gs_hdr .gs_hdr_dso,
+		.gs_el_ph #gs_hdr .gs_hdr_dso {
+			display: none;
+		}
+
+		.gs_el_ta #gs_hdr .gs_hdr_mbo,
+		.gs_el_ph #gs_hdr .gs_hdr_mbo {
+			display: inline-block;
+		}
+
+		#gs_hdr_mnu,
+		#gs_hdr_bck,
+		#gs_hdr_sre {
+			width: 55px;
+			margin-right: 1px;
+		}
+
+		#gs_hdr_lgo,
+		#gs_hdr_drw_lgo {
+			width: 158px;
+			background: no-repeat url('/intl/zh-CN/scholar/images/1x/scholar_logo_24dp.png') 0% 50%;
+			background-size: 158px;
+		}
+
+		@media(-webkit-min-device-pixel-ratio:1.5),
+		(min-resolution:144dpi) {
+
+			#gs_hdr_lgo,
+			#gs_hdr_drw_lgo {
+				background-image: url('/intl/zh-CN/scholar/images/2x/scholar_logo_24dp.png');
+			}
+		}
+
+		#gs_hdr_lgo {
+			margin-right: 30px;
+		}
+
+		.gs_el_ph #gs_hdr_lgo {
+			margin-right: 0;
+		}
+
+		#gs_hdr_lgt {
+			min-width: 172px;
+			margin-right: 16px;
+		}
+
+		.gs_el_sm #gs_hdr_lgt:empty {
+			min-width: 60px;
+		}
+
+		#gs_hdr_md {
+			margin-right: 16px;
+			min-width: 1px;
+		}
+
+		#gs_hdr_lgt,
+		#gs_hdr_md h1 {
+			padding: 19px 0 0 0;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			font-size: 20px;
+			line-height: 25px;
+			font-weight: normal;
+			color: #666;
+			max-width: 100%;
+			text-align: left;
+		}
+
+		.gs_el_ta #gs_hdr_md h1,
+		.gs_el_ph #gs_hdr_md h1 {
+			padding: 16px 0 0 0;
+		}
+
+		#gs_hdr_srch {
+			padding: 14px 0 0 0;
+			max-width: 600px;
+		}
+
+		.gs_el_ta #gs_hdr_srch,
+		.gs_el_ph #gs_hdr_srch {
+			padding: 10px 0 0 0;
+			max-width: none;
+		}
+
+		#gs_hdr_frm {
+			position: relative;
+			padding-right: 39px;
+		}
+
+		#gs_hdr_tsi {
+			height: 38px;
+			border-radius: 2px 0 0 2px;
+		}
+
+		#gs_hdr_tsi::-ms-clear {
+			display: none;
+		}
+
+		#gs_hdr_tsc {
+			display: none;
+			position: absolute;
+			top: 3px;
+			right: 41px;
+			width: 21px;
+			height: 21px;
+			padding: 6px 10px 7px 10px;
+		}
+
+		.gs_in_acw[dir="rtl"]~#gs_hdr_tsc {
+			right: auto;
+			left: 1px;
+		}
+
+		#gs_hdr_tsb {
+			position: absolute;
+			top: 0;
+			right: 0;
+			width: 40px;
+			height: 38px;
+			border-radius: 0 2px 2px 0;
+		}
+
+		#gs_hdr_frm_ac {
+			top: 37px;
+			right: 40px;
+		}
+
+		.gs_el_ph #gs_hdr_frm_ac {
+			right: 0;
+		}
+
+		.gs_el_ph .gs_hdr_ifc #gs_hdr_mnu,
+		.gs_el_ph .gs_hdr_ifc #gs_hdr_bck,
+		.gs_hdr_src #gs_hdr_srch,
+		.gs_hdr_src #gs_hdr_lgt,
+		.gs_hdr_srx #gs_hdr_sre,
+		.gs_hdr_srx #gs_hdr_md h1,
+		.gs_hdr_srx #gs_hdr_md h1.gs_hdr_mbo,
+		.gs_hdr_srx #gs_hdr_md h1.gs_hdr_dso,
+		.gs_el_ta .gs_hdr_srx #gs_hdr_lgo,
+		.gs_el_ph .gs_hdr_srx #gs_hdr_lgo,
+		.gs_el_ph .gs_hdr_srx #gs_hdr_mnu,
+		.gs_el_ph .gs_hdr_srx #gs_hdr_bck {
+			display: none;
+		}
+
+		.gs_el_ph .gs_hdr_ifc #gs_hdr_md,
+		.gs_el_ph .gs_hdr_srx #gs_hdr_md {
+			margin-left: 16px;
+		}
+
+		.gs_el_tc .gs_hdr_tsc #gs_hdr_tsi[dir="ltr"] {
+			padding-right: 41px;
+		}
+
+		.gs_el_tc .gs_hdr_tsc #gs_hdr_tsi[dir="rtl"] {
+			padding-left: 41px;
+		}
+
+		.gs_el_tc .gs_hdr_tsc .gs_in_acw~#gs_hdr_tsc {
+			display: block;
+		}
+
+		#gs_hdr_act {
+			min-width: 64px;
+			max-width: 200px;
+			text-align: right;
+			float: right;
+		}
+
+		.gs_el_ta #gs_hdr_act,
+		.gs_el_ph #gs_hdr_act {
+			display: none;
+		}
+
+		#gs_hdr_act_i,
+		#gs_hdr_act_s {
+			display: inline-block;
+			padding: 23px 24px 23px 16px;
+			max-width: 100%;
+			box-sizing: border-box;
+			font-size: 13px;
+			line-height: 17px;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			color: #444;
+		}
+
+		#gs_hdr_act_s {
+			font-size: 15px;
+		}
+
+		.gs_el_sm #gs_hdr_act_i,
+		.gs_el_sm #gs_hdr_act_s {
+			padding: 23px 16px;
+		}
+
+		.gs_el_ta #gs_hdr_act_i,
+		.gs_el_ta #gs_hdr_act_s,
+		.gs_el_ph #gs_hdr_act_i,
+		.gs_el_ph #gs_hdr_act_s {
+			padding: 20px 16px;
+		}
+
+		#gs_hdr_act_i:active,
+		#gs_hdr_act_s:active {
+			color: #d14836;
+		}
+
+		#gs_hdr_act_i,
+		.gs_el_sm #gs_hdr_act_i {
+			padding-top: 15px;
+			padding-bottom: 16px;
+		}
+
+		.gs_el_ta #gs_hdr_act_i,
+		.gs_el_ph #gs_hdr_act_i {
+			padding-top: 12px;
+			padding-bottom: 13px;
+		}
+
+		#gs_hdr_act_i .gs_hdr_pp {
+			vertical-align: top;
+		}
+
+		#gs_hdr_act_d {
+			top: 63px;
+			left: auto;
+			right: 24px;
+			min-width: 288px;
+			max-width: 400px;
+		}
+
+		.gs_el_sm #gs_hdr_act_d {
+			right: 16px;
+		}
+
+		.gs_el_ta #gs_hdr_act_d {
+			top: 57px;
+		}
+
+		.gs_el_ph #gs_hdr_act_d {
+			top: 57px;
+			min-width: 280px;
+			max-width: 280px;
+			max-width: 90vw;
+		}
+
+		/* Account dialog body. */
+		#gs_hdr_act_aw,
+		#gs_hdr_act_ap,
+		.gs_hdr_act_am,
+		#gs_hdr_act_ab {
+			display: block;
+			padding: 10px 20px;
+			word-wrap: break-word;
+			white-space: normal;
+		}
+
+		#gs_hdr_act_aw {
+			background-color: #fef9db;
+			font-size: 11px;
+		}
+
+		#gs_hdr_act_ap,
+		.gs_hdr_act_am {
+			border-bottom: 1px solid #ccc;
+		}
+
+		#gs_hdr_act_ap {
+			padding: 20px;
+		}
+
+		.gs_el_ph #gs_hdr_act_ap {
+			padding: 10px;
+		}
+
+		#gs_hdr_act_apb {
+			margin-top: 12px;
+		}
+
+		#gs_hdr_act_aa:link,
+		#gs_hdr_act_aa:visited {
+			float: right;
+			margin-left: 8px;
+			color: #1a0dab;
+		}
+
+		#gs_hdr_act_aa:active {
+			color: #d14836
+		}
+
+		.gs_hdr_act_am:link,
+		.gs_hdr_act_am:visited {
+			color: #222;
+			text-decoration: none;
+			background: #fbfbfb;
+		}
+
+		.gs_hdr_act_am:hover,
+		.gs_hdr_act_am:focus {
+			background: #f1f1f1;
+		}
+
+		.gs_hdr_act_am:active {
+			background: #eee;
+		}
+
+		#gs_hdr_act_ab {
+			background: #fbfbfb;
+			padding: 10px 0;
+			display: table;
+			width: 100%;
+			white-space: nowrap;
+		}
+
+		#gs_hdr_act_aba,
+		#gs_hdr_act_abs {
+			display: table-cell;
+			padding: 0 20px;
+		}
+
+		#gs_hdr_act_abs {
+			text-align: right;
+		}
+
+		.gs_el_ph #gs_hdr_act_aba,
+		.gs_el_ph #gs_hdr_act_abs {
+			display: block;
+			padding: 10px;
+			text-align: center;
+		}
+
+		.gs_el_ph #gs_hdr_act_aba button,
+		.gs_el_ph #gs_hdr_act_abs button {
+			width: 100%;
+		}
+
+		#gs_hdr_act_a1,
+		#gs_hdr_act_a2 {
+			position: absolute;
+			top: -9px;
+			right: 7.5px;
+			width: 0;
+			height: 0;
+			z-index: 1;
+			border: 8.5px solid transparent;
+			border-top: none;
+			border-bottom-color: #333;
+			border-bottom-color: rgba(0, 0, 0, .2);
+		}
+
+		#gs_hdr_act_a2 {
+			top: -8px;
+			border-bottom-color: #fff;
+		}
+
+		.gs_hdr_act_mw #gs_hdr_act_a2 {
+			border-bottom-color: #fef9db;
+		}
+
+		.gs_hdr_pp {
+			border-radius: 50%;
+			overflow: hidden;
+		}
+
+		#gs_hdr_act_ap .gs_hdr_pp,
+		.gs_hdr_act_am .gs_hdr_pp {
+			float: left;
+		}
+
+		#gs_hdr_act_ap .gs_hdr_pm {
+			margin-left: 116px;
+		}
+
+		.gs_hdr_act_am .gs_hdr_pm {
+			margin: 6px 0 0 58px;
+		}
+
+		#gs_ab {
+			position: relative;
+			height: 41px;
+			border-bottom: 1px solid #e5e5e5;
+			display: flex;
+			white-space: nowrap;
+			background-color: #fff;
+			z-index: 1000;
+		}
+
+		.gs_el_ta #gs_ab.gs_nta,
+		.gs_el_ph #gs_ab.gs_nph {
+			display: none;
+		}
+
+		#gs_ab_g {
+			height: 42px;
+		}
+
+		.gs_sth_vis #gs_ab {
+			position: fixed;
+		}
+
+		#gs_ab_ico,
+		#gs_ab_ttl,
+		#gs_ab_md,
+		#gs_ab_btns {
+			display: inline-block;
+			vertical-align: top;
+			position: relative;
+			height: 100%;
+			flex: 0 0 auto;
+		}
+
+		.gs_el_ph #gs_ab_md {
+			display: block;
+		}
+
+		#gs_ab_ico {
+			width: 55px;
+			margin-right: 1px;
+		}
+
+		.gs_el_sm #gs_ab_ico {
+			width: 15px;
+			visibility: hidden;
+		}
+
+		.gs_el_ta #gs_ab_ico,
+		.gs_el_ph #gs_ab_ico {
+			width: 55px;
+			visibility: visible;
+		}
+
+		#gs_ab_ico .gs_ico {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			margin: -10.5px 0 0 -10.5px;
+		}
+
+		#gs_ab_ttl {
+			min-width: 180px;
+			padding-right: 8px;
+		}
+
+		.gs_el_sm #gs_ab_ttl {
+			min-width: 120px;
+		}
+
+		.gs_el_ta #gs_ab_ttl,
+		.gs_el_ph #gs_ab_ttl {
+			min-width: 0;
+		}
+
+		#gs_ab_ttl,
+		#gs_ab_ttll {
+			font-size: 18px;
+			color: #666;
+			text-transform: none;
+		}
+
+		.gs_el_sm #gs_ab_ttl,
+		.gs_el_sm #gs_ab_ttll {
+			font-size: 16px;
+		}
+
+		#gs_ab_ttll {
+			overflow: hidden;
+			text-overflow: ellipsis;
+			max-width: 200px;
+		}
+
+		#gs_ab_md {
+			flex: 1 0 auto;
+		}
+
+		.gs_ab_st #gs_ab_md {
+			flex: 1 1 auto;
+			font-size: 13px;
+			line-height: 17px;
+			padding: 0 8px;
+			color: #999;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+
+		.gs_el_ph .gs_ab_st #gs_ab_md {
+			visibility: hidden;
+			padding: 0;
+		}
+
+		#gs_ab_btns {
+			margin-right: 8px;
+		}
+
+		.gs_el_sm #gs_ab_btns {
+			margin-right: 0;
+		}
+
+		.gs_el_ta #gs_ab_btns,
+		.gs_el_ph #gs_ab_btns {
+			margin-right: 4px;
+		}
+
+		#gs_ab_ttl:before,
+		#gs_ab_md:before,
+		#gs_ab_btns:before {
+			content: "";
+			display: inline-block;
+			width: 0;
+			height: 100%;
+			vertical-align: middle;
+		}
+
+		#gs_ab_md>button,
+		#gs_ab_btns>button,
+		#gs_ab_md>.gs_in_ib,
+		#gs_ab_btns>.gs_in_ib,
+		#gs_ab_md>.gs_md_r,
+		#gs_ab_btns>.gs_md_r,
+		#gs_ab .gs_ab_mdw,
+		#gs_ab .gs_ab_btw {
+			margin: 0 8px;
+			vertical-align: middle;
+		}
+
+		#gs_ab .gs_ab_mdw,
+		.gs_ab_btw {
+			display: inline-block;
+			margin: 0;
+		}
+
+		#gs_ab_btns>.gs_in_ib {
+			margin: 0 16px 0 8px;
+		}
+
+		#gs_ab .gs_ab_btw {
+			margin: 0 12px 0 16px;
+		}
+
+		.gs_el_ta .gs_ab_sel #gs_ab_ico,
+		.gs_el_ph .gs_ab_sel #gs_ab_ico,
+		.gs_el_ta .gs_ab_sel #gs_ab_ttl,
+		.gs_el_ph .gs_ab_sel #gs_ab_ttl,
+		.gs_el_ta .gs_ab_sel #gs_ab_btns,
+		.gs_el_ph .gs_ab_sel #gs_ab_btns {
+			display: none;
+		}
+
+		#gs_bdy {
+			display: table;
+			table-layout: fixed;
+			width: 100%;
+		}
+
+		#gs_bdy_sb {
+			vertical-align: top;
+			width: 236px;
+			word-wrap: break-word;
+			display: table-cell;
+		}
+
+		.gs_el_sm #gs_bdy_sb {
+			width: 136px;
+		}
+
+		.gs_el_ta #gs_bdy_sb,
+		.gs_el_ph #gs_bdy_sb {
+			display: none;
+		}
+
+		.gs_bdy_sb_sec {
+			margin: 0 40px 0 56px;
+		}
+
+		.gs_el_sm .gs_bdy_sb_sec {
+			margin: 0 0 0 16px;
+		}
+
+		.gs_bdy_sb_sec:before {
+			display: block;
+			content: " ";
+			height: 0;
+			margin: 13px 0;
+			border-top: 1px solid #eee;
+		}
+
+		.gs_bdy_sb_sec:first-child:before {
+			margin: 21px 0 0 0;
+			border: none;
+		}
+
+		.gs_el_sm .gs_bdy_sb_sec:first-child:before {
+			margin-top: 15px;
+		}
+
+		#gs_bdy_sb ul {
+			list-style-type: none;
+		}
+
+		.gs_bdy_sb_sec a:link,
+		.gs_bdy_sb_sec a:visited {
+			color: #222;
+		}
+
+		.gs_bdy_sb_sec a:active {
+			color: #d14836;
+		}
+
+		.gs_bdy_sb_sel a:link,
+		.gs_bdy_sb_sel a:visited {
+			color: #d14836;
+			text-decoration: none;
+		}
+
+		.gs_el_tc .gs_bdy_sb_sec li.gs_ind,
+		.gs_el_tc .gs_bdy_sb_sec li.gs_ind a {
+			padding-top: 8px;
+			padding-bottom: 5px;
+		}
+
+		.gs_el_tc .gs_bdy_sb_sec:first-child li.gs_ind:first-child {
+			margin-top: -8px;
+		}
+
+		#gs_bdy_sb .gs_ind,
+		#gs_bdy_sb .gs_inw {
+			margin-bottom: 4px;
+		}
+
+		.gs_el_tc #gs_bdy_sb .gs_ind,
+		.gs_el_tc #gs_bdy_sb .gs_inw {
+			margin-bottom: 0;
+		}
+
+		#gs_bdy_ccl {
+			display: table-cell;
+			vertical-align: top;
+			padding: 0 24px 0 16px;
+		}
+
+		.gs_el_sm #gs_bdy_ccl {
+			padding: 0 16px;
+		}
+
+		.gs_el_ta #gs_bdy_ccl,
+		.gs_el_ph #gs_bdy_ccl {
+			padding: 0 16px;
+		}
+
+		.gs_el_ph #gs_bdy_ccl {}
+
+		#gs_ftr_sp {
+			height: 62px;
+		}
+
+		.gs_el_sm #gs_ftr_sp {
+			height: 57px;
+		}
+
+		#gs_ftr {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			white-space: nowrap;
+			border-top: 1px solid #e4e4e4;
+			background-color: #f2f2f2;
+			display: flex;
+		}
+
+		#gs_ftr_rt {
+			box-sizing: border-box;
+			max-width: 100%;
+			overflow-x: auto;
+			margin-left: auto;
+			padding: 0 12px;
+		}
+
+		.gs_el_sm #gs_ftr_rt {
+			padding: 0 8px;
+		}
+
+		.gs_el_ph #gs_ftr_rt:after {
+			content: " ";
+			position: absolute;
+			top: 0;
+			right: 0;
+			width: 16px;
+			height: 100%;
+			background-image: linear-gradient(to right, rgba(242, 242, 242, 0), rgba(242, 242, 242, 1) 80%);
+		}
+
+		#gs_ftr_rt a {
+			display: inline-block;
+			line-height: 16px;
+			padding: 12px;
+			white-space: nowrap;
+		}
+
+		.gs_el_sm #gs_ftr_rt a {
+			padding: 12px 8px;
+		}
+
+		#gs_ftr_rt a:link,
+		#gs_ftr_rt a:visited {
+			color: #666
+		}
+
+		#gs_ftr_rt a:active {
+			color: #d14836
+		}
+
+		.gs_res_sb_yyr {
+			padding: 5px 0;
+			text-align: center;
+			white-space: nowrap;
+		}
+
+		.gs_el_tc .gs_res_sb_yyr {
+			padding: 10px 0;
+		}
+
+		.gs_res_sb_yyr .gs_in_txt {
+			width: 48px;
+		}
+
+		#gs_res_ccl {
+			max-width: 950px;
+			padding-top: 10px;
+		}
+
+		.gs_el_sm #gs_res_ccl {
+			padding-top: 7px;
+		}
+
+		.gs_el_tc #gs_res_ccl {
+			padding-top: 6px;
+		}
+
+		.gs_el_sm.gs_el_tc #gs_res_ccl {
+			padding-top: 0;
+		}
+
+		.gs_r {
+			position: relative;
+			padding: 11px 0 10px 0;
+			line-height: 1.46;
+			padding: 14px 0 13px 0;
+		}
+
+		.gs_el_sm .gs_r {
+			padding: 7px 0 6px 0;
+			padding: 10px 0 9px 0;
+		}
+
+		.gs_el_tc .gs_r {
+			padding: 15px 0;
+			border-bottom: 1px solid #eee;
+		}
+
+		.gs_rt {
+			position: relative;
+			font-weight: normal;
+			font-size: 17px;
+			line-height: 19px;
+			margin-right: 100px;
+			margin-bottom: 2px;
+		}
+
+		.gs_el_tc .gs_rt {
+			margin-bottom: 0;
+		}
+
+		.gs_el_ph .gs_rt {
+			margin-right: 0;
+		}
+
+		.gs_rt2 {
+			font-size: 13px;
+			font-weight: normal;
+		}
+
+		.gs_rt a:link,
+		.gs_rt a:link b,
+		.gs_rt2 a:link,
+		.gs_rt2 a:link b {
+			color: #1a0dab
+		}
+
+		.gs_rt a:visited,
+		.gs_rt a:visited b,
+		.gs_rt2 a:visited,
+		.gs_rt2 a:visited b {
+			color: #660099
+		}
+
+		.gs_rt a:active,
+		.gs_rt a:active b,
+		.gs_rt2 a:active,
+		.gs_rt2 a:active b {
+			color: #d14836
+		}
+
+		.gs_or_ggsm:focus {
+			outline: none;
+		}
+
+		.gs_ggs {
+			position: relative;
+			z-index: 1;
+			float: right;
+			margin-left: 24px;
+			min-width: 200px;
+			max-width: 256px;
+			width: 200px;
+			width: calc(100% - 620px);
+			font-size: 17px;
+			line-height: 19px;
+		}
+
+		.gs_el_sm .gs_ggs {
+			margin-left: 16px;
+		}
+
+		@media(max-width:699px) {
+			.gs_el_sm .gs_ggs {
+				min-width: 0;
+				width: 182px;
+			}
+		}
+
+		.gs_el_ph .gs_ggs {
+			width: 72px;
+			height: 43px;
+		}
+
+		.gs_el_tc .gs_ggs {
+			margin-top: -14px;
+		}
+
+		.gs_el_ph .gs_ggsd {
+			position: absolute;
+			top: -1px;
+			right: 0;
+			width: 72px;
+			height: 43px;
+			overflow: hidden;
+			transition: width 0s .3s, height 0s .3s;
+		}
+
+		.gs_el_ph .gs_ggsd.gs_vis {
+			width: 208px;
+			height: 88px;
+			transition: none;
+		}
+
+		.gs_or_ggsm a {
+			display: block;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			margin-bottom: 4px;
+		}
+
+		.gs_el_tc .gs_or_ggsm a {
+			padding: 13px 8px 9px 8px;
+			touch-action: none;
+			background: #fff;
+			height: 19px;
+			margin-bottom: 0;
+		}
+
+		.gs_el_ph .gs_or_ggsm a {
+			text-decoration: none;
+		}
+
+		.gs_el_ph .gs_or_ggsm a:focus {
+			outline: none;
+			background: #f1f1f1;
+		}
+
+		.gs_el_ph .gs_or_ggsm a:active {
+			color: #1a0dab;
+		}
+
+		.gs_el_ph .gs_or_ggsm a:visited {
+			color: #660099;
+		}
+
+		.gs_el_ph .gs_or_ggsm {
+			position: absolute;
+			top: 0;
+			right: -132px;
+			margin-right: 4px;
+			padding: 1px 0;
+			width: 200px;
+			height: 41px;
+			transform: translate(0, 0);
+		}
+
+		.gs_el_ph .gs_or_ggsm.gs_vis {
+			right: 0;
+			height: auto;
+		}
+
+		.gs_el_ph .gs_or_ggsm>a:nth-child(2) {
+			height: 0;
+			transform: scale(1, 0);
+			transform-origin: 0 0;
+		}
+
+		.gs_el_ph .gs_or_ggsm.gs_vis>a:nth-child(2) {
+			height: 19px;
+			transform: scale(1, 1);
+		}
+
+		.gs_el_ph .gs_or_ggsm:before {
+			content: "";
+			position: absolute;
+			top: 0;
+			left: -1px;
+			right: -1px;
+			bottom: 0;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
+			border: 1px solid #ccc;
+			opacity: 0;
+			z-index: -1;
+		}
+
+		.gs_el_ph .gs_or_ggsm.gs_vis:before {
+			opacity: 1;
+			transition: opacity 0s .3s;
+		}
+
+		.gs_el_ph .gs_or_ggsm:after {
+			content: "";
+			pointer-events: none;
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			z-index: 1;
+			background-image: linear-gradient(to left, rgba(255, 255, 255, 1), rgba(255, 255, 255, 1) 65%, rgba(255, 255, 255, 0) 70%);
+		}
+
+		.gs_el_ph .gs_or_ggsm.gs_vis:after {
+			visibility: hidden
+		}
+
+		.gs_el_ph .gs_or_ggsm.gs_vis.gs_anm {
+			animation: gs_anm_hsli .218s ease-in-out;
+		}
+
+		.gs_el_ph .gs_or_ggsm.gs_anm {
+			animation: gs_anm_hslo .218s ease-out;
+		}
+
+		.gs_el_ph .gs_ggs .gs_or_ggsm.gs_vis.gs_anm>a:nth-child(2) {
+			animation: gs_anm_vscli .218s ease-in;
+		}
+
+		@keyframes gs_anm_hsli {
+			0% {
+				transform: translate(66%, 0);
+				height: 41px;
+			}
+
+			99% {
+				transform: translate(0, 0);
+				height: 41px;
+			}
+
+			100% {
+				transform: translate(0, 0);
+				height: auto;
+			}
+		}
+
+		@keyframes gs_anm_hslo {
+			0% {
+				transform: translate(-66%, 0);
+			}
+
+			100% {
+				transform: translate(0, 0);
+			}
+		}
+
+		@keyframes gs_anm_vscli {
+			0% {
+				transform: scale(1, 0);
+			}
+
+			100% {
+				transform: scale(1, 1);
+			}
+		}
+
+		.gs_ct1 {
+			display: inline
+		}
+
+		.gs_ct2 {
+			display: none
+		}
+
+		.gs_el_ph .gs_ct1 {
+			display: none
+		}
+
+		.gs_el_ph .gs_ct2 {
+			display: inline;
+			font-size: 13px;
+			font-weight: normal
+		}
+
+		.gs_ri {
+			max-width: 712px
+		}
+
+		.gs_a a:link,
+		.gs_a a:visited {
+			text-decoration: underline;
+		}
+
+		.gs_ri .gs_fl a,
+		.gs_a a {
+			white-space: nowrap;
+		}
+
+		.gs_ri .gs_fl a.gs_wno {
+			white-space: normal;
+		}
+
+		.gs_ri .gs_fl {
+			font-size: 1px;
+		}
+
+		.gs_ri .gs_fl a {
+			font-size: 13px;
+			margin-right: 12px;
+		}
+
+		.gs_ri .gs_fl a:last-child {
+			margin-right: 0;
+		}
+
+		.gs_ri .gs_fl .gs_or_mor {
+			margin: -7px 6px -6px -7px;
+			padding: 7px 7px 6px 7px;
+			border-radius: 50%;
+		}
+
+		.gs_ri .gs_fl .gs_or_mor:hover {
+			background-color: rgba(0, 0, 0, .05);
+		}
+
+		.gs_el_ph .gs_ri .gs_fl .gs_or_sav {
+			margin-right: 4px;
+		}
+
+		.gs_el_ph .gs_or_sav .gs_or_btn_lbl {
+			display: none;
+		}
+
+		.gs_el_ph .gs_ri .gs_fl .gs_or_mor {
+			margin-right: -7px;
+		}
+
+		.gs_or_svg {
+			position: relative;
+			width: 15px;
+			height: 16px;
+			vertical-align: text-bottom;
+			fill: none;
+			stroke: #1a0dab;
+		}
+
+		.gs_or:not([data-lid=""]) .gs_or_sav .gs_or_svg {
+			fill: #1a0dab;
+		}
+
+		.gs_or[data-lid] .gs_or_ldg .gs_or_svg {
+			animation: gs_anm_spin 1.2s .5s linear infinite;
+		}
+
+		a:active .gs_or_svg,
+		a .gs_or_svg:active,
+		a .gs_or_svg>*:active {
+			stroke: #dd4b39;
+		}
+
+		.gs_or_btn .gs_or_svg {
+			margin-right: 5px;
+		}
+
+		.gs_or_nvi,
+		.gs_or_mvi .gs_or_mor {
+			display: none
+		}
+
+		.gs_or_mvi .gs_or_nvi,
+		.gs_or_mvi .gs_nph,
+		.gs_or_mvi .gs_nta {
+			display: inline
+		}
+
+		.gs_rs {
+			margin: 2px 0;
+			word-wrap: break-word;
+		}
+
+		.gs_rs:empty {
+			margin: 0 0 2px 0;
+		}
+
+		.gs_el_tc .gs_rs {
+			margin: 0
+		}
+
+		.gs_el_ta .gs_rs {
+			margin-right: 10%
+		}
+
+		@media(max-width:780px) {
+
+			.gs_el_ta .gs_rs,
+			.gs_el_ta .gs_a {
+				margin-right: 100px;
+			}
+		}
+
+		.gs_el_ph .gs_rs br,
+		.gs_el_ta .gs_rs br {
+			display: none
+		}
+
+		@media screen and (min-width:771px) {
+			.gs_el_ta .gs_rs br {
+				display: block
+			}
+		}
+
+		.gs_age {
+			color: #777777
+		}
+
+		.gs_rs b,
+		.gs_rt b,
+		.gs_rt2 b {
+			color: #000;
+		}
+
+		.gs_r b,
+		.gs_r a:link b,
+		.gs_r a:visited b {
+			color: #dd4b39;
+			font-weight: normal
+		}
+
+		.gs_el_tc .gs_rt a {
+			font-size: 17px;
+			line-height: 20px;
+			padding: 12px 0 9px 0;
+		}
+
+		.gs_el_tc .gs_rt2 a {
+			font-size: 14px;
+			line-height: 20px;
+			padding: 6px 0 4px 0;
+		}
+
+		.gs_el_tc .gs_a,
+		.gs_el_tc .gs_a a,
+		.gs_el_tc .gs_ri .gs_fl a {
+			padding-top: 7px;
+			padding-bottom: 6px;
+		}
+
+		.gs_el_tc .gs_ri .gs_fl a {
+			line-height: 29px;
+		}
+
+		.gs_el_tc .gs_ri .gs_fl {
+			margin-bottom: -6px;
+		}
+
+		#gs_n {
+			clear: both;
+			margin: 1.5em 0;
+			width: 600px;
+			text-align: center;
+		}
+
+		#gs_n td {
+			font-size: 13px
+		}
+
+		#gs_n a:link,
+		#gs_n a:visited {
+			color: #1a0dab
+		}
+
+		#gs_n a:active {
+			color: #d14836
+		}
+
+		#gs_nm {
+			clear: both;
+			position: relative;
+			text-align: center;
+			max-width: 500px;
+			margin: 24px 50px;
+			font-size: 15px;
+			line-height: 41px;
+			display: none;
+		}
+
+		#gs_nm button {
+			position: absolute;
+			top: 0
+		}
+
+		#gs_nm .gs_btnPL {
+			left: -50px
+		}
+
+		#gs_nm .gs_btnPR {
+			right: -50px
+		}
+
+		#gs_nml {
+			overflow: hidden;
+			white-space: nowrap;
+		}
+
+		.gs_nma {
+			display: inline-block;
+			width: 40px;
+			margin: 0 5px;
+		}
+
+		.gs_el_tc #gs_n,
+		.gs_el_ta #gs_n,
+		.gs_el_ph #gs_n {
+			display: none
+		}
+
+		.gs_el_tc #gs_nm,
+		.gs_el_ta #gs_nm,
+		.gs_el_ph #gs_nm {
+			display: block
+		}
+
+		#gs_bdy_sb_ca {
+			margin-top: -6px;
+		}
+
+		.gs_el_tc #gs_bdy_sb_ca {
+			margin-top: 2px;
+		}
+
+		.gs_res_sb_msc {
+			margin-bottom: 12px;
+		}
+
+		@media print {
+
+			#gs_gb,
+			#gs_hdr,
+			#gs_ab,
+			#gs_top #gs_bdy_sb,
+			.gs_pda,
+			.gs_ggs,
+			.gs_alrt_btm,
+			#gs_top #gs_n,
+			#gs_top #gs_nm,
+			#gs_ftr,
+			#gs_top .gs_ctc,
+			#gs_top .gs_ctu,
+			#gs_rt_hdr,
+			.gs_rt_hdr_ttl {
+				display: none
+			}
+
+			#gs_top,
+			#gs_top #gs_bdy,
+			#gs_top #gs_res_bdy,
+			#gs_top #gs_bdy_ccl,
+			#gs_top .gs_r,
+			#gs_top .gs_ri,
+			#gs_top .gs_rs {
+				font-size: 9pt;
+				color: black;
+				position: static;
+				float: none;
+				margin: 0;
+				padding: 0;
+				width: auto;
+				min-width: 0;
+				max-width: none;
+			}
+
+			#gs_top #gs_bdy a {
+				color: blue;
+				text-decoration: none
+			}
+
+			#gs_top .gs_r {
+				margin: 1em 0;
+				page-break-inside: avoid;
+				border: 0;
+			}
+
+			#gs_top .gs_med,
+			#gs_top .gs_rt {
+				font-size: 12pt
+			}
+
+			#gs_top .gs_a,
+			#gs_top #gs_bdy .gs_a a {
+				font-size: 9pt;
+				color: green
+			}
+
+			#gs_top .gs_fl,
+			#gs_top .gs_fl a {
+				font-size: 9pt
+			}
+
+			#gs_top .gs_rs br {
+				display: inline
+			}
+		}
+
+		.gs_el_ph #gs_ab_ttll {
+			max-width: 98px;
+			max-width: calc(100vw - 222px);
+		}
+
+		@media(max-width:320px) {
+			.gs_el_ph #gs_ab_ttll {
+				max-width: 98px;
+			}
+		}
+
+		#gs_res_ab_yy-r,
+		#gs_res_ab_ad-r,
+		#gs_res_ab_mor-r {
+			display: none;
+		}
+
+		.gs_el_ta #gs_res_ab_yy-r,
+		.gs_el_ph #gs_res_ab_yy-r,
+		.gs_el_ta #gs_res_ab_ad-r,
+		.gs_el_ph #gs_res_ab_ad-r,
+		.gs_el_ta #gs_res_ab_mor-r,
+		.gs_el_ph #gs_res_ab_mor-r {
+			display: inline-block;
+			margin: 0;
+		}
+
+		#gs_res_ab_yy-r:last-child {
+			margin-right: 4px;
+		}
+
+		#gs_res_ab_ad-r:last-child,
+		#gs_res_ab_mor-r:last-child {
+			margin-right: 12px;
+		}
+
+		#gs_res_ab_tmn-d,
+		#gs_res_ab_yy-d,
+		#gs_res_ab_ad-d,
+		#gs_res_ab_mor-d {
+			white-space: normal;
+			word-wrap: break-word;
+			width: 208px;
+			width: -webkit-max-content;
+			width: max-content;
+			min-width: 100px;
+			max-width: 208px;
+		}
+
+		#gs_res_ab_yy-d,
+		#gs_res_ab_ad-d,
+		#gs_res_ab_mor-d {
+			left: auto;
+			right: 0;
+		}
+
+		.gs_res_ab_dd_bdy {
+			padding: 8px 0;
+			box-sizing: border-box;
+		}
+
+		.gs_res_ab_dd_sec a.gs_res_ab_sel,
+		.gs_res_ab_dd_sec a[role=menuitemradio]:active {
+			color: #d14836;
+		}
+
+		.gs_res_ab_dd_sec:before {
+			display: block;
+			content: " ";
+			height: 0;
+			border-bottom: 1px solid #e5e5e5;
+			margin: 8px 0;
+		}
+
+		.gs_res_ab_dd_sec:first-child:before {
+			display: none;
+		}
+
+		.gs_fsvg line {
+			stroke: #222222
+		}
+
+		a:link .gs_fsvg {
+			fill: #1a0dab;
+		}
+
+		a:link .gs_fsvg line {
+			stroke: #1a0dab;
+		}
+
+		a:visited .gs_fsvg {
+			fill: #660099;
+		}
+
+		a:visited .gs_fsvg line {
+			stroke: #660099;
+		}
+
+		a:active .gs_fsvg {
+			fill: #d14836;
+		}
+
+		a:active .gs_fsvg line {
+			stroke: #d14836;
+		}
+
+		a .gs_fsvg {
+			border-bottom: 1px solid transparent;
+		}
+
+		a:hover .gs_fsvg,
+		a:focus .gs_fsvg {
+			border-bottom-color: inherit;
+		}
+
+		.gs_fsml {
+			font-size: 13px
+		}
+
+		.gs_fscp {
+			font-variant: small-caps
+		}
+
+		.gs_qsuggest {
+			max-width: 712px;
+			line-height: 21px;
+			margin-bottom: 2px;
+		}
+
+		.gs_r .gs_qsuggest {
+			max-width: 600px;
+		}
+
+		.gs_el_ta .gs_r .gs_qsuggest {
+			margin-right: 100px;
+		}
+
+		.gs_qsuggest h2 {
+			margin-bottom: 8px;
+			font-weight: normal;
+			font-size: 17px;
+		}
+
+		.gs_qsuggest li {
+			display: inline-block;
+			width: 100%;
+			font-size: 15px;
+			line-height: 18px;
+			padding: 4px 0 3px;
+		}
+
+		.gs_qsuggest ul {
+			list-style-type: none;
+			columns: 2;
+			column-gap: 40px;
+			margin-bottom: -3px;
+		}
+
+		.gs_el_sm .gs_qsuggest ul {
+			column-gap: 16px;
+			margin-bottom: 3px;
+		}
+
+		.gs_qsuggest li:only-child {
+			column-span: all;
+		}
+
+		.gs_qsuggest li>a {
+			display: inline-block;
+			max-width: 100%;
+			word-wrap: break-word;
+		}
+
+		.gs_qsuggest b {
+			font-weight: normal;
+		}
+
+		.gs_el_tc .gs_qsuggest a {
+			padding: 8px 0 5px;
+		}
+
+		.gs_el_tc .gs_qsuggest li {
+			padding: 2px 0 1px;
+		}
+
+		.gs_el_tc .gs_qsuggest ul {
+			margin: 0;
+		}
+
+		.gs_el_tc .gs_qsuggest h2 {
+			margin: 6px 0;
+		}
+
+		.gs_qsuggest_bottom h2 {
+			padding-top: 16px;
+		}
+
+		.gs_el_tc .gs_qsuggest_wrap .gs_qsuggest_related h2 {
+			padding-bottom: 0;
+		}
+
+		.gs_el_ph .gs_r .gs_qsuggest {
+			margin-bottom: -15px;
+		}
+
+		.gs_el_ph .gs_qsuggest ul {
+			columns: 1;
+			margin: 0;
+		}
+
+		.gs_el_ph .gs_qsuggest li {
+			margin: 0;
+			padding: 0;
+			position: relative;
+		}
+
+		.gs_el_ph .gs_qsuggest h2 {
+			margin: 1px 0 16px;
+		}
+
+		.gs_el_ph .gs_qsuggest a {
+			display: block;
+			padding: 11px 29px 9px 0;
+			border-bottom: 1px solid #eee;
+		}
+
+		.gs_el_ph .gs_qsuggest li:first-child a {
+			border-top: 1px solid #eee;
+		}
+
+		.gs_el_ph .gs_qsuggest_wrap.gs_r li:last-child a {
+			border-bottom: 0;
+		}
+
+		.gs_el_ph .gs_qsuggest a:link,
+		.gs_el_ph .gs_qsuggest a:visited {
+			color: #222;
+		}
+
+		.gs_el_ph .gs_qsuggest a:hover,
+		.gs_el_ph .gs_qsuggest a:focus {
+			background: #f1f1f1;
+			text-decoration: none;
+			outline: none;
+		}
+
+		.gs_el_ph .gs_qsuggest li>a:after {
+			content: "";
+			position: absolute;
+			width: 7px;
+			height: 7px;
+			top: 50%;
+			margin-top: -4px;
+			right: 10px;
+			border: 2px solid #777;
+			border-left: none;
+			border-bottom: none;
+			transform: rotate(45deg);
+		}
+
+		#gs_md_albl-d {
+			width: 483px;
+		}
+
+		.gs_el_ph #gs_md_albl-d {
+			width: 100%;
+		}
+
+		.gs_lbl_btns {
+			display: flex;
+			justify-content: space-between;
+			padding: 18px 16px;
+		}
+
+		.gs_lbl_hide {
+			display: none;
+		}
+	</style>
+	<script>
+		!function(GSP){/*
+
+ Copyright The Closure Library Authors.
+ SPDX-License-Identifier: Apache-2.0
+*/
+var l,aa=function(a){var b=0;return function(){return b<a.length?{done:!1,value:a[b++]}:{done:!0}}},ba=function(a){var b="undefined"!=typeof Symbol&&Symbol.iterator&&a[Symbol.iterator];return b?b.call(a):{next:aa(a)}},ca="function"==typeof Object.create?Object.create:function(a){var b=function(){};b.prototype=a;return new b},da;
+if("function"==typeof Object.setPrototypeOf)da=Object.setPrototypeOf;else{var ea;a:{var fa={a:!0},ha={};try{ha.__proto__=fa;ea=ha.a;break a}catch(a){}ea=!1}da=ea?function(a,b){a.__proto__=b;if(a.__proto__!==b)throw new TypeError(a+" is not extensible");return a}:null}
+var ia=da,ja=function(a,b){a.prototype=ca(b.prototype);a.prototype.constructor=a;if(ia)ia(a,b);else for(var c in b)if("prototype"!=c)if(Object.defineProperties){var d=Object.getOwnPropertyDescriptor(b,c);d&&Object.defineProperty(a,c,d)}else a[c]=b[c];a.vb=b.prototype},ka=function(){},la=function(a){var b=typeof a;return"object"==b&&null!=a||"function"==b},ma=function(a,b){var c=Array.prototype.slice.call(arguments,1);return function(){var d=c.slice();d.push.apply(d,arguments);return a.apply(this,
+d)}};var p=function(){this.O=this.O;this.Z=this.Z};p.prototype.O=!1;p.prototype.isDisposed=function(){return this.O};p.prototype.xa=function(){this.O||(this.O=!0,this.ea())};p.prototype.ea=function(){if(this.Z)for(;this.Z.length;)this.Z.shift()()};function q(a,b){a.classList.add(b)}function r(a,b){a.classList.remove(b)}function u(a,b){return a.classList?a.classList.contains(b):!1}function v(a,b,c){c=void 0!==c?c:!u(a,b);(c?q:r)(a,b)};function x(a){return 0<=(navigator.userAgent||"").indexOf(a)}var na=x("iPhone")||x("iPad")||x("iPod"),oa=x("iPhone")||x("Android")&&x("Mobile");function pa(){if(void 0===b){var a=window.screen;a={width:window.innerWidth,height:window.innerHeight,tb:a.width,sb:a.height}}else a=b;var b=a;a=b.width;var c=b.height,d=b.tb;b=b.sb;var e=4;if(600>a||48E4>d*b||oa)e=1;else if(982>a)e=2;else if(1136>a||590>c)e=3;return e}var qa,ra=/[?&]tc=([01])/.exec(location.search||"");
+qa=ra?0<+ra[1]:x("Android")?!0:window.matchMedia&&window.matchMedia("(pointer)").matches?window.matchMedia("(pointer:coarse)").matches:!x("Firefox")||x("Mobile")||x("Tablet")?na||"ontouchstart"in window||0<(navigator.msMaxTouchPoints||0):!1;function sa(){if(void 0==ta){ta=!1;try{var a=Object.defineProperty({},"passive",{get:function(){ta=!0}});window.addEventListener("testPassive",ka,a);window.removeEventListener("testPassive",ka,a)}catch(b){}}return ta}var ta;var ua=function(a){this.ca=a},va=new ua("DIV"),wa=new ua("INPUT"),xa=new ua("SCRIPT"),ya=new ua("STYLE");function y(a){return document.getElementById(a)}function z(a){return a.id||(a.id="gs_id"+za++)}function A(a,b){return a.getAttribute(b)||""}function Aa(a){a=(void 0===a?null:a)||document.body;return"rtl"==(a?window.getComputedStyle(a,null):null).direction}
+function Ba(a,b){var c=[];a=a.elements;for(var d=a.length,e=0;e<d;e++){var f=a[e],h=encodeURIComponent(f.name||""),g=f.type;!h||b&&!b(f)||f.disabled||!("checkbox"!=g&&"radio"!=g||f.checked)||c.push(h+"="+encodeURIComponent(f.value||""))}return c.join("&")}function Ca(a,b){var c=a.elements[b];c||(c=document.createElement(wa.ca),c.type="hidden",c.name=b,a.appendChild(c));return c}function Da(a){a.match(Ea)&&(window.location.href=a)}var za=100,Fa=/\S+/g,Ea=/^(?:https?:|[^:/?#]*(?:[/?#]|$))/i,Ga=/^(?:#|\/[a-z0-9_-]*(?:[?].*)?$)/i;function Ha(a){return a.hasOwnProperty("gs_uid")?a.gs_uid:a.gs_uid=++Ia}var Ia=0;function Ja(a){var b=[];a=ba(a);for(var c=a.next();!c.done;c=a.next())c=c.value.charCodeAt(0),b.push(32>c||126<=c?c:String.fromCharCode(32+(c-32+47)%94));return b.join("")};var B=function(){this.j=[];this.T={};this.na=this.D=0};B.prototype.add=function(a){var b=Ha(a);this.T[b]||(this.j.push(a),this.T[b]=this.j.length,++this.D)};B.prototype.remove=function(a){a=Ha(a);var b=this.T[a];b&&(this.j[b-1]=null,delete this.T[a],2*--this.D<this.j.length&&!this.na&&Ka(this))};B.prototype.notify=function(a){var b=this.j;try{++this.na;for(var c=0;c<b.length;c++){var d=b[c];d&&d.apply(null,arguments)}}finally{!--this.na&&2*this.D<b.length&&Ka(this)}};
+var Ka=function(a){var b=a.j,c=b.length;a=a.T;for(var d=0,e=0;e<c;e++){var f=b[e];f&&(b[d]=f,a[Ha(f)]=++d)}b.length=d};function C(a,b,c,d,e){La(a,b,c,void 0===d?!1:d,void 0===e?!1:e,Ma)}function F(a,b,c,d){La(a,b,c,void 0===d?!1:d,!1,Na)}function Oa(a,b,c,d,e){function f(h){F(a,b,f,d);c(h)}d=void 0===d?!1:d;C(a,b,f,d,void 0===e?!1:e);return f}function Pa(a,b,c,d,e){var f=Oa(a,b,function(g){clearTimeout(h);c(g)}),h=setTimeout(function(){F(a,b,f);e&&e()},d)}function G(a){Qa?Qa.add(a):a()}var Ra=window.requestAnimationFrame?function(a){window.requestAnimationFrame(a)}:function(a){setTimeout(a,33)};
+function Sa(a){a.stopPropagation();a.preventDefault()}function Ta(a){return(a.ctrlKey?1:0)|(a.altKey?2:0)|(a.metaKey?4:0)|(a.shiftKey?8:0)}function Ma(a,b,c,d,e){var f=a.addEventListener;e=e&&sa();f.call(a,b,c,e?{passive:e,capture:d}:d)}function Na(a,b,c,d){a.removeEventListener(b,c,d)}function La(a,b,c,d,e,f){if("string"===typeof b)f(a,b,c,d,e);else for(var h=b.length,g=0;g<h;g++)f(a,b[g],c,d,e)}function Ua(){Qa.notify();Qa=null}
+function Va(){"complete"==document.readyState&&(F(document,"readystatechange",Va),Ua())}var Qa,Wa=!!document.attachEvent,Xa=document.readyState;if(Wa?"complete"!=Xa:"loading"==Xa)Qa=new B,Wa?C(document,"readystatechange",Va):Oa(document,"DOMContentLoaded",Ua);function Ya(){Oa(document,["mousedown","touchstart"],function(){v(document.documentElement,"gs_pfcs",!0);C(document,"keydown",Za,!0)},!0,!0)}
+function Za(a){9==a.keyCode&&(v(document.documentElement,"gs_pfcs",!1),F(document,"keydown",Za,!0),Ya())}Ya();function $a(a,b,c,d,e){var f=y(a);ab(f,function(){q(f,"gs_vis");b&&b()},function(){r(f,"gs_vis");c&&c()},d,e)}function ab(a,b,c,d,e){var f=z(a);if(!H[f]){var h=document.activeElement;bb(cb(a),!0);b&&b();I.push(function(g){delete H[f];try{g||(e||h).focus()}catch(k){}c&&c()});H[f]=I.length;h&&a.contains(h)||setTimeout(function(){var g=d,k=g&&"text"==g.type;if(!g||k&&qa)g=a;try{g.focus(),k&&(g.value=g.value)}catch(n){}},0)}}function K(a){bb((H[a]||1E6)-1,!1)}
+function db(a){a=void 0===a?!1:a;I.pop()(a)}function bb(a,b){for(b=void 0===b?!1:b;I.length>a;)db(b||I.length>a+1)}function cb(a){for(var b=0;a&&!(b=H[a.id]||0);)a=a.parentNode;return b}var I=[],H={};C(document,"click",function(a){var b=I.length;b&&!Ta(a)&&b>cb(a.target)&&db(!0)});C(document,"keydown",function(a){27==a.keyCode&&!Ta(a)&&I.length&&db()});
+C(document,"focus",function(a){var b=I.length;if(b)for(var c=cb(a.target);c<b;){var d="",e;for(e in H)if(H[e]==b){d=e;break}a:{d=(y(d).getAttribute("data-wfc")||"").match(Fa)||[];for(var f=0;f<d.length;f++){var h=y(d[f]);if(h&&h.offsetWidth){d=h;break a}}d=void 0}if(d){Sa(a);d.focus();break}else db(!0),--b}},!0);function eb(a,b,c,d){if((void 0===d?0:d)||!(c in fb)){a=a&&a.getItem(c);if(a)try{var e=JSON.parse(a)}catch(f){}b[c]=e}return b[c]}function gb(a,b,c,d){b[c]=d;try{a&&a.setItem(c,JSON.stringify(d))}catch(e){}}function hb(a,b){return eb(ib,fb,a,void 0===b?!1:b)}var fb={},ib,jb={},kb;try{ib=window.localStorage,kb=window.sessionStorage}catch(a){};function lb(a){return"object"==typeof a?a:null}function mb(a,b){b=nb(b);a=ob(a);a=pb(a)||"#";qb=lb(b);rb?window.history.pushState(b,"",a):window.location.assign(a)}function sb(a,b){b=nb(b);a=ob(a);a=pb(a)||"#";qb=lb(b);rb?window.history.replaceState(b,"",a):window.location.replace(a)}function pb(a){var b=[],c;for(c in a)b.push(encodeURIComponent(c)+"="+encodeURIComponent(a[c]));return(a=b.sort().join("&"))?"#"+a:""}
+function tb(a){var b={};a=a.split("&");for(var c=0;c<a.length;c++){var d=a[c],e=d.indexOf("=");if(e+1){var f=d.substr(0,e);d=d.substr(e+1)}else f=d,d="";f&&(b[decodeURIComponent(f)]=decodeURIComponent(d))}return b}function ub(){var a=window.location.hash,b=a.indexOf("#")+1;return tb(b?a.substr(b):"")}function vb(a){var b=a.indexOf("?")+1;a=b?a.substr(b):"";b=a.indexOf("#");return tb(b+1?a.substr(0,b):a)}function wb(a,b){for(var c in b){var d=b[c];void 0!==d?a[c]=d:delete a[c]}}
+function ob(a){var b=ub();wb(b,a);return b}function nb(a){var b=qb||lb(window.history.state),c={},d;for(d in b)c[d]=b[d];wb(c,a);return c}function xb(){setTimeout(function(){if(!yb){var a=window.history.state;yb=!0;qb=lb(a);zb.notify()}Ab=!1},0)}var zb=new B,qb,yb=!1,Ab=!0,rb="pushState"in window.history,Bb;
+if("undefined"==typeof GSP)Bb=!1;else{var Cb=.001*Date.now(),Db=GSP.eventId,Eb=!1,L=eb(kb,jb,"nh",!1);L instanceof Array||(L=[]);for(var Fb=L.length,Gb=0,Hb=0;Hb<Fb;Hb++){var Ib=L[Hb];if(Ib instanceof Array&&2==Ib.length){var Jb=Ib[1]==Db;Eb=Eb||Jb;10>=Fb-Hb&&+Ib[0]>Cb-86400&&!Jb&&(L[Gb++]=Ib)}}L.length=Gb;L.push([Cb,Db]);gb(kb,jb,"nh",L);Bb=Eb}var Kb=Bb;"onpageshow"in window?C(window,"pageshow",xb):G(xb);
+C(window,rb?"popstate":"hashchange",function(a){"loading"!=document.readyState&&(a=a.state,yb=!0,qb=lb(a),zb.notify())});function Lb(){Mb&&(F(y("gs_alrt_l"),"click",Mb),Mb=void 0)}function Nb(a){var b=void 0===b?"":b;var c=void 0===c?"":c;var d=void 0===d?[]:d;y("gs_alrt_m").innerHTML=a;Ob().action=c.match(Ea)?c:"";a=y("gs_alrt_l");a.textContent=b;b=y("gs_alrt_h");b.innerHTML="";for(var e in d)c=document.createElement("input"),c.type="hidden",c.name=e,c.value=d[e],b.appendChild(c);Lb();v(a,"gs_fm_s",!0);Pb()}
+function Pb(){var a=Ob();q(a,"gs_anm");q(a,"gs_vis");C(document,"click",Qb);clearTimeout(Rb);Rb=setTimeout(Qb,4E3);++Ub;setTimeout(Vb,0)}function Qb(){Ub||(F(document,"click",Qb),clearTimeout(Rb),Rb=void 0,Lb(),r(Ob(),"gs_vis"))}function Ob(){return y("gs_alrt")}function Vb(){Ub=0}var Rb,Ub=0,Mb;G(function(){var a=y("gs_alrt_m");a&&(a.innerHTML&&!Kb&&Pb(),C(window,"pagehide",function(){Ub=0;Qb();r(Ob(),"gs_anm")}))});function M(a,b,c){b=void 0===b?Wb:b;c=void 0===c?!1:c;b.length=0;a.normalize&&(a=a.normalize("NFKD").replace(Xb,""));return a.toLowerCase().replace(Yb,function(d,e){b.length||e&&b.push(0);b.push(d.length);return e&&(!c||e+d.length<a.length)?" ":""})}function Zb(a,b,c,d,e){var f=c.indexOf(a),h="",g="";0<f&&(f=c.indexOf(" "+a));!(a&&f+1)||void 0!==e&&e&&f||(f+=" "==c[f],h=$b(c.substr(0,f),b,d),g=$b(c.substr(0,f+a.length),b,d).substr(h.length));return[h,g,b.substr(h.length+g.length)]}
+function $b(a,b,c){var d=a.length;for(a=a.split(" ").length;a--;)d+=(c[a]||0)-1;return b.substr(0,d+1)}var Wb=[],Xb=/[\u0300-\u036f]+/g,Yb=RegExp("[\\s\x00-/:-@[-`{-\u00bf\u2000-\u206f\u2e00-\u2e42\u3000-\u303f\uff00-\uff0f\uff1a-\uff20\uff3b-\uff40\uff5b-\uff65]+","g"),ac=/^[\d\s]*[\u0590-\u08ff\ufb1d-\ufdff\ufe70-\ufefc]/;var bc=function(a,b,c,d,e,f,h){e=void 0===e?[]:e;this.o=a;this.source=b;this.Ba=void 0===c?"":c;this.m=void 0===d?"":d;this.K=e;this.ob=void 0===f?"":f;this.Ea=void 0===h?"":h};var cc=function(){this.Ka=100;this.D=0;this.J=this.H=null;this.X=Object.create(null)};cc.prototype.get=function(a){if(a=this.X[a])return dc(this,a),a.value};cc.prototype.set=function(a,b){var c=this.X[a];c?(c.value=b,dc(this,c)):(this.D>=this.Ka&&(delete this.X[this.J.key],this.J=this.J.I,this.J.Y=null,--this.D),c=this.X[a]={key:a,value:b,Y:this.H,I:null},this.H?this.H.I=c:this.J=c,this.H=c,++this.D)};var dc=function(a,b){var c=b.Y,d=b.I;d&&((d.Y=c)?c.I=d:a.J=d,a.H.I=b,b.Y=a.H,b.I=null,a.H=b)};function N(a,b,c){var d=new XMLHttpRequest;d.onreadystatechange=function(){if(4==d.readyState){var e=d.status,f=d.responseText,h=d.getResponseHeader("Content-Type"),g=d.responseURL,k=window.location,n=k.protocol;k="//"+k.host+"/";g&&g.indexOf(n+k)&&g.indexOf("https:"+k)&&(e=0,h=f="");c(e,f,h||"")}};d.open(b?"POST":"GET",a,!0);d.setRequestHeader("X-Requested-With","XHR");b&&d.setRequestHeader("Content-Type","application/x-www-form-urlencoded");b?d.send(b):d.send();return d}
+function ec(a){a&&(a.onreadystatechange=ka,a.abort())};var fc=function(a,b){this.pb=a;this.Ha=b;this.S=this.R=0;this.pa=this.qa="";this.ra=void 0;this.wa=new cc},ic=function(a,b,c){var d=b?a.wa.get(gc(a,b,c)):[];d?a.Ha(b,c,d):(a.qa=b,a.pa=c,10<=a.R||3<=a.S||(a.R?void 0!==a.ra||(a.ra=setTimeout(function(){hc(a)},100<<Math.max(a.R-4,0))):hc(a)))},hc=function(a){a.ra=void 0;var b=a.qa,c=a.pa;a.qa=a.pa="";if(b){++a.R;var d=new XMLHttpRequest;d.onreadystatechange=function(){if(d&&4==d.readyState){var e=d.status;200==e&&a.ka(b,c,d.responseText);d=null;jc(a,
+e)}};d.ontimeout=function(){d&&(d=null,jc(a))};d.open("GET",gc(a,b,c),!0);d.timeout=3E4;d.send()}},jc=function(a,b){b=void 0===b?0:b;--a.R;var c=3*(403==b)+(499<b&&600>b);a.S+=c;c&&setTimeout(function(){a.S-=c},3E4)};
+fc.prototype.ka=function(a,b,c){try{var d=JSON.parse(c)}catch(t){}if(d&&"object"==typeof d&&(c=d.l,c instanceof Array)){d=[];for(var e=c.length,f=0;f<e;f++){var h=d,g=h.push,k=""+c[f],n=k.indexOf("|");var m=k.substr(0,n);var w=M(m);k=k.substr(n+1);n=[];m=new bc(k,0,"",M(k,n),n,m,w);g.call(h,m)}this.wa.set(gc(this,a,b),d);this.Ha(a,b,d)}};var gc=function(a,b,c){return"/scholar_complete?"+encodeURIComponent(a.pb)+"="+encodeURIComponent(b)+"&"+c};var lc=function(a){this.Ia="H:"+a;this.B=[];this.nb=.001*Date.now();a=hb(this.Ia);a instanceof Array||(a=[]);for(var b=this.B,c={"":1},d=0;d<a.length&&50>b.length;d++){var e=new kc(a[d]);c.hasOwnProperty(e.m)||(c[e.m]=1,b.push(e))}};
+lc.prototype.add=function(a,b,c){c=(void 0===c?0:c)||.001*Date.now();b=(void 0===b?0:b)||c;a=new kc([0,0,a]);if(a.m){for(var d=this.B,e=d.length,f=0;f<e&&d[f].m!=a.m;)++f;f<e||d.push(a);e=d[f];if(!(2>b-e.A)){e.A=b;e.o=a.o;e.K=a.K;for(e.C=Math.min(e.C+mc(b),10*mc(c));f&&nc(d[f],d[f-1]);)a=d[f],d[f]=d[f-1],d[--f]=a;d.splice(50,1);oc(this)}}};lc.prototype.remove=function(a){for(var b=this.B,c=b.length,d=0;d<c;d++)if(b[d].o==a){b.splice(d,1);oc(this);break}};
+var oc=function(a){for(var b=[],c=a.B,d=c.length,e=0;e<d;e++)b.push(c[e].encode());gb(ib,fb,a.Ia,b)};function mc(a){return Math.exp(.0231*(Math.max(a-1422777600,0)/86400|0))}var kc=function(a){a instanceof Array||(a=pc);this.A=+a[0]||0;this.C=+a[1]||0;this.o=""+a[2];this.K=[];this.m=M(this.o,this.K,!0)};kc.prototype.encode=function(){return[this.A,this.C,this.o]};
+var nc=function(a,b){var c=a.C-b.C;return 0<c||!c&&a.A>b.A},pc=[0,0,""],qc=function(a,b,c){this.A=a;this.C=b;this.o=c},rc=function(a,b){var c=a.C-b.C;return 0<c||!c&&a.A>b.A};var sc=function(a){this.v=a};function tc(a){var b=document.createElement("b");b.textContent=a;return b};var uc=function(a,b,c){this.type=a;this.currentTarget=this.target=b;this.i=void 0===c?null:c;this.sa=!1};uc.prototype.stopPropagation=function(){this.i&&this.i.stopPropagation();this.sa=!0};var O=function(a){a.i&&Sa(a.i);a.sa=!0};var P=function(a,b){this.ua=a;this.mb=b},vc=function(a,b,c){this.ua=a;this.types=b;this.listener=c};function wc(a,b){S(a,"click",b)}function T(a,b){var c=b.length;if(c){var d=Ha(a),e=xc[d];if(!e){e=xc[d]=[];d=yc(b[0].ua);for(var f in d){var h=zc[f];h||(h=zc[f]=Object.create(null));for(var g in d[f]){var k=h[g];k||(k=h[g]=[]);k.push(a)}}Ac(a,e,b[0],Bc);for(f=1;f<c;f++)Ac(a,e,b[f],Cc)}}}function U(a,b,c){Dc(new uc(a,b,void 0===c?null:c))}
+function S(a,b,c){var d=Ec;"string"===typeof b&&(Fc[0]=b,b=Fc);var e=b.length;a=yc(a);for(var f in a)for(var h in a[f])for(var g=0;g<e;g++)d(f,h,b[g],c)}function yc(a){"string"===typeof a&&(Gc[0]=a,a=Gc);for(var b=a.length,c=Object.create(null),d=0;d<b;d++){var e=a[d],f=e.charAt(0),h=e.substr(1);if("#"!=f&&"."!=f||!h)throw Error("bad selector: "+e);(e=c[f])||(e=c[f]=Object.create(null));e[h]=!0}return c}
+function Ec(a,b,c,d){var e=Hc[c];e||("touchstart"!=c&&"mouseover"!=c&&"mouseout"!=c&&C(document,c,Ic,"focus"==c||"blur"==c),e=Hc[c]=Object.create(null));(c=e[a])||(c=e[a]=Object.create(null));(a=c[b])||(a=c[b]=new B);a.add(d)}function Ic(a){var b=a.target;b&&3==b.nodeType&&(b=b.parentNode);Dc(new uc(a.type,b,a))}
+function Dc(a){for(var b=a.target;b&&b!=document&&!b.disabled&&!u(b,"gs_dis");){a.currentTarget=b;var c=b.id;if(c&&!Jc("#",c,a))break;c=b.classList||[];for(var d=c.length,e=0;e<d;e++)if(!Jc(".",c[e],a))return;b=b.parentNode}}function Jc(a,b,c){var d=Hc[c.type];(b=(a=d&&d[a])&&a[b])&&b.notify(c);return!c.sa}function Ac(a,b,c,d){var e=c.ua;c=c.mb;for(var f in c){var h=ma(d,a,c[f]);S(e,f,h);b.push(new vc(e,f,h))}}function Bc(a,b,c){var d=c.currentTarget;a=Kc(a,d)||a;a=Lc(a,d);b.call(a,c)}
+function Cc(a,b,c){a:{for(var d=c.currentTarget;d&&d!=document;){var e=Kc(a,d);if(e){a=Lc(e,d);break a}d=d.parentNode}a=void 0}a&&b.call(a,c)}function Lc(a,b){var c=Mc(b),d=Nc[c];d||(d=Nc[c]=[]);for(var e=d.length,f=0;f<e;f++){var h=d[f];if(h instanceof a)return h}b=new a(b);d.push(b);a=Ha(a);(d=Oc[a])||(d=Oc[a]=[]);d.push(c);return b}function Kc(a,b){var c,d=b.id;d&&(c=Pc(a,c,"#",d));b=b.classList||[];d=b.length;for(var e=0;e<d;e++)c=Pc(a,c,".",b[e]);return c}
+function Pc(a,b,c,d){c=(d=(c=zc[c])&&c[d])?d.length:0;for(var e=0;e<c;e++){var f=d[e];!(f===a||f.prototype instanceof a)||b&&!(f===b||f.prototype instanceof b)||(b=f)}return b}function Mc(a){var b=a.getAttribute("data-duid");b||a.setAttribute("data-duid",b=""+Qc++);return b}var Hc=Object.create(null),Gc=[""],Fc=[""],zc=Object.create(null),xc=Object.create(null),Oc=Object.create(null),Nc=Object.create(null),Qc=100;window.gs_evt_dsp=Ic;function Rc(a){if("string"===typeof a){var b=a.charAt(0),c=a.slice(1);if("#"==b)a=function(d){return d.id==c&&0<d.offsetWidth};else if("."==b)a=function(d){return u(d,c)&&0<d.offsetWidth};else throw Error("bad selector: "+a);}return a}function Sc(a,b){return a&&((void 0===b?0:b)?a.lastElementChild:a.firstElementChild)}function Tc(a,b){return a&&((void 0===b?0:b)?a.previousElementSibling:a.nextElementSibling)}function Uc(a,b,c,d){d=void 0===d?!1:d;return Vc(a,b,Rc(c),d,!1)}
+function Vc(a,b,c,d,e){for(var f;b&&a;){if(c(b)){if(e)return b}else for(f=Sc(b,d);f;f=Tc(f,d))if(e=Vc(f,f,c,d,!0))return e;for(e=!0;;){if(b==a)return null;f=b.parentNode;if(b=Tc(b,d))break;b=f}}return null};var V=function(a){var b=this;this.g=a.querySelector(".gs_in_ac");this.v=a.querySelector(".gs_md_ac");this.P=this.G=!1;this.B=new lc(this.g.name);this.Na=new fc(this.g.name,function(c,d,e){d==b.$&&Wc(b,c)&&(c.length>=b.aa.length||!Wc(b,b.aa))&&(b.aa=c,b.ta=e,Xc(b))});this.Fa=0;this.qb=new sc(this.v);this.Ca=[];this.Da=[];this.aa="";this.ta=[];this.$="";this.F=this.g.value;Yc(this);C(this.g.form,["change","gs-change"],function(){Yc(b)})},Zc=function(a){return"block"==a.v.style.display},ad=function(a){if(Zc(a)){var b=
+$c(a);b&&r(b,"gs_sel");a.G=a.P=!1;a.v.style.display="none"}},bd=function(a,b,c){c=void 0===c?[]:c;a.Ca=c;c=a.B;var d=M(b);var e=" "+d,f=d.length,h=d.split(" ").length,g=.1/mc(c.nb),k=c.B,n=k.length;c=[];for(var m=0;m<n;m++){var w=k[m],t=w.m,D=t.indexOf(d);if(!(0>D)){var J=10;D&&(D=t.lastIndexOf(e),J=+(0<=D));t=J*(2*(h-1)+(1+(" "==(t[D+f]||" "))))/h;D=w.C*g;if(t=d?t*D:1){w=new qc(w.A,t,w.o);for(t=0;t<c.length&&!rc(w,c[t]);)++t;3>t&&c.splice(t,0,w);c.splice(3,1)}}}d=[];for(e=0;e<c.length;e++)f=d,h=
+f.push,g=c[e].o,k=[],g=new bc(g,2,"",M(g,k),k),h.call(f,g);a.Da=d;ic(a.Na,b,a.$);Xc(a)},Wc=function(a,b){return 0==M(a.g.value).indexOf(M(b))},cd=function(a){var b=a.g.value;a.F=b;Yc(a);var c=[],d=a.g.getAttribute("data-iq")||"",e=a.g.getAttribute("data-is");if(d==b&&e){d=document.querySelectorAll(e);e=d.length;for(var f=0;f<e&&10>f;f++){var h=d[f];c.push(new bc(h.textContent,1,h.innerHTML))}}bd(a,b,c)},Xc=function(a){a.Fa++||Ra(function(){a.Fa=0;var b=a.Ca;var c=a.ta;if(b.length)b=b.slice(0,10);
+else{b=a.Da.slice(0,3);var d=c.length&&c[0].Ea,e=d?3:10,f=b.length;if(!f||!d){for(d=Object.create(null);f--;)d[b[f].m]=!0;for(f=0;f<c.length&&b.length<e;f++){var h=c[f];d[h.m]||b.push(h)}}}c=b;var g=a.g.value,k=a.qb.v.firstElementChild;h=k.querySelector(".gs_md_acs");b=k.querySelector("ul");e=(e=b.querySelector(".gs_sel"))?e.getAttribute("data-q"):"";f=c.length;var n=[];d=M(g,n);b.innerHTML="";if(f){var m=c[0].Ea,w=m&&"gs_md_acp";"string"===typeof w||(w=w.join(" "));k.className!=w&&(k.className=w);
+g=Zb(m,g,d,n,!0);h.textContent=g[0]+g[1];g=g[2];d=M(g,n);for(h=0;h<f;h++){m=c[h];k=document.createElement("li");n=(m.ob||"")+m.o;k.className="gs_md_ac_li";k.setAttribute("data-q",n);k.setAttribute("onclick","");if(m.Ba)k.innerHTML=m.Ba;else{g=Zb(d,m.o,m.m,m.K);if(!g[1]){for(g=0;m.m[g]==d[g];)++g;g=Zb(d.substr(0,g),m.o,m.m,m.K)}g[0]&&k.appendChild(tc(g[0]));k.appendChild(document.createTextNode(g[1]));g[2]&&k.appendChild(tc(g[2]));2==m.source&&(q(k,"gs_md_ac_lh"),g=document.createElement("span"),g.className=
+"gs_ico gs_ico_X gs_ico_Xt",k.appendChild(g))}n==e&&q(k,"gs_sel");b.appendChild(k)}}c=c.length&&document.activeElement==a.g;c!=Zc(a)&&(c?Zc(a)||(a.G=a.P=!1,a.v.style.display="block"):ad(a))})},$c=function(a){return a.v.querySelector(".gs_sel")},ed=function(a,b){var c=a.g.getAttribute("data-oq")||"oq",d=a.g.form,e=d.elements[c];e||(e=document.createElement("input"),e.name=c,e.type="hidden",d.appendChild(e));e.value=a.F;a.g.value=dd(b)},fd=function(a){U("gs-change",a.g)};l=V.prototype;
+l.cb=function(){var a=this.g.value;this.F!=a&&(this.F=a,bd(this,a),gd(this.g,M(a).match(ac)?"rtl":"ltr"))};
+l.ia=function(a){if(!this.P){var b=a.i,c=b.keyCode;b=Ta(b);var d;13!=c||b?27!=c||b?38!=c&&40!=c||b?(46==c&&!b||88==c&&(1==b||4==b))&&(d=$c(this))&&u(d,"gs_md_ac_lh")&&(this.g.selectionStart||0)>=this.g.value.length&&(this.B.remove(dd(d)),bd(this,this.g.value=this.F),O(a),fd(this)):(Zc(this)?((d=$c(this))&&r(d,"gs_sel"),(d=Uc(this.v,d||this.v,".gs_md_ac_li",38==c))?(q(d,"gs_sel"),this.g.value=dd(d)):this.g.value=this.F,fd(this)):cd(this),O(a)):Zc(this)&&(this.g.value=this.F,ad(this),O(a),fd(this)):
+((d=$c(this))&&ed(this,d),ad(this),fd(this))}};l.ja=function(){var a=this;document.activeElement==this.g?cd(this):(clearTimeout(this.oa),this.oa=setTimeout(function(){a.oa=void 0},500))};l.bb=function(){void 0!==this.oa&&cd(this)};l.Qa=function(){var a=this;setTimeout(function(){ad(a)},this.G?300:0)};l.Pa=function(a){this.G&&O(a)};l.$a=function(){this.P=!0};l.Za=function(){this.P=!1};var Yc=function(a){var b=a.g,c=Ba(b.form,function(d){return d!=b});c!=a.$&&(a.$=c,a.aa="",a.ta=[])};l=V.prototype;
+l.Ua=function(a){this.G=!0;O(a)};l.Va=function(){this.G=!0};l.ga=function(){this.G=!1};l.Ra=function(a){var b=a.currentTarget;if(u(a.target,"gs_ico_X"))this.B.remove(dd(b)),bd(this,this.g.value=this.F);else{ed(this,b);ad(this);this.g.blur();var c=this.g.form;setTimeout(function(){c.submit()},0)}fd(this)};l.Ta=function(a){a=a.currentTarget;if(!u(a,"gs_sel")){var b=$c(this);b&&r(b,"gs_sel");q(a,"gs_sel")}};l.Sa=function(a){r(a.currentTarget,"gs_sel")};
+var hd=[new P(".gs_in_acw",{}),new P(".gs_in_ac",{input:V.prototype.cb,keydown:V.prototype.ia,mousedown:V.prototype.ja,focus:V.prototype.bb,blur:V.prototype.Qa,beforedeactivate:V.prototype.Pa,compositionstart:V.prototype.$a,compositionend:V.prototype.Za}),new P(".gs_md_ac",{mousedown:V.prototype.Ua,touchstart:V.prototype.Va,mouseup:V.prototype.ga,touchend:V.prototype.ga,touchcancel:V.prototype.ga}),new P(".gs_md_ac_li",{click:V.prototype.Ra,mouseover:V.prototype.Ta,mouseout:V.prototype.Sa})];
+function dd(a){return a.getAttribute("data-q")||""}function gd(a,b){a.getAttribute("dir")!=b&&(a.setAttribute("dir",b),a.parentNode.setAttribute("dir",b),a.parentNode.querySelector(".gs_md_ac").setAttribute("dir",b))}function id(){for(var a=document.querySelectorAll(".gs_in_ac"),b=a.length,c=0;c<b;c++){var d=a[c],e=d.getAttribute("data-iq")||"";d.value=e;gd(d,M(e).match(ac)?"rtl":"ltr");U("gs-change",d);e=d.getAttribute("data-oq")||"oq";(e=d.form.elements[e])&&d.form.removeChild(e)}};function jd(a){return!!u(a,"gs_sel")+2*!!u(a,"gs_par")}function kd(a,b,c){c=void 0===c?!1:c;v(a,"gs_sel",1==b);v(a,"gs_par",2==b);a.setAttribute("aria-checked",ld[b]);c||a.setAttribute("data-s",""+b)}var ld=["false","true","mixed"];var md=function(a){var b=window,c=this;this.j=new B;this.Ga=0;this.va=[b,a,function(){c.Ga++||Ra(d)},!1];var d=function(){c.Ga=0;c.j.notify()}};md.prototype.addListener=function(a){this.j.D||C.apply(null,this.va);this.j.add(a)};md.prototype.removeListener=function(a){this.j.remove(a);this.j.D||F.apply(null,this.va)};var nd=new md("scroll"),od=new md("resize");var pd=new B;function qd(){var a=document.documentElement,b=pa();b={gs_el_ph:1==b,gs_el_ta:2==b,gs_el_sm:4!=b,gs_el_tc:qa||1==b};var c;for(c in b){var d=b[c];if(u(a,c)!=d){var e=!0;v(a,c,d)}}e&&pd.notify()}v(document.documentElement,"gs_el_ios",na);qd();od.addListener(qd);C(window,["pageshow","load"],qd);function rd(a,b,c,d){function e(){var E=D&&u(h,"gs_el_ph");v(w,"gs_vis",!E);h.style.overflowY=Ue&&!E?"scroll":""}function f(){var E=h.clientHeight,Q=+t.getAttribute("data-h");Q||(n.style.maxHeight="none",Q=k.offsetHeight);var R=k.querySelector(".gs_md_ftr");Q=Math.max((E-Q)/2,10);E=Math.max(E-48-(R?R.offsetHeight:0)-2*Q,10);R=D&&u(h,"gs_el_ph");k.style.top=R?"auto":Q+"px";n.style.maxHeight=R?"none":E+"px";sd(n)}b=void 0===b?"":b;c=void 0===c?"":c;d=void 0===d?"":d;var h=document.documentElement,g=
+y("gs_top"),k=y(a),n=y(a+"-bdy"),m=y(k.getAttribute("data-cid")||k.id+"-bdy")||k,w=y(k.getAttribute("data-shd")||"gs_md_s"),t=td(k),D=!!t&&u(t,"gs_md_wmw"),J=window.pageYOffset,Ue=g.scrollHeight>h.clientHeight,Sb=!!H[a],Tb=Sb?"":W,wd=b&&"#"!=b[0]&&!d,We=a==W&&b==ud&&c==vd;wd?(Sb?v(m,"gs_md_ldg",!0):xd(k,m,'<div class="gs_md_prg">'+y("gs_md_ldg").innerHTML+"</div>"),U("gs-md-ldin",m)):(d&&xd(k,m,d),U("gs-md-lded",m));Tb&&(++yd,K(Tb),--yd);W=a;ud=b;vd=c;zd=d;We||yd||(Ad+=1,(Tb?sb:mb)(Bd(),Cd()));Sb||
+ab(k,function(){t&&q(t,"gs_vis");q(k,"gs_vis");v(k,"gs_abt",Ab);Dd(a);pd.add(e);e();t&&n&&(f(),od.addListener(f));q(g,"gs_nscl");g.style.top=-J+"px"},function(){pd.remove(e);od.removeListener(f);t&&r(t,"gs_vis");r(k,"gs_vis");r(k,"gs_abt");r(w,"gs_vis");h.style.overflowY="";r(g,"gs_nscl");g.style.top="auto";ec(X);X=null;window.scrollTo(0,J);W=ud=vd=zd="";var E=Ad;Ad=0;yd||(0<E?window.history.go(-E):sb(Bd(),Cd()))},Ed(k),Fd(k));wd&&(ec(X),X=null,X=N(b,c,function(E,Q,R){X=null;R=(E=200==E&&R.match(/^text\/html(;.*)?$/i))?
+Q:Gd();xd(k,m,R);E&&a==W&&b==ud&&c==vd&&(zd=Q,sb(Bd(),Cd()));U("gs-md-lded",m)}))}function td(a){a=a.parentNode;return u(a,"gs_md_wnw")?a:null}function Ed(a){return(a=a.getAttribute("data-ifc"))?y(a):null}function Fd(a){return(a=a.getAttribute("data-cfc"))?y(a):null}
+function xd(a,b,c){v(b,"gs_md_ldg",!1);for(var d=b.querySelectorAll("[data-duid]"),e=d.length,f={},h=0;h<e;h++){for(var g=Mc(d[h]),k=Nc[g],n=k?k.length:0,m=0;m<n;m++){var w=k[m],t=Ha(w.constructor),D=f[t];D||(D=f[t]={});D[g]=!0;w&&"function"==typeof w.xa&&w.xa()}delete Nc[g]}for(var J in f){J=+J;d=f[J];h=(e=Oc[J])?e.length:0;for(k=g=0;k<h;k++)n=e[k],n in d||(e[g++]=n);g?e.length=g:delete Oc[J]}b.innerHTML=c;Dd(a.id);ec(X);X=null}
+function Dd(a){if(a=document.querySelector("#"+a+">.gs_md_bdy"))a.scrollTop=a.scrollLeft=0,sd(a)}function sd(a){var b=a.style,c="padding"+(Aa(a)?"Left":"Right");b[c]="";var d=a.offsetWidth-a.clientWidth;2<d&&(a=parseInt(window.getComputedStyle(a,null)[c],10)||0,b[c]=Math.max(a-d,0)+"px")}function Hd(){return y("gs_md_err").innerHTML}function Gd(){return'<div class="gs_md_prg"><div class="gs_alrt">'+Hd()+"</div></div>"}function Bd(){return{d:W||void 0,u:ud||void 0,p:vd?"1":void 0}}
+function Cd(){return{n:Ad,p:vd,h:zd}}var X=null,W="",ud="",vd="",zd="",Ad=0,yd=0;zb.add(function(){var a=ub(),b=a.d||"",c=b?y(b):null;++yd;if(c){c=a.u||"";a=0<+a.p;var d=qb||lb(window.history.state)||{},e=+d.n||0,f=""+(d.p||"");d=""+(d.h||"");c.match(Ga)||(c="");a!=!!f?rd(b,"","",Gd()):b==W&&c==ud&&f==vd&&d==zd||rd(b,c,f,d);Ad=e}else W&&K(W);--yd});var Id=function(a){p.call(this);this.W=a;this.la=Object.create(null);this.V=null;a=a.querySelectorAll(".gs_in_txtw>input[type=text]");for(var b=a.length;b--;){var c=a[b],d=c.parentNode.querySelector(".gs_in_txts");c=c.name;d&&c&&(this.la[c]=d.innerHTML)}};ja(Id,p);Id.prototype.ea=function(){ec(this.V);this.W=this.V=null;p.prototype.ea.call(this)};Id.prototype.ib=function(a){var b=this;O(a);if((a=this.W)&&!this.V){var c="json=&"+Ba(a);Jd(this,!0);this.V=N(a.action,c,function(d,e){b.ka(d,e)})}};
+Id.prototype.ka=function(a,b){this.V=null;Jd(this,!1);var c=this.W,d=c.getAttribute("data-alrt");if(d=d?y(d):null)d.innerHTML="";try{var e=200==a&&JSON.parse(b)}catch(w){}a=!1;e&&"object"==typeof e||(a=Hd(),d?d.innerHTML=a:Nb(a),e={},a=!0);if(b=e.L)Da(""+b);else{if(b=e.M)d?d.innerHTML=b:Nb(b),a=!0;b=1E6;if(d&&d.innerHTML){var f=d;b=d.getBoundingClientRect().top}d=c.elements;e=e.E;"object"==typeof e||(e=Object.create(null));for(var h in this.la){var g=d[h],k=void 0,n=""+(e[h]||""),m=g.parentNode.querySelector(".gs_in_txts");
+v(g.parentNode,"gs_in_txte",!!n);m&&(m.innerHTML=n||this.la[h]||"");n&&(k=g.getBoundingClientRect().top)<b&&(f=g,b=k);a=a||!!n}(c=c.getAttribute("data-d"))&&!a&&K(c);f&&f.scrollIntoView&&(0>b||b+20>window.innerHeight)&&f.scrollIntoView()}};var Jd=function(a,b){a=a.W;var c=a.getAttribute("data-bsel");a=c?document.querySelectorAll(c):a.querySelectorAll("button");for(c=a.length;c--;){var d=a[c];d.disabled=b;v(d,"gs_bsp",b)}};T(Id,[new P(".gs_ajax_frm",{submit:Id.prototype.ib})]);var Kd=[[1,0,1],[2,0,1]];S(".gs_cb_gen","click",function(a){var b=a.currentTarget,c=jd(b),d=2==+b.getAttribute("data-s");kd(b,Kd[+d][c],!0);U("gs-change",b,a.i)});S(".gs_cb_gen",["keydown","keyup"],function(a){var b=a.currentTarget,c=a.i.keyCode;"BUTTON"!=b.tagName||13!=c&&32!=c||(O(a),"keydown"==a.type&&b.click())});S([".gs_cb_gen",".gs_md_li"],"keydown",function(a){var b=a.currentTarget,c=b.tagName,d=a.i.keyCode;"BUTTON"!=c&&(32==d||13==d&&"A"!=c)&&(O(a),b.click())});var Ld=["click","contextmenu","mouseup"].concat(navigator.sendBeacon?[]:["mousedown","touchstart"]),Md="",Nd=null;function Od(){Nd=null}function Pd(a){navigator.sendBeacon?navigator.sendBeacon(a):Nd&&a==Nd.src||((Nd=new Image).src=a,setTimeout(Od,1E3))}function Qd(){var a=vb(document.location.href).hl||"";a="/scholar_bfnav?url="+encodeURIComponent(document.location.href)+"&hl="+encodeURIComponent(a)+"&ei="+GSP.eventId;Pd(a)}G(function(){Md=Kb?"&bn=1":"";Kb&&Qd()});
+C(window,"pageshow",function(a){a.persisted&&(Md="&bn=1",Qd())});
+C(document,Ld,function(a){if(!("click"==a.type&&a.button||"mouseup"==a.type&&1!=a.button)){var b,c;a:{for(a=a.target;a;){var d=a.nodeName;if("A"==d)break a;if("SPAN"==d||"B"==d||"I"==d||"EM"==d||"IMG"==d)a=a.parentNode;else break}a=null}a&&(b=a.getAttribute("href"))&&(c=a.getAttribute("data-clk"))&&(b="/scholar_url?url="+encodeURIComponent(b)+"&"+c+"&ws="+window.innerWidth+"x"+window.innerHeight+"&at=",c=encodeURIComponent,a=(a=a.getAttribute("data-clk-atid"))&&y(a),b=b+c(a&&a.innerText||"")+Md,Pd(b))}},
+!1,!0);S(".gs_fm_s","click",function(a){a=a.currentTarget.getAttribute("data-fm")||"";(a=y(a))&&a.submit()});var Rd=function(a){this.N=z(a.querySelector(".gs_md_d"));this.da=z(a.querySelector(".gs_md_tb"))};l=Rd.prototype;l.fa=function(a){var b=y(this.N);return void 0!==a?Uc(b,b,".gs_md_li",a):null};l.open=function(a){a=this.fa(a);if(u(y(this.da),"gs_sel"))try{a&&a.focus()}catch(c){}else{var b=y(this.da);$a(this.N,function(){q(b,"gs_sel")},function(){r(b,"gs_sel")},a,b)}};l.close=function(){K(this.N)};l.Wa=function(a){O(a);u(y(this.da),"gs_sel")?this.close():this.open("keydown"==a.i.type?!1:void 0)};
+l.za=function(a){var b=a.i.keyCode;if(38==b||40==b)O(a),this.open(38==b)};l.ab=function(a){a.target.id==this.N&&this.za(a)};T(Rd,[new P(".gs_md_rmb",{}),new P(".gs_md_tb",{"gs-press":Rd.prototype.Wa,keydown:Rd.prototype.za}),new P(".gs_md_d",{keydown:Rd.prototype.ab})]);var Sd=function(a){Rd.call(this,a);this.kb=z(a.querySelector(".gs_md_in"));this.lb=z(a.querySelector(".gs_md_tb .gs_lbl"))};ja(Sd,Rd);Sd.prototype.fa=function(){return y(this.N).querySelector(".gs_md_li[aria-selected]")};Sd.prototype.eb=function(a){Td(this,a)};Sd.prototype.ha=function(a){var b=a.i.keyCode;13!=b&&32!=b||Td(this,a)};
+var Td=function(a,b){var c=b.currentTarget,d=y(a.kb),e=a.fa();c!=e&&(d.value=c.getAttribute("data-v"),y(a.lb).innerHTML=c.innerHTML,e&&Ud(e,!1),Ud(c,!0));O(b);a.close();U("gs-change",d,b.i)},Ud=function(a,b){v(a,"gs_sel",b);b?a.setAttribute("aria-selected","true"):a.removeAttribute("aria-selected")};T(Sd,[new P(".gs_md_ris",{}),new P(".gs_md_li",{click:Sd.prototype.eb,keydown:Sd.prototype.ha})]);S("#gs_lp","click",function(a){O(a);rd("gs_lp_d")});S("#gs_lp_cur","click",function(a){O(a);K("gs_lp_d")});var Vd=function(a){this.Ja=z(a)};Vd.prototype.ha=function(a){var b=a.currentTarget,c=a.i.keyCode;if(38==c||40==c){var d=y(this.Ja);d=Uc(d,b,".gs_md_li",38==c)||Uc(d,d,".gs_md_li",38==c)}else if(37==c||39==c)a:{c=!!(37==c^Aa(b.parentNode));d=b.parentNode;var e=d.children,f=e.length;if(d.id!=this.Ja){for(;e[--f]!=b;);d=Tc(d,c)||Sc(d.parentNode,c);e=d.children;if(f=Math.min(f+1,e.length))if(d=e[f-1],u(d,"gs_md_li")&&d.offsetLeft!=b.offsetLeft)break a}d=void 0}d&&(O(a),d.focus())};
+T(Vd,[new P(".gs_md_ulr",{}),new P(".gs_md_li",{keydown:Vd.prototype.ha})]);S("#gs_hdr_mnu","click",function(a){O(a);rd("gs_hdr_drw")});S("#gs_hdr_drw_mnu","click",function(a){O(a);K("gs_hdr_drw")});S("#gs_hdr_act_i","click",function(a){O(a);1==pa()?Da(document.querySelector("#gs_hdr_drw_bot>a").href):$a("gs_hdr_act_d")});S("#gs_hdr_drw","keydown",function(a){var b=a.i.keyCode;if(38==b||40==b){var c=a.currentTarget;if(b=Uc(c,c,".gs_md_li",38==b))O(a),b.focus()}});
+S("#gs_hdr_tsi",["focus","blur"],function(a){function b(){var h=d.getBoundingClientRect().top-10;10<Math.abs(h)&&window.scrollBy(0,h);clearTimeout(e);c()}function c(){F(window,f,b)}var d=a.target;a="focus"==a.type;v(y("gs_hdr"),"gs_hdr_ifc",a);if(a&&qa&&!(749<window.innerHeight)){var e=setTimeout(c,1E3),f=["scroll","resize"];C(window,f,b)}});S("#gs_hdr_tsi",["input","gs-change"],function(a){v(y("gs_hdr_frm"),"gs_hdr_tsc",!!a.currentTarget.value)});
+S("#gs_hdr_tsc","mousedown",function(a){O(a);var b=y("gs_hdr_tsi");b.value="";b.focus();U("input",b,a.i)});S("#gs_hdr_sre","click",function(a){O(a);var b=y("gs_hdr");$a("gs_hdr_frm",function(){r(b,"gs_hdr_src");q(b,"gs_hdr_srx")},function(){q(b,"gs_hdr_src");r(b,"gs_hdr_srx")},y("gs_hdr_tsi"))});S(".gs_md_x","click",function(a){(a=a.currentTarget.getAttribute("data-mdx"))&&K(a)});var Wd=function(){},Xd,Yd;l=Wd.prototype;l.Ya=function(a){a.i.button||(O(a),Zd(a))};l.ia=function(a){$d(a)&&(O(a),Zd(a))};l.fb=function(a){$d(a)&&O(a)};l.ja=function(a){if(!a.i.button){O(a);var b=a.i;b&&(ae=b.clientX||0,be=b.clientY||0,C(document,ce,de,!0),clearTimeout(Xd),Xd=setTimeout(ee,2E3));Zd(a)}};l.jb=function(a){O(a);if(fe){var b=a.i;if(b=(b=b&&b.touches)&&1==b.length&&b[0])ge=b.clientX,he=b.clientY,C(document,ie,je,!0),clearTimeout(Yd),Yd=setTimeout(ke,2E3)}Zd(a)};
+var $d=function(a){a=a.i.keyCode;return 32==a||13==a},Zd=function(a){U("gs-press",a.currentTarget,a.i)},ee=function(){F(document,ce,de,!0);clearTimeout(Xd);Xd=void 0},de=function(a){"mousedown"!=a.type&&10>Math.abs(a.clientX-ae)&&10>Math.abs(a.clientY-be)?(Sa(a),"click"==a.type&&ee()):ee()},ke=function(){F(document,ie,je,!0);clearTimeout(Yd);Yd=void 0},je=function(a){"touchstart"!=a.type&&10>Math.abs(a.clientX-ge)&&10>Math.abs(a.clientY-he)?(Sa(a),"click"==a.type&&ke()):ke()},ae=0,be=0,ce=["mousedown",
+"mouseup","click"],fe=x("Android")&&!x("Chrome"),ge=0,he=0,ie=["touchstart","mousedown","mouseup","click"];T(Wd,[new P(".gs_press",{click:Wd.prototype.Ya,keydown:Wd.prototype.ia,keyup:Wd.prototype.fb,mousedown:Wd.prototype.ja,touchstart:Wd.prototype.jb})]);function le(){var a=0>me.getBoundingClientRect().top;ne!=a&&(ne=a,v(oe,"gs_sth_vis",a),a?pe():(qe.style.left="",qe.style.width="",re()))}function pe(){if(ne){var a=me.getBoundingClientRect();qe.style.left=a.left+"px";qe.style.width=a.width+"px";re()}}function re(){U("gs-sth-change",y("gs_sth"))}var oe,me,qe,ne=!1;G(function(){if(oe=y("gs_sth"))me=oe.querySelector(".gs_sth_g"),qe=oe.querySelector(".gs_sth_b"),nd.addListener(le),od.addListener(pe),le()});function se(){y("gs_asd_frm").submit()};function te(a){a&&a.querySelectorAll&&a.querySelectorAll(ue).length&&Da(ve)}function we(){te(document.body);xe=new MutationObserver(function(a){a=ba(a);for(var b=a.next();!b.done;b=a.next())te(b.value.target)});xe.observe(document.body,{childList:!0,subtree:!0})}var xe,ue=[Ja("R8D02D50AD3,7@C>."),Ja(":7C2>6,4=2DDYlC6=:6G65."),Ja("2,52E2\\<@A6C?:@\\:5.")].join(),ve=Ja("^D49@=2C^<@A6C?:@]9E>=");function ye(a,b,c){var d=(y("gs_citd").getAttribute("data-u")||"").replace("{id}",a).replace("{p}",""+b);N(d,"",function(e,f){H.gs_cit||(200==e?rd("gs_cit",d,"",f):Nb(Hd()));c&&c()})}var ze;function Ae(a,b,c,d){Be.notify({Ma:a,ma:b,ub:c,error:d})}function Ce(a,b){if(De)return!1;De=a;Ae(a,b);return!0}function Ee(a,b,c,d){var e=De="";if(c){e=b.split(":");b=e[0]||Fe;e=e[1]||"";var f={};f[a+","+b]=e;Ge(f)}Ae(a,e,c,d)}
+function He(){var a=A(y("gs_lbd_data"),"data-did"),b=A(y("gs_lbd_data"),"data-lid");if(Ce(a,b)){var c=b?Ie.replace("{id}",Fe+":"+b):Je.replace("{id}",a);N(c,"",function(d,e){a:{De="";var f="",h="";if(200==d)try{var g=JSON.parse(e)}catch(k){}if(la(g)){if(g.L){Da(""+g.L);Ae(a,b,!1,f);break a}if(g.M)f=""+g.M;else if(Array.isArray(g.U)&&1==g.U.length&&la(g.U[0]))h=""+(g.U[0].c||"");else if(!b||g.U)f=Hd()}else f=Hd();Ee(a,h,!f,f)}})}}function Ke(a){return(a=hb("s",void 0===a?!1:a))&&la(a)?a:{}}
+function Ge(a){var b=Date.now(),c=Ke(!0),d;for(d in c){var e=c[d];e instanceof Array&&2==e.length&&12E5>b-e[1]||delete c[d]}for(var f in a)c[f]=[a[f],b];gb(ib,fb,"s",c)}var Be=new B,Fe,Ie,Je,De="";function Y(a){var b=y("gs_res_glb");return b?b.getAttribute(a)||"":""};function Le(){return y("gs_res_lbl_frm")}
+function Me(){Ne("");for(var a=document.querySelectorAll("#gs_lbl_op .gs_in_cb"),b=a.length,c=[],d=[];b--;){var e=a[b];+e.getAttribute("data-s")!=jd(e)&&(jd(e)?c:d).push(e.getAttribute("data-id")||"")}a=y("gs_lbd_new-input");b=(b=document.querySelector("#gs_lbd_new_in .gs_in_cb"))&&jd(b);a=a&&b?a.value:null;if(!c.length&&!d.length&&null==a)return K("gs_md_albl-d"),!1;b=window.location;c={label_ids_to_add:c,label_ids_to_remove:d,label_name_add:a,"continue":b.pathname+b.search};d=Le();for(var f in c)a=
+Ca(d,f),null==c[f]?d.removeChild(a):a.value=c[f];return!0}function Oe(a){var b=y("gs_lbd_new"),c=b.querySelector(".gs_in_cb");v(b,"gs_lbd_new_sel",a);a&&(kd(c,1),y("gs_lbd_new-input").focus())}function Pe(a){var b=y("gs_md_albl-d-t");v(b,"gs_lbl_hide",!a)}function Qe(a){var b=y("gs_md_albl-d").querySelector(".gs_md_ftr");v(b,"gs_lbl_hide",!a)}
+function Re(a){var b=Y("data-sval").replace("{id}",a).replace("%7Bid%7D",a);N(b,"",function(c,d){var e="";if(200==c)if(c=document.createElement(va.ca),c.innerHTML=d,c=c.querySelector(".gs_md_prg .gs_alrt"))(d=A(c,"data-r"))?Da(d):e=c.innerHTML;else{Pe(!0);Qe(!0);rd("gs_md_albl-d",b,"",d);return}else e=Hd();Ee(a,"",!1,e)})}function Ne(a){var b=y("gsc_lbd_alrt")||y("gs_md_albl-d").querySelector(".gs_md_prg .gs_alrt");b&&(b.innerHTML=a)};var Z=function(a){this.ba=a;this.La=A(a,"data-cid");this.ya=Se(a);this.rb=+A(a,"data-rp")||0};Z.prototype.gb=function(a){v(a.currentTarget.parentNode,"gs_or_mvi")};Z.prototype.Xa=function(a){var b=a.currentTarget;u(b,"gs_or_ldg")||(v(b,"gs_or_ldg",!0),ye(this.La,this.rb,function(){v(b,"gs_or_ldg",!1)}))};Z.prototype.Oa=function(a){var b=a.currentTarget,c=b.parentNode;$a(z(b),function(){r(b,"gs_press");q(c,"gs_vis");q(b,"gs_anm")},function(){q(b,"gs_press");r(c,"gs_vis")})};
+Z.prototype.Aa=function(){var a=A(this.ba,"data-lid");Ce(this.ya,a)&&Re(this.ya)};var Te=[new P(".gs_or",{}),new P(".gs_or_ggsm",{"gs-press":Z.prototype.Oa}),new P(".gs_or_cit",{click:Z.prototype.Xa}),new P(".gs_or_sav",{click:Z.prototype.Aa}),new P(".gs_or_lbl",{click:Z.prototype.Aa}),new P(".gs_or_mor",{click:Z.prototype.gb})];
+function Ve(){for(var a=u(document.documentElement,"gs_el_ph"),b=document.querySelectorAll(".gs_or_ggsm"),c=b.length;c--;){var d=b[c];u(d,"gs_vis")&&K(z(d));v(d,"gs_press",a);r(d,"gs_anm")}}
+function Xe(a){var b=document.querySelector('.gs_or[data-did="'+a.Ma+'"]');if(b){var c=b.querySelector(".gs_or_sav")||b.querySelector(".gs_or_lbl");if(c){var d=void 0===a.error;v(c,"gs_or_ldg",d);d?(Ub=0,Qb(),Ne("")):a.error?H["gs_md_albl-d"]?Ne(a.error):Nb(a.error):a.ub&&(b.setAttribute("data-lid",a.ma),H.gs_qabs&&(b=Y("data-lsm"))&&a.ma&&Ye&&Nb(b),a.ma||K("gs_md_albl-d"))}}}function Se(a){return A(a,"data-did")}var Ye=!1;function Ze(){wc("#gsb_promo_x",function(a){y("gsb_promo").className="";O(a);N(a.target.href,"",function(){})});C(window,"message",function(a){var b=a.data,c;a.origin.match(/[.]google[.]com(:[0-9]+)?$/)&&b&&"object"==typeof b&&0<=(c=+b.gsbPromo)&&(y("gsb_promo").className=c?"gsb_not_installed":"gsb_installed")});G(function(){var a=document.createElement("iframe");a.id="gsb_promo_ping";a.frameBorder="0";a.scrolling="no";a.tabIndex=-1;a.src=(window.location.host.indexOf("scholar.google.")?"":"//scholar.google.com")+
+"/scholar_gsb_promo_ping";document.body.appendChild(a)})};var $e=function(a){this.ba=a};$e.prototype.hb=function(){5>(+A(this.ba,"data-rp")||0)?af({}):(bf=Se(this.ba),cf=Date.now())};function df(){var a=document.location.href;return a.substr(0,a.indexOf("#"))||a}function ef(){return document.querySelector(".gs_r_rfr")}function ff(a){var b=ef();return!!b&&Se(b)==a&&!!b.querySelector(".gs_rfr")}function af(a){gb(ib,fb,"rfr",a)}function gf(){var a=hb("rfr");return a&&la(a)?a:null}
+function hf(a,b,c){q(a,"gs_r_rfr");var d=document.createElement("div");d.className="gs_rfr";d.innerHTML=b;a.appendChild(d);jf();if(c){b="@keyframes gs_r_vsld_anm{0%{transform:translate(0,-"+d.offsetHeight+"px);}100%{transform:translate(0,0);}}";c=y("gs_r_vsld_style");c||(c=document.createElement(ya.ca),c.id="gs_r_vsld_style",document.head.appendChild(c));c.textContent=b;for(b=a.nextElementSibling;b;)q(b,"gs_r_vsld"),b=b.nextElementSibling;(b=y("gs_res_ccl_bot"))&&q(b,"gs_r_vsld");q(a,"gs_anm");Pa(d,
+"animationend",kf,500,kf)}}function kf(){var a=ef();a&&r(a,"gs_anm");a=document.querySelectorAll(".gs_r_vsld");for(var b=a.length,c=0;c<b;c++)r(a[c],"gs_r_vsld")}function lf(){var a=ef();if(!a)return!1;r(a,"gs_r_rfr");var b=a.querySelector(".gs_rfr");if(!b)return!1;a.removeChild(b);return!0}function mf(){var a=window.pageYOffset,b=ef();if(!b)return a;b=b.querySelector(".gs_rfr");if(!b)return a;b=b.getBoundingClientRect();0>b.top&&(a-=b.bottom-b.top);return a}
+function nf(a,b){var c=b.getBoundingClientRect();b=c.bottom;c=b-(b-c.top)/3;var d=1E4,e=-1E4,f=!1;a=a.getClientRects();for(var h=0;h<a.length;h++){var g=a[h];4<=b-g.top&&4<=g.bottom-c?(d=Math.min(d,g.left),e=Math.max(e,g.right)):g.top>=b&&(f=!0)}return 1E4==d?f?0:-1:f?e-d:-1}
+function jf(){for(var a=document.querySelectorAll(".gs_rfr_rt>a"),b=0;b<a.length;b++){var c=a[b],d=c.parentNode,e=d.firstElementChild,f=e.style;c=c.querySelector("[dir]")||c;f.display="none";var h=nf(c,d);if(0<=h){var g=Aa(d),k=Aa(c);f.display="block";e.setAttribute("dir",k?"rtl":"ltr");h=nf(c,d);f.transform="translateX("+[-1,0,0,1][2*g+k]*(d.offsetWidth-e.offsetWidth-h)+"px)"}}}var of=[new P([".gs_r"],{}),new P([".gs_rt",".gs_or_ggsm"],{click:$e.prototype.hb})],bf,cf;function pf(){var a=window.location.href,b=+vb(a).authuser||0,c=help.service.Lazy.create(0,{apiKey:"AIzaSyBnsHNH76IH8vZplyq6wIQHlfHRq3blfB8",locale:"en-US"});c.requestSurvey({triggerId:"FQCrQs2JV0iDFprtVEw0WZEm7Syp",authuser:b,enableTestingMode:"1"==Y("data-usv"),callback:function(d){(d=d.surveyData)&&c.presentSurvey({surveyData:d,productData:{customData:{eventId:GSP.eventId,url:a}},colorScheme:1,authuser:b,customZIndex:1050})}})}
+function qf(){if(Y("data-usv")&&!y("gs_r_hats")){var a=document.createElement(xa.ca);a.id="gs_r_hats";a.src="https://www.gstatic.com/feedback/js/help/prod/service/lazy.min.js";a.onload=pf;document.body.appendChild(a)}};GSP.customAC&&(T(V,hd),G(id),C(window,"pageshow",function(){setTimeout(id,0)}));window.MutationObserver&&G(we);S("#gs_asd_psb","click",se);S("#gs_asd_frm","keydown",function(a){var b=a.target;"INPUT"==b.tagName&&"text"==b.type&&13==a.i.keyCode&&se()});S(".gs_citr","focus",function(a){var b=a.currentTarget;b!=ze&&(ze=b,O(a),setTimeout(function(){window.getSelection().selectAllChildren(b);b.focus()},0))});S(".gs_cith","click",function(a){(a=a.currentTarget.parentNode.querySelector(".gs_citr"))&&a.focus()});
+S("#gs_lbd_apl","click",function(){Me()&&U("submit",Le())});wc("#gs_lbd_new_btn",function(){Oe(!0)});wc("#gs_lbd_new_cb",function(){Oe(!1)});S("#gs_lbd_trash","click",function(){He()});S("#gs_md_albl-d","gs-md-lded",function(){y("gs_lbd_data")?(C(Le(),"submit",Me),Ee(A(y("gs_lbd_data"),"data-did"),Ca(Le(),"s").value,!0,"")):(Pe(!1),Qe(!1))});T(Z,Te);
+G(function(){Ve();Be.add(Xe);for(var a={},b=document.querySelectorAll(".gs_or[data-did]"),c=b.length;c--;){var d=b[c],e=Se(d);d=A(d,"data-lid");a[e]=d}b=Y("data-lpu");c=Y("data-sva");e=Y("data-tra");d=Y("data-lsl");Fe=b;Ie=e;Je=c;try{var f=JSON.parse(void 0===d?"":d)}catch(g){}f&&la(f)&&!Kb||(f={});Ge(f);f=Ke();for(var h in a)b=a[h],c=f[h+","+Fe],c instanceof Array&&(c=""+c[0],b!=c&&(b=c,Ae(h,b,!0,"")));Ye=!0});pd.add(Ve);Ve();C(window,"pagehide",Ve);
+S("#gs_res_sb_yyc","click",function(){y("gs_res_sb_yyf").style.display="block";for(var a=document.querySelectorAll("#gs_res_sb_yyl>li"),b=a.length;b--;)v(a[b],"gs_bdy_sb_sel",b==a.length-1)});window.location.hash||Kb||G(qf);S("#gs_scipsc","gs-change",function(a){var b=jd(a.currentTarget),c=Ca(y("gs_hdr_frm"),"scipsc"),d=Ca(y("gs_asd_frm"),"scipsc");c.value=d.value=b?"1":"";a=a.currentTarget.getAttribute("data-msg")||"";y("gs_hdr_tsi").placeholder=b?a:""});wc("#gs_res_drw_adv",function(){rd("gs_asd")});
+G(function(){var a=Y("data-ttl");a&&(document.title=a);a=new lc("q");var b=Y("data-ahq");b&&a.add(b);Y("data-gsb")&&Ze()});T($e,of);C(window,"pagehide",function(){kf();if(bf&&!ff(bf)){var a={d:bf,u:df(),t:Date.now()};5E3<=Date.now()-cf&&(a={});var b=mf();lf()&&window.scrollTo(0,b);a.s=b;af(a)}});
+C(window,"pageshow",function(){var a=gf(),b=df();if(a&&a.u==b)if(864E5<=Date.now()-(+a.t||0))af({});else{var c=""+a.d,d=Y("data-rfr");if(d)if(ff(c))jf();else{b=lf();var e=+a.s;e&&!b&&(x("Trident")||x("Edge"))&&Pa(window,"scroll",function(){window.scrollTo(0,e)},20);a.s=0;af(a);var f=document.querySelector('.gs_or[data-did="'+c+'"]');f&&((b=a.h)?hf(f,""+b,!1):setTimeout(function(){var h=d.replace("{id}",c),g=N(h,"",function(n,m){200==n&&m&&(hf(f,m,!0),a.h=m,a.t=Date.now(),af(a));clearTimeout(k)}),
+k=setTimeout(function(){ec(g)},1E3)},0))}}});od.addListener(jf);
+}({"customAC":2,"eventId":"w6bCYci3D4bmyQS34LC4Cg"});
+	</script>
+</head>
+
+<body>
+	<div id="gs_top" onclick="">
+		<style>
+			#gs_md_s,
+			.gs_md_wnw {
+				z-index: 1200;
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				visibility: hidden;
+			}
+
+			#gs_md_s {
+				background-color: #fff;
+				opacity: .5;
+			}
+
+			.gs_el_ta #gs_md_s,
+			.gs_el_ph #gs_md_s {
+				background-color: #666;
+			}
+
+			.gs_md_wnw {
+				transition: all 0s .218s;
+			}
+
+			#gs_md_s.gs_vis,
+			.gs_md_wnw.gs_vis {
+				visibility: visible;
+				transition: all 0s;
+			}
+
+			.gs_md_wnw>.gs_md_d {
+				position: relative;
+				margin: 0 auto;
+				width: 464px;
+				box-shadow: 2px 2px 8px rgba(0, 0, 0, .2);
+				white-space: normal;
+			}
+
+			.gs_el_ta .gs_md_wnw>.gs_md_d,
+			.gs_el_ph .gs_md_wnw>.gs_md_d {
+				box-shadow: 2px 2px 8px rgba(0, 0, 0, .65);
+			}
+
+			.gs_el_ph .gs_md_wnw>.gs_md_d {
+				width: 80%;
+				max-width: 440px;
+			}
+
+			.gs_el_ph .gs_md_wmw>.gs_md_d {
+				display: flex;
+				flex-direction: column;
+				width: 100%;
+				height: 100%;
+				max-width: none;
+				border: none;
+				box-shadow: none;
+				transform: translate(0, 100%);
+				transform: translate(0, 100vh);
+				transition: transform .27s cubic-bezier(.4, 0, .6, 1), opacity 0s .27s, visibility 0s .27s, max-height 0s .27s;
+			}
+
+			.gs_el_ph .gs_md_wmw>.gs_md_d.gs_vis {
+				transform: translate(0, 0);
+				transition: transform .3s cubic-bezier(0, 0, .2, 1);
+			}
+
+			.gs_md_wmw>.gs_md_d.gs_abt,
+			.gs_el_ph .gs_md_wmw>.gs_md_d.gs_abt {
+				transition: none;
+			}
+
+			.gs_md_hdr {
+				display: flex;
+				align-items: center;
+				height: 47px;
+				border-bottom: 1px solid #e0e0e0;
+				border-bottom-color: rgba(0, 0, 0, .12);
+				background-color: #f5f5f5;
+			}
+
+			.gs_md_hdr>a,
+			.gs_md_hdr>a.gs_btn_lrge {
+				flex: 0 0 auto;
+				width: 41px;
+				height: 47px;
+			}
+
+			.gs_el_ph .gs_md_hdr>a {
+				margin: 0 2px 0 0;
+			}
+
+			.gs_el_ph a.gs_md_hdr_c {
+				margin: 0 0 0 2px;
+			}
+
+			.gs_md_hdr_b {
+				margin: 0 41px 0 16px;
+			}
+
+			.gs_el_ph .gs_md_hdr_b {
+				margin: 0 16px;
+			}
+
+			.gs_md_hdr_t:empty~.gs_md_hdr_b {
+				margin-left: 0;
+			}
+
+			.gs_md_hdr_b:empty {
+				width: 41px;
+				margin: 0;
+			}
+
+			.gs_el_ph .gs_md_hdr_b:empty {
+				margin-right: 2px;
+			}
+
+			.gs_md_hdr_b:empty:not(:last-child) {
+				display: none;
+			}
+
+			.gs_md_hdr_b>button {
+				min-width: 51px;
+				height: 33px;
+			}
+
+			.gs_md_hdr_t {
+				flex: 1 1 auto;
+				font-size: 18px;
+				font-weight: normal;
+				color: #666;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				text-align: center;
+			}
+
+			.gs_md_bdy {
+				position: relative;
+				overflow-y: auto;
+				box-sizing: border-box;
+				padding: 24px 41px 0 41px;
+			}
+
+			.gs_md_bdy:after {
+				display: block;
+				content: "";
+				clear: both;
+				padding-bottom: 24px;
+			}
+
+			.gs_el_ph .gs_md_bdy {
+				padding: 16px 16px 0 16px;
+			}
+
+			.gs_el_ph .gs_md_bdy:after {
+				padding-bottom: 16px;
+			}
+
+			.gs_el_ph .gs_md_wmw .gs_md_bdy {
+				flex: 1;
+			}
+
+			.gs_md_ftr {
+				border-top: 1px solid #e0e0e0;
+			}
+
+			.gs_md_lbl {
+				display: block;
+				font-size: 16px;
+				margin: 0 0 16px 0;
+				word-wrap: break-word;
+			}
+
+			.gs_md_btns {
+				margin: 24px 0 0 0;
+				white-space: nowrap;
+			}
+
+			.gs_el_ph .gs_md_btns {
+				margin: 16px 0 0 0;
+			}
+
+			.gs_md_btns button {
+				margin-right: 16px;
+			}
+
+			.gs_md_btns button:last-child {
+				margin-right: 0;
+			}
+
+			.gs_md_prg {
+				margin: 24px 0;
+				text-align: center;
+			}
+
+			.gs_md_prg .gs_alrt {
+				padding: 4px 16px;
+			}
+
+			.gs_md_ldg:before {
+				content: "";
+				position: absolute;
+				top: 0;
+				left: 0;
+				bottom: 0;
+				right: 0;
+				background-color: #fff;
+				opacity: .5;
+				z-index: 100;
+			}
+		</style>
+		<div id="gs_md_ldg" style="display:none">正在加载...</div>
+		<div id="gs_md_err" style="display:none">系统目前无法执行此操作，请稍后再试。</div>
+		<div id="gs_md_s"></div>
+		<div data-h="0" class="gs_md_wnw gs_md_wmw">
+			<div id="gs_cit" class="gs_md_d gs_ttzi" role="dialog" tabindex="-1" aria-labelledby="gs_cit-t"
+				data-cid="gs_citd" data-wfc="gs_cit-x">
+				<div class="gs_md_hdr"><a href="javascript:void(0)" id="gs_cit-x" role="button" aria-label="取消"
+						data-mdx="gs_cit"
+						class="gs_btnCLS gs_md_x gs_md_hdr_c gs_in_ib gs_btn_lrge"><span class="gs_ico"></span><span class="gs_lbl"></span></a>
+					<h2 id="gs_cit-t" class="gs_md_hdr_t">引用</h2>
+					<div class="gs_md_hdr_b"></div>
+				</div>
+				<div id="gs_cit-bdy" class="gs_md_bdy">
+					<style>
+						#gs_cit {
+							width: 520px;
+							max-width: 80%;
+						}
+
+						.gs_el_ph #gs_cit {
+							width: 100%;
+							max-width: 100%;
+						}
+
+						#gs_citt table {
+							width: 100%;
+							margin-top: -8px;
+						}
+
+						#gs_citt td,
+						#gs_citt th {
+							vertical-align: top;
+							padding: 8px 0;
+						}
+
+						#gs_citt th {
+							text-align: right;
+							font-weight: normal;
+							color: #777;
+							padding-right: 16px;
+							white-space: nowrap;
+							-webkit-user-select: none;
+							user-select: none;
+						}
+
+						#gs_citi {
+							margin: 16px 0 0 0;
+							text-align: center;
+						}
+
+						.gs_el_ph #gs_citi {
+							margin: 16px 0 8px 0;
+						}
+
+						.gs_citi {
+							margin-right: 16px;
+							white-space: nowrap;
+							padding: 7px 0 5px 0;
+						}
+
+						.gs_citi:first-child {
+							margin-left: 16px;
+						}
+					</style>
+					<div id="gs_citd" aria-live="assertive"
+						data-u="/scholar?q=info:{id}:scholar.google.com/&amp;output=cite&amp;scirp={p}&amp;hl=zh-CN">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div data-h="0" class="gs_md_wnw gs_md_wmw">
+			<div id="gs_asd" class="gs_md_d gs_ttzi" role="dialog" tabindex="-1" aria-labelledby="gs_asd-t"
+				data-ifc="gs_asd_q" data-wfc="gs_asd-x">
+				<div class="gs_md_hdr"><a href="javascript:void(0)" id="gs_asd-x" role="button" aria-label="取消"
+						data-mdx="gs_asd"
+						class="gs_btnCLS gs_md_x gs_md_hdr_c gs_in_ib gs_btn_lrge"><span class="gs_ico"></span><span class="gs_lbl"></span></a>
+					<h2 id="gs_asd-t" class="gs_md_hdr_t">高级搜索</h2>
+					<div class="gs_md_hdr_b">
+						<button type="button" id="gs_asd_psb" aria-label="搜索" class="gs_btnG gs_in_ib gs_btn_act gs_btn_half gs_btn_lsb"><span class="gs_wr"><span class="gs_ico"></span><span class="gs_lbl"></span></span></button>
+					</div>
+				</div>
+				<div id="gs_asd-bdy" class="gs_md_bdy">
+					<style>
+						#gs_asd {
+							width: 80%;
+							max-width: 552px;
+						}
+
+						.gs_el_ph #gs_asd {
+							width: 100%;
+							max-width: 100%;
+						}
+
+						#gs_asd_frm {
+							margin-top: -6px;
+						}
+
+						.gs_el_tc #gs_asd_frm {
+							margin-top: -8px;
+						}
+
+						.gs_asd_tr {
+							clear: both;
+						}
+
+						.gs_el_tc .gs_asd_tr {
+							padding: 8px 0;
+						}
+
+						.gs_el_tc .gs_asd_tr:first-child {
+							padding-bottom: 0;
+						}
+
+						.gs_asd_dt {
+							float: left;
+							width: 190px;
+							padding: 6px 2px 2px;
+						}
+
+						.gs_el_tc .gs_asd_dt {
+							float: none;
+							width: auto;
+							padding: 0 0 4px 0;
+						}
+
+						.gs_asd_dd {
+							margin-left: 194px;
+							padding: 2px;
+						}
+
+						.gs_el_tc .gs_asd_dd {
+							margin-left: 0;
+							padding: 0;
+						}
+
+						.gs_asd_yri .gs_in_txt {
+							width: 48px;
+						}
+
+						.gs_el_ph #gs_asd input,
+						.gs_el_ph #gs_asd label {
+							-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+						}
+
+						.gs_asd_occtr {
+							padding: 5px 0;
+						}
+
+						.gs_el_tc .gs_asd_occtr {
+							padding: 0;
+						}
+					</style>
+					<form id="gs_asd_frm" class="gs_scl" action="/scholar">
+						<div class="gs_asd_tr">
+							<div class="gs_asd_dt" id="gs_asd_dt_t"><b>查找文章</b></div>
+						</div>
+						<div class="gs_asd_tr">
+							<div class="gs_asd_dt"><label for="gs_asd_q">包含<b>全部</b>字词</label></div>
+							<div class="gs_asd_dd">
+								<div class="gs_in_txtw gs_in_txtm gs_in_txtb">
+									<input type="text" class="gs_in_txt" name="as_q" value="offloading" id="gs_asd_q" autocapitalize="off"></div>
+								</div>
+							</div>
+							<div class="gs_asd_tr">
+								<div class="gs_asd_dt"><label for="gs_asd_epq">包含<b>完整字句</b></label></div>
+								<div class="gs_asd_dd">
+									<div class="gs_in_txtw gs_in_txtm gs_in_txtb">
+										<input type="text" class="gs_in_txt" name="as_epq" value="" id="gs_asd_epq" autocapitalize="off"></div>
+									</div>
+								</div>
+								<div class="gs_asd_tr">
+									<div class="gs_asd_dt"><label for="gs_asd_oq">包含<b>至少一个</b>字词</label></div>
+									<div class="gs_asd_dd">
+										<div class="gs_in_txtw gs_in_txtm gs_in_txtb">
+											<input type="text" class="gs_in_txt" name="as_oq" value="" id="gs_asd_oq" autocapitalize="off"></div>
+										</div>
+									</div>
+									<div class="gs_asd_tr">
+										<div class="gs_asd_dt"><label for="gs_asd_eq"><b>不包含</b>字词</label></div>
+										<div class="gs_asd_dd">
+											<div class="gs_in_txtw gs_in_txtm gs_in_txtb">
+												<input type="text" class="gs_in_txt" name="as_eq" value="" id="gs_asd_eq" autocapitalize="off"></div>
+											</div>
+										</div>
+										<div class="gs_asd_tr">
+											<div class="gs_asd_dt"><label for="gs_asd_occt">出现搜索字词位置</label></div>
+											<div class="gs_asd_dd">
+												<div class="gs_asd_occtr">
+													<span class="gs_in_ra" onclick="void(0)"><input type="radio" name="as_occt" value="any" id="gs_asd_occt_a" checked><label for="gs_asd_occt_a">文章中任何位置</label><span class="gs_chk"></span><span class="gs_cbx"></span></span>
+												</div>
+												<div class="gs_asd_occtr">
+													<span class="gs_in_ra" onclick="void(0)"><input type="radio" name="as_occt" value="title" id="gs_asd_occt_t"><label for="gs_asd_occt_t">位于文章标题</label><span class="gs_chk"></span><span class="gs_cbx"></span></span>
+												</div>
+											</div>
+										</div>
+										<div class="gs_asd_tr">
+											<div class="gs_asd_dt"><label for="gs_asd_sau">显示以下<b>作者</b>所著的文章：</label>
+											</div>
+											<div class="gs_asd_dd">
+												<div class="gs_in_txtw gs_in_txtm gs_in_txtb">
+													<input type="text" class="gs_in_txt" name="as_sauthors" value="" id="gs_asd_sau" autocapitalize="off"></div>
+													<div>例如：<i>丁肇中</i> 或 <i>"PJ Hayes"</i></div>
+												</div>
+											</div>
+											<div class="gs_asd_tr">
+												<div class="gs_asd_dt">
+													<label for="gs_asd_pub">显示以下<b>刊物</b>上的文章：</label></div>
+												<div class="gs_asd_dd">
+													<div class="gs_in_txtw gs_in_txtm gs_in_txtb">
+														<input type="text" class="gs_in_txt" name="as_publication" value="" id="gs_asd_pub" autocapitalize="off"></div>
+														<div>例如：<i>《学术探索》</i>或<i>《Nature》</i></div>
+													</div>
+												</div>
+												<div class="gs_asd_tr">
+													<div class="gs_asd_dt">
+														<label for="gs_asd_ylo">显示在此<b>期间</b>发表的文章：</label></div>
+													<div class="gs_asd_dd">
+														<div class="gs_asd_yri">
+															<div class="gs_in_txtw gs_in_txtm">
+																<input type="text" class="gs_in_txt" name="as_ylo" value="" id="gs_asd_ylo" size="4" maxlength="4" autocapitalize="off" pattern="[0-9]*"></div>
+																&nbsp;—&nbsp;<div class="gs_in_txtw gs_in_txtm">
+																	<input type="text" class="gs_in_txt" name="as_yhi" value="" id="gs_asd_yhi" size="4" maxlength="4" autocapitalize="off" pattern="[0-9]*"></div>
+																</div>
+																<div>例如：<i>1996</i></div>
+															</div>
+														</div>
+														<input type=hidden name="hl" value="zh-CN"><input type=hidden name="as_sdt" value="0,48"></form>
+													</div>
+												</div>
+											</div>
+											<div data-h="367" class="gs_md_wnw gs_md_wmw">
+												<div id="gs_md_albl-d" class="gs_md_d gs_ttzi" role="dialog"
+													tabindex="-1" aria-labelledby="gs_md_albl-d-t"
+													data-wfc="gs_md_albl-d-x">
+													<div class="gs_md_hdr"><a href="javascript:void(0)"
+															id="gs_md_albl-d-x" role="button" aria-label="取消"
+															data-mdx="gs_md_albl-d"
+															class="gs_btnCLS gs_md_x gs_md_hdr_c gs_in_ib gs_btn_lrge"><span class="gs_ico"></span><span class="gs_lbl"></span></a>
+														<h2 id="gs_md_albl-d-t" class="gs_md_hdr_t">已保存到“我的图书馆”</h2>
+														<div class="gs_md_hdr_b"></div>
+													</div>
+													<div id="gs_md_albl-d-bdy" class="gs_md_bdy"></div>
+													<div class="gs_md_ftr">
+														<div class="gs_lbl_btns">
+															<button type="button" id="gs_lbd_apl" class=" gs_btn_act gs_btn_lrge"><span class="gs_wr"><span class="gs_lbl">完成</span></span><span class="gs_bs"></span></button><button type="button" id="gs_lbd_trash" class=" gs_btn_olact gs_btn_lrge"><span class="gs_wr"><span class="gs_lbl">删除文章</span></span><span class="gs_bs"></span></button>
+														</div>
+													</div>
+												</div>
+											</div>
+											<!--[if lte IE 9]><div class="gs_alrt" style="padding:16px"><div>抱歉，某些功能可能无法在此版本的 Internet Explorer 上使用。</div><div>请使用 <a href="//www.google.com.hk/chrome/">Google Chrome 浏览器</a>或 <a href="//www.mozilla.com/firefox/">Mozilla Firefox</a>，以获得最佳的浏览效果。</div></div><![endif]-->
+											<div id="gs_hdr_drs"></div>
+											<div id="gs_hdr_drw" class="gs_md_ulr" role="dialog" tabindex="-1"
+												data-shd="gs_hdr_drs" data-wfc="gs_hdr_drw_mnu" data-cfc="gs_hdr_mnu">
+												<div id="gs_hdr_drw_in">
+													<div id="gs_hdr_drw_top"><a href="javascript:void(0)"
+															id="gs_hdr_drw_mnu" role="button" aria-controls="gs_hdr_drw"
+															aria-label="选项"
+															class="gs_btnMNT gs_in_ib gs_btn_lrge"><span class="gs_ico"></span><span class="gs_lbl"></span></a><a
+															id="gs_hdr_drw_lgo" href="/schhp?hl=zh-CN&amp;as_sdt=0,48"
+															aria-label="首页"></a></div>
+													<div>
+														<div class="gs_hdr_drw_sec"><a
+																href="/scholar?as_sdt=0,48&amp;q=offloading+&amp;hl=zh-CN"
+																role="menuitem"
+																class=" gs_in_ib gs_md_li gs_md_lix gs_in_gray gs_sel"><span class="gs_ico"></span><span class="gs_lbl">文章</span></a><a
+																href="/citations?view_op=search_authors&amp;mauthors=offloading+&amp;hl=zh-CN&amp;oi=drw"
+																role="menuitem"
+																class=" gs_in_ib gs_md_li gs_md_lix gs_in_gray"><span class="gs_ico"></span><span class="gs_lbl">个人学术档案</span></a>
+														</div>
+														<div class="gs_hdr_drw_sec"><a href="/citations?hl=zh-CN"
+																role="menuitem"
+																class="gs_btnPRO gs_in_ib gs_md_li gs_md_lix gs_in_gray"><span class="gs_ico"></span><span class="gs_lbl">我的个人学术档案</span></a><a
+																href="/scholar?scilib=1&amp;scioq=offloading+&amp;hl=zh-CN&amp;as_sdt=0,48"
+																role="menuitem"
+																class="gs_btnL gs_in_ib gs_md_li gs_md_lix gs_in_gray"><span class="gs_ico"></span><span class="gs_lbl">我的图书馆</span></a><a
+																href="/scholar_alerts?view_op=list_alerts&amp;hl=zh-CN"
+																role="menuitem"
+																class="gs_btnM gs_in_ib gs_md_li gs_md_lix gs_in_gray"><span class="gs_ico"></span><span class="gs_lbl">快讯</span></a><a
+																href="/citations?view_op=metrics_intro&amp;hl=zh-CN"
+																role="menuitem"
+																class="gs_btnJ gs_in_ib gs_md_li gs_md_lix gs_in_gray"><span class="gs_ico"></span><span class="gs_lbl">统计指标</span></a>
+														</div>
+														<div class="gs_hdr_drw_sec"><a href="javascript:void(0)"
+																id="gs_res_drw_adv" role="menuitem"
+																class="gs_btnADV gs_in_ib gs_md_li gs_md_lix gs_in_gray"><span class="gs_ico"></span><span class="gs_lbl">高级搜索</span></a>
+														</div>
+														<div class="gs_hdr_drw_sec"><a
+																href="/scholar_settings?q=offloading+&amp;hl=zh-CN&amp;start=30&amp;as_sdt=0,48"
+																role="menuitem"
+																class="gs_btnP gs_in_ib gs_md_li gs_md_lix gs_in_gray"><span class="gs_ico"></span><span class="gs_lbl">设置</span></a>
+														</div>
+													</div>
+													<div id="gs_hdr_drw_bot" class="gs_hdr_drw_sec"><a
+															href="https://accounts.google.com/Login?hl=zh-CN&amp;continue=https://scholar.google.com.hk/scholar%3Fstart%3D30%26q%3Doffloading%2B%26hl%3Dzh-CN%26as_sdt%3D0,48"
+															class=" gs_in_ib gs_md_li gs_md_lix gs_in_gray"><span class="gs_ico"></span><span class="gs_lbl">登录</span></a>
+													</div>
+												</div>
+											</div>
+											<div id="gs_hdr" role="banner"><a href="javascript:void(0)" id="gs_hdr_mnu"
+													role="button" aria-controls="gs_hdr_drw"
+													class="gs_btnMNT gs_in_ib gs_btn_lrge"><span class="gs_ico"></span><span class="gs_lbl"></span></a><a
+													id="gs_hdr_lgo" class="gs_hdr_dso"
+													href="/schhp?hl=zh-CN&amp;as_sdt=0,48" aria-label="首页"></a>
+												<div id="gs_hdr_md">
+													<div id="gs_hdr_srch">
+														<form id="gs_hdr_frm" action="/scholar" class="gs_hdr_tsc">
+															<input type=hidden name="hl" value="zh-CN"><input type=hidden name="as_sdt" value="0,48">
+															<div class="gs_in_txtw gs_in_txtb gs_in_acw"><input type="text" class="gs_in_txt gs_in_ac" name="q" value="offloading " id="gs_hdr_tsi" size="50" maxlength="2048" autocapitalize="off" autocomplete="off" aria-label="搜索" data-iq="offloading " data-is=".gs_qsuggest_regular li&gt;a" dir="ltr">
+																<div class="gs_md_ac" id="gs_hdr_frm_ac"
+																	aria-hidden="true" ontouchstart="gs_evt_dsp(event)"
+																	onmouseover="gs_evt_dsp(event)"
+																	onmouseout="gs_evt_dsp(event)" dir="ltr">
+																	<div>
+																		<div class="gs_md_acs"></div>
+																		<ul></ul>
+																	</div>
+																</div>
+															</div>
+															<span id="gs_hdr_tsc"><span class="gs_ico gs_ico_X"></span></span><button type="submit" id="gs_hdr_tsb" name="btnG" aria-label="搜索" class="gs_btnG gs_in_ib gs_btn_act gs_btn_half gs_btn_lsb"><span class="gs_wr"><span class="gs_ico"></span><span class="gs_lbl"></span></span></button>
+														</form>
+													</div>
+												</div>
+												<div id="gs_hdr_act"><a id="gs_hdr_act_s"
+														href="https://accounts.google.com/Login?hl=zh-CN&amp;continue=https://scholar.google.com.hk/scholar%3Fstart%3D30%26q%3Doffloading%2B%26hl%3Dzh-CN%26as_sdt%3D0,48">登录</a>
+												</div>
+											</div>
+											<style>
+												#gs_alrt {
+													position: fixed;
+													bottom: 48px;
+													left: 16px;
+													max-width: 384px;
+													z-index: 1250;
+													display: flex;
+													justify-content: space-between;
+													align-items: center;
+													font-size: 13px;
+													line-height: 16px;
+													color: #e2e2e2;
+													background: #333;
+													text-align: left;
+													border-radius: 3px;
+													box-shadow: 0 3px 5px -1px rgba(0, 0, 0, .2), 0 6px 10px 0 rgba(0, 0, 0, .14), 0 1px 18px 0 rgba(0, 0, 0, .12);
+													visibility: hidden;
+													transform-origin: center;
+													transform: scale(0.8, 0.8) translate(0, 100%);
+												}
+
+												.gs_el_ph #gs_alrt {
+													bottom: 0;
+													left: 0;
+													width: 100%;
+													max-width: none;
+													border-radius: 0;
+													box-shadow: none;
+													transform: scale(1, 1) translate(0, 100%);
+												}
+
+												#gs_alrt.gs_vis {
+													visibility: visible;
+													transform: scale(1, 1) translate(0, 0);
+												}
+
+												#gs_alrt.gs_anm {
+													transition: transform .067s cubic-bezier(.4, 0, 1, 1), visibility 0s .067s;
+												}
+
+												#gs_alrt.gs_vis.gs_anm {
+													transition: transform .067s cubic-bezier(0, 0, .2, 1);
+												}
+
+												.gs_el_ph #gs_alrt.gs_anm {
+													transition: transform .084s cubic-bezier(.4, 0, 1, 1), visibility 0s .084s;
+												}
+
+												.gs_el_ph #gs_alrt.gs_vis.gs_anm {
+													transition: transform .1s cubic-bezier(0, 0, .2, 1);
+												}
+
+												#gs_alrt_m {
+													display: block;
+													padding: 16px;
+												}
+
+												#gs_alrt_l {
+													display: block;
+													padding: 8px;
+													margin: 0 8px 0 -8px;
+													border-radius: 3px;
+													color: #fcc934;
+													text-transform: uppercase;
+													text-decoration: none;
+												}
+
+												#gs_alrt_l:hover {
+													background-color: rgba(255, 255, 255, .05)
+												}
+
+												#gs_alrt_l:active {
+													background-color: rgba(255, 255, 255, .1)
+												}
+
+												#gs_alrt_l:empty {
+													display: none
+												}
+
+												#gs_alrt_m a {
+													padding: 8px 0;
+													color: #e2e2e2;
+													text-decoration: underline;
+												}
+
+												#gs_alrt_m a:active {
+													color: #f6aea9
+												}
+											</style>
+											<form action="" method="post" id="gs_alrt">
+												<span id="gs_alrt_m"></span><span id="gs_alrt_h"></span><a
+													id="gs_alrt_l" href="javascript:void(0)" class="gs_fm_s"
+													data-fm="gs_alrt"></a></form>
+											<div id="gs_ab" class=" gs_ab_st">
+												<div id="gs_ab_ico" class="gs_btnGSL"><span class="gs_ico"></span></div>
+												<div id="gs_ab_ttl">
+													<div class="gs_ab_mdw"><span class="gs_nph gs_nta">文章</span>
+														<div class="gs_oph gs_ota">学术搜索</div>
+													</div>
+												</div>
+												<div id="gs_ab_md">
+													<div class="gs_ab_mdw">获得约 170,000 条结果，以下是第 4 页 （用时<b>0.03</b>秒）
+													</div>
+												</div>
+												<div id="gs_ab_btns"><a href="/citations?hl=zh-CN"
+														class="gs_btnPRO gs_in_ib gs_in_gray gs_nph gs_nta"><span class="gs_ico"></span><span class="gs_lbl">我的个人学术档案</span></a><a
+														href="/scholar?scilib=1&amp;scioq=offloading+&amp;hl=zh-CN&amp;as_sdt=0,48"
+														class="gs_btnL gs_in_ib gs_in_gray gs_nph gs_nta"><span class="gs_ico"></span><span class="gs_lbl">我的图书馆</span></a>
+													<div id="gs_res_ab_yy-r" class="gs_md_r gs_md_rmb gs_md_rmbl">
+														<button type="button" id="gs_res_ab_yy-b" aria-controls="gs_res_ab_yy-d" aria-haspopup="true" ontouchstart="gs_evt_dsp(event)" class=" gs_in_se gs_btn_mnu gs_btn_flat gs_btn_lrge gs_btn_half gs_btn_lsu gs_press gs_md_tb"><span class="gs_wr"><span class="gs_lbl">年份</span><span class="gs_icm"></span></span></button>
+														<div id="gs_res_ab_yy-d" class="gs_md_d gs_md_ulr" role="menu"
+															tabindex="-1">
+															<div class="gs_res_ab_dd_bdy">
+																<div class="gs_res_ab_dd_sec"><a
+																		href="/scholar?q=offloading+&amp;hl=zh-CN&amp;as_sdt=0,48"
+																		class="gs_md_li gs_res_ab_sel"
+																		aria-checked="true" role="menuitemradio"
+																		tabindex="-1">时间不限</a><a
+																		href="/scholar?as_ylo=2021&amp;q=offloading+&amp;hl=zh-CN&amp;as_sdt=0,48"
+																		class="gs_md_li" role="menuitemradio"
+																		tabindex="-1">2021以来</a><a
+																		href="/scholar?as_ylo=2020&amp;q=offloading+&amp;hl=zh-CN&amp;as_sdt=0,48"
+																		class="gs_md_li" role="menuitemradio"
+																		tabindex="-1">2020以来</a><a
+																		href="/scholar?as_ylo=2017&amp;q=offloading+&amp;hl=zh-CN&amp;as_sdt=0,48"
+																		class="gs_md_li" role="menuitemradio"
+																		tabindex="-1">2017以来</a></div>
+																<div class="gs_res_ab_dd_sec"><a
+																		href="/scholar?hl=zh-CN&amp;as_sdt=0,48&amp;q=offloading+"
+																		class="gs_md_li gs_res_ab_sel"
+																		aria-checked="true" role="menuitemradio"
+																		tabindex="-1">按相关性排序</a><a
+																		href="/scholar?hl=zh-CN&amp;as_sdt=0,48&amp;q=offloading+&amp;scisbd=1"
+																		class="gs_md_li" role="menuitemradio"
+																		tabindex="-1">按日期排序</a></div>
+															</div>
+														</div>
+													</div>
+													<div id="gs_res_ab_ad-r" class="gs_md_r gs_md_rmb gs_md_rmbl">
+														<button type="button" id="gs_res_ab_ad-b" aria-label="更多" aria-controls="gs_res_ab_ad-d" aria-haspopup="true" ontouchstart="gs_evt_dsp(event)" class="gs_btnFLT gs_in_ib gs_btn_flat gs_btn_lrge gs_btn_half gs_btn_lsu gs_press gs_md_tb"><span class="gs_wr"><span class="gs_ico"></span><span class="gs_lbl"></span></span></button>
+														<div id="gs_res_ab_ad-d" class="gs_md_d gs_md_ulr" role="menu"
+															tabindex="-1">
+															<div class="gs_res_ab_dd_bdy">
+																<div class="gs_res_ab_dd_sec"><a
+																		href="/scholar?lr=&amp;q=offloading+&amp;hl=zh-CN&amp;as_sdt=0,48"
+																		class="gs_md_li gs_res_ab_sel"
+																		aria-checked="true" role="menuitemradio"
+																		tabindex="-1">不限语言</a><a
+																		href="/scholar?lr=lang_zh-CN|lang_zh-TW&amp;q=offloading+&amp;hl=zh-CN&amp;as_sdt=0,48"
+																		class="gs_md_li" role="menuitemradio"
+																		tabindex="-1">中文网页</a><a
+																		href="/scholar?lr=lang_zh-CN&amp;q=offloading+&amp;hl=zh-CN&amp;as_sdt=0,48"
+																		class="gs_md_li" role="menuitemradio"
+																		tabindex="-1">简体中文网页</a></div>
+																<div class="gs_res_ab_dd_sec"><a
+																		href="/scholar?q=offloading+&amp;hl=zh-CN&amp;as_sdt=0,48"
+																		class="gs_md_li gs_res_ab_sel"
+																		aria-checked="true" role="menuitemradio"
+																		tabindex="-1">类型不限</a><a
+																		href="/scholar?q=offloading+&amp;hl=zh-CN&amp;as_sdt=0,48&amp;as_rr=1"
+																		class="gs_md_li" role="menuitemradio"
+																		tabindex="-1">评论性文章</a></div>
+																<div class="gs_res_ab_dd_sec"><a
+																		href="/scholar?as_sdt=7,48&amp;q=offloading+&amp;hl=zh-CN"
+																		tabindex="-1" role="menuitemcheckbox"
+																		aria-checked="false" data-s="0"
+																		class="gs_cb_gen gs_in_cb gs_md_li"><span class="gs_lbl">包括专利</span><span class="gs_chk"></span><span class="gs_cbx"></span></a><a
+																		href="/scholar?as_vis=1&amp;q=offloading+&amp;hl=zh-CN&amp;as_sdt=0,48"
+																		tabindex="-1" role="menuitemcheckbox"
+																		aria-checked="true" data-s="1"
+																		class="gs_cb_gen gs_in_cb gs_md_li gs_sel"><span class="gs_lbl">包含引用</span><span class="gs_chk"></span><span class="gs_cbx"></span></a>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div id="gs_bdy">
+												<div id="gs_bdy_sb" role="navigation">
+													<div id="gs_bdy_sb_in">
+														<div class="gs_bdy_sb_sec">
+															<ul id="gs_res_sb_yyl">
+																<li class="gs_ind gs_bdy_sb_sel"><a
+																		href="/scholar?q=offloading+&amp;hl=zh-CN&amp;as_sdt=0,48">时间不限</a>
+																</li>
+																<li class="gs_ind"><a
+																		href="/scholar?as_ylo=2021&amp;q=offloading+&amp;hl=zh-CN&amp;as_sdt=0,48">2021以来</a>
+																</li>
+																<li class="gs_ind"><a
+																		href="/scholar?as_ylo=2020&amp;q=offloading+&amp;hl=zh-CN&amp;as_sdt=0,48">2020以来</a>
+																</li>
+																<li class="gs_ind"><a
+																		href="/scholar?as_ylo=2017&amp;q=offloading+&amp;hl=zh-CN&amp;as_sdt=0,48">2017以来</a>
+																</li>
+																<li class="gs_ind"><a id="gs_res_sb_yyc"
+																		href="javascript:void(0)">自定义范围...</a></li>
+															</ul>
+															<form id="gs_res_sb_yyf" class="gs_pad" action="/scholar"
+																style="display:none">
+																<input type=hidden name="q" value="offloading "><input type=hidden name="hl" value="zh-CN"><input type=hidden name="as_sdt" value="0,48">
+																<div class="gs_res_sb_yyr">
+																	<div class="gs_in_txtw gs_in_txtm">
+																		<input type="text" class="gs_in_txt" name="as_ylo" value="" id="gs_as_ylo" size="4" maxlength="4" autocapitalize="off" pattern="[0-9]*"></div>
+																		— <div class="gs_in_txtw gs_in_txtm">
+																			<input type="text" class="gs_in_txt" name="as_yhi" value="" size="4" maxlength="4" autocapitalize="off" pattern="[0-9]*"></div>
+																		</div>
+																		<div class="gs_res_sb_yyr">
+																			<button type="submit" class=" gs_btn_lsb"><span class="gs_wr"><span class="gs_lbl">搜索</span></span></button>
+																		</div>
+															</form>
+														</div>
+														<ul class="gs_bdy_sb_sec">
+															<li class="gs_ind gs_bdy_sb_sel"><a
+																	href="/scholar?hl=zh-CN&amp;as_sdt=0,48&amp;q=offloading+">按相关性排序</a>
+															</li>
+															<li class="gs_ind"><a
+																	href="/scholar?hl=zh-CN&amp;as_sdt=0,48&amp;q=offloading+&amp;scisbd=1">按日期排序</a>
+															</li>
+														</ul>
+														<ul class="gs_bdy_sb_sec">
+															<li class="gs_ind gs_bdy_sb_sel"><a
+																	href="/scholar?lr=&amp;q=offloading+&amp;hl=zh-CN&amp;as_sdt=0,48">不限语言</a>
+															</li>
+															<li class="gs_ind"><a
+																	href="/scholar?lr=lang_zh-CN|lang_zh-TW&amp;q=offloading+&amp;hl=zh-CN&amp;as_sdt=0,48">中文网页</a>
+															</li>
+															<li class="gs_ind"><a
+																	href="/scholar?lr=lang_zh-CN&amp;q=offloading+&amp;hl=zh-CN&amp;as_sdt=0,48">简体中文网页</a>
+															</li>
+														</ul>
+														<ul class="gs_bdy_sb_sec">
+															<li class="gs_ind gs_bdy_sb_sel"><a
+																	href="/scholar?q=offloading+&amp;hl=zh-CN&amp;as_sdt=0,48">类型不限</a>
+															</li>
+															<li class="gs_ind"><a
+																	href="/scholar?q=offloading+&amp;hl=zh-CN&amp;as_sdt=0,48&amp;as_rr=1">评论性文章</a>
+															</li>
+														</ul>
+														<ul class="gs_bdy_sb_sec">
+															<li class="gs_inw"><a
+																	href="/scholar?as_sdt=7,48&amp;q=offloading+&amp;hl=zh-CN"
+																	role="checkbox" aria-checked="false" data-s="0"
+																	class="gs_cb_gen gs_in_cb"><span class="gs_lbl">包括专利</span><span class="gs_chk"></span><span class="gs_cbx"></span></a>
+															</li>
+															<li class="gs_inw"><a
+																	href="/scholar?as_vis=1&amp;q=offloading+&amp;hl=zh-CN&amp;as_sdt=0,48"
+																	role="checkbox" aria-checked="true" data-s="1"
+																	class="gs_cb_gen gs_in_cb gs_sel"><span class="gs_lbl">包含引用</span><span class="gs_chk"></span><span class="gs_cbx"></span></a>
+															</li>
+														</ul>
+														<div class="gs_bdy_sb_sec"><a
+																href="/scholar_alerts?view_op=create_alert_options&amp;hl=zh-CN&amp;alert_query=intitle:offloading&amp;alert_params=%3Fhl%3Dzh-CN%26as_sdt%3D0,48"
+																id="gs_bdy_sb_ca"
+																class="gs_btnM gs_in_ib"><span class="gs_ico"></span><span class="gs_lbl">创建快讯</span></a>
+														</div>
+													</div>
+												</div>
+												<div id="gs_bdy_ccl" role="main">
+													<div id="gs_res_glb" style="display:none"
+														data-ttl="offloading  - Google 学术搜索" data-lph=""
+														data-sva="/citations?hl=zh-CN&amp;xsrf=&amp;continue=/scholar%3Fq%3Doffloading%2B%26hl%3Dzh-CN%26start%3D30%26as_sdt%3D0,48&amp;citilm=1&amp;update_op=library_add&amp;info={id}&amp;ei=w6bCYci3D4bmyQS34LC4Cg&amp;json="
+														data-sval="/citations?hl=zh-CN&amp;xsrf=&amp;continue=/scholar%3Fq%3Doffloading%2B%26hl%3Dzh-CN%26start%3D30%26as_sdt%3D0,48%26scisig%3DAAGBfm0AAAAAYcKpG58ReUEtVpDKAqJ0LJgY6JPF-mie%26dts%3D%7Bid%7D&amp;citilm=1&amp;update_op=library_add&amp;info={id}&amp;ei=w6bCYci3D4bmyQS34LC4Cg&amp;view_op=list_article_labels"
+														data-tra="/citations?hl=zh-CN&amp;xsrf=&amp;continue=/scholar%3Fq%3Doffloading%2B%26hl%3Dzh-CN%26start%3D30%26as_sdt%3D0,48&amp;citilm=1&amp;json=&amp;update_op=trash_citations&amp;s={id}"
+														data-via="/citations?view_op=view_citation&amp;continue=/scholar%3Fq%3Doffloading%2B%26hl%3Dzh-CN%26start%3D30%26as_sdt%3D0,48&amp;citilm=1&amp;citation_for_view={id}&amp;hl=zh-CN&amp;oi=saved"
+														data-lsl="" data-lpu=""
+														data-lsm="已保存到&lt;a href=&quot;/scholar?scilib=1&amp;amp;scioq=offloading+&amp;amp;hl=zh-CN&amp;amp;as_sdt=0,48&quot;&gt;您的图书馆&lt;/a&gt;。"
+														data-ahq="" data-gsb=""
+														data-rfr="/scholar?q=related:{id}:scholar.google.com/&amp;output=rfrra&amp;scioq=offloading%2B&amp;ei=w6bCYci3D4bmyQS34LC4Cg&amp;hl=zh-CN"
+														data-usv=""></div>
+													<div id="gs_res_lbtpl" style="display:none"></div>
+													<div id="gs_res_ccl">
+														<div id="gs_res_ccl_top"></div>
+														<div id="gs_res_ccl_mid">
+															<div class="gs_r gs_or gs_scl" data-cid="z1cyaHR6uYsJ"
+																data-did="z1cyaHR6uYsJ" data-lid=""
+																data-aid="z1cyaHR6uYsJ" data-rp="30">
+																<div class="gs_ggs gs_fl">
+																	<div class="gs_ggsd">
+																		<div class="gs_or_ggsm"
+																			ontouchstart="gs_evt_dsp(event)"
+																			tabindex="-1"><a
+																				href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.455.1869&amp;rep=rep1&amp;type=pdf"
+																				data-clk="hl=zh-CN&amp;sa=T&amp;oi=gga&amp;ct=gga&amp;cd=30&amp;d=10068213082346379215&amp;ei=w6bCYci3D4bmyQS34LC4Cg"
+																				data-clk-atid="z1cyaHR6uYsJ"><span class=gs_ctg2>[PDF]</span>
+																				psu.edu</a></div>
+																	</div>
+																</div>
+																<div class="gs_ri">
+																	<h3 class="gs_rt" ontouchstart="gs_evt_dsp(event)">
+																		<a id="z1cyaHR6uYsJ"
+																			href="https://ieeexplore.ieee.org/abstract/document/6195845/"
+																			data-clk="hl=zh-CN&amp;sa=T&amp;ct=res&amp;cd=30&amp;d=10068213082346379215&amp;ei=w6bCYci3D4bmyQS34LC4Cg"
+																			data-clk-atid="z1cyaHR6uYsJ">Thinkair:
+																			Dynamic resource allocation and parallel
+																			execution in the cloud for mobile code
+																			<b>offloading</b></a></h3>
+																	<div class="gs_a"><a
+																			href="/citations?user=NOi_xTgAAAAJ&amp;hl=zh-CN&amp;oi=sra">S
+																			Kosta</a>, A Aucinas, <a
+																			href="/citations?user=dcDrhzMAAAAJ&amp;hl=zh-CN&amp;oi=sra">P
+																			Hui</a>, <a
+																			href="/citations?user=9LJgRFAAAAAJ&amp;hl=zh-CN&amp;oi=sra">R
+																			Mortier</a>… - 2012 Proceedings IEEE …, 2012
+																		- ieeexplore.ieee.org</div>
+																	<div class="gs_rs">Smartphones have exploded in
+																		popularity in recent years, becoming ever more
+																		<br>sophisticated and capable. As a result, developers worldwide are building increasingly …</div>
+																		<div class="gs_fl"><a href="javascript:void(0)"
+																				class="gs_or_sav gs_or_btn"
+																				role="button"><svg viewBox="0 0 15 16"
+																					class="gs_or_svg">
+																					<path
+																						d="M7.5 11.57l3.824 2.308-1.015-4.35 3.379-2.926-4.45-.378L7.5 2.122 5.761 6.224l-4.449.378 3.379 2.926-1.015 4.35z" />
+																					</svg><span class="gs_or_btn_lbl">保存</span></a>
+																			<a href="javascript:void(0)"
+																				class="gs_or_cit gs_or_btn gs_nph"
+																				role="button" aria-controls="gs_cit"
+																				aria-haspopup="true"><svg
+																					viewBox="0 0 15 16"
+																					class="gs_or_svg">
+																					<path
+																						d="M6.5 3.5H1.5V8.5H3.75L1.75 12.5H4.75L6.5 9V3.5zM13.5 3.5H8.5V8.5H10.75L8.75 12.5H11.75L13.5 9V3.5z" />
+																					</svg><span>引用</span></a> <a
+																				href="/scholar?cites=10068213082346379215&amp;as_sdt=5,48&amp;sciodt=0,48&amp;hl=zh-CN">被引用次数：1355</a>
+																			<a
+																				href="/scholar?q=related:z1cyaHR6uYsJ:scholar.google.com/&amp;scioq=offloading+&amp;hl=zh-CN&amp;as_sdt=0,48">相关文章</a>
+																			<a href="/scholar?cluster=10068213082346379215&amp;hl=zh-CN&amp;as_sdt=0,48"
+																				class="gs_nph">所有 17 个版本</a> <a
+																				href="javascript:void(0)" title="更多"
+																				class="gs_or_mor gs_oph"
+																				role="button"><svg viewBox="0 0 15 16"
+																					class="gs_or_svg">
+																					<path
+																						d="M0.75 5.5l2-2L7.25 8l-4.5 4.5-2-2L3.25 8zM7.75 5.5l2-2L14.25 8l-4.5 4.5-2-2L10.25 8z" />
+																					</svg></a> <a
+																				href="javascript:void(0)" title="隐藏"
+																				class="gs_or_nvi gs_or_mor"
+																				role="button"><svg viewBox="0 0 15 16"
+																					class="gs_or_svg">
+																					<path
+																						d="M7.25 5.5l-2-2L0.75 8l4.5 4.5 2-2L4.75 8zM14.25 5.5l-2-2L7.75 8l4.5 4.5 2-2L11.75 8z" />
+																					</svg></a></div>
+																	</div>
+																</div>
+																<div class="gs_r gs_or gs_scl" data-cid="MB4qlp4xhZkJ"
+																	data-did="MB4qlp4xhZkJ" data-lid=""
+																	data-aid="MB4qlp4xhZkJ" data-rp="31">
+																	<div class="gs_ggs gs_fl">
+																		<div class="gs_ggsd">
+																			<div class="gs_or_ggsm"
+																				ontouchstart="gs_evt_dsp(event)"
+																				tabindex="-1"><a
+																					href="https://ece.uwaterloo.ca/~n5cheng/Publication/Space-Aerial-Assisted%20Computing%20Offloading.pdf"
+																					data-clk="hl=zh-CN&amp;sa=T&amp;oi=gga&amp;ct=gga&amp;cd=31&amp;d=11062302616899427888&amp;ei=w6bCYci3D4bmyQS34LC4Cg"
+																					data-clk-atid="MB4qlp4xhZkJ"><span class=gs_ctg2>[PDF]</span>
+																					uwaterloo.ca</a></div>
+																		</div>
+																	</div>
+																	<div class="gs_ri">
+																		<h3 class="gs_rt"
+																			ontouchstart="gs_evt_dsp(event)"><a
+																				id="MB4qlp4xhZkJ"
+																				href="https://ieeexplore.ieee.org/abstract/document/8672604/"
+																				data-clk="hl=zh-CN&amp;sa=T&amp;ct=res&amp;cd=31&amp;d=11062302616899427888&amp;ei=w6bCYci3D4bmyQS34LC4Cg"
+																				data-clk-atid="MB4qlp4xhZkJ">Space/aerial-assisted
+																				computing <b>offloading </b>for IoT
+																				applications: A learning-based
+																				approach</a></h3>
+																		<div class="gs_a"><a
+																				href="/citations?user=Cxm51twAAAAJ&amp;hl=zh-CN&amp;oi=sra">N
+																				Cheng</a>, <a
+																				href="/citations?user=qQpcRGsAAAAJ&amp;hl=zh-CN&amp;oi=sra">F
+																				Lyu</a>, <a
+																				href="/citations?user=BQMKkn8AAAAJ&amp;hl=zh-CN&amp;oi=sra">W
+																				Quan</a>, C Zhou, H He… - IEEE Journal
+																			on …, 2019 - ieeexplore.ieee.org</div>
+																		<div class="gs_rs">Internet of Things (IoT)
+																			computing <b>offloading </b>is a challenging
+																			issue, especially in remote
+																			<br>areas where common edge/cloud infrastructure is unavailable. In this paper, we present a …</div>
+																			<div class="gs_fl"><a
+																					href="javascript:void(0)"
+																					class="gs_or_sav gs_or_btn"
+																					role="button"><svg
+																						viewBox="0 0 15 16"
+																						class="gs_or_svg">
+																						<path
+																							d="M7.5 11.57l3.824 2.308-1.015-4.35 3.379-2.926-4.45-.378L7.5 2.122 5.761 6.224l-4.449.378 3.379 2.926-1.015 4.35z" />
+																						</svg><span class="gs_or_btn_lbl">保存</span></a>
+																				<a href="javascript:void(0)"
+																					class="gs_or_cit gs_or_btn gs_nph"
+																					role="button" aria-controls="gs_cit"
+																					aria-haspopup="true"><svg
+																						viewBox="0 0 15 16"
+																						class="gs_or_svg">
+																						<path
+																							d="M6.5 3.5H1.5V8.5H3.75L1.75 12.5H4.75L6.5 9V3.5zM13.5 3.5H8.5V8.5H10.75L8.75 12.5H11.75L13.5 9V3.5z" />
+																						</svg><span>引用</span></a> <a
+																					href="/scholar?cites=11062302616899427888&amp;as_sdt=5,48&amp;sciodt=0,48&amp;hl=zh-CN">被引用次数：275</a>
+																				<a
+																					href="/scholar?q=related:MB4qlp4xhZkJ:scholar.google.com/&amp;scioq=offloading+&amp;hl=zh-CN&amp;as_sdt=0,48">相关文章</a>
+																				<a href="/scholar?cluster=11062302616899427888&amp;hl=zh-CN&amp;as_sdt=0,48"
+																					class="gs_nph">所有 2 个版本</a> <a
+																					href="javascript:void(0)" title="更多"
+																					class="gs_or_mor gs_oph"
+																					role="button"><svg
+																						viewBox="0 0 15 16"
+																						class="gs_or_svg">
+																						<path
+																							d="M0.75 5.5l2-2L7.25 8l-4.5 4.5-2-2L3.25 8zM7.75 5.5l2-2L14.25 8l-4.5 4.5-2-2L10.25 8z" />
+																						</svg></a> <a
+																					href="javascript:void(0)" title="隐藏"
+																					class="gs_or_nvi gs_or_mor"
+																					role="button"><svg
+																						viewBox="0 0 15 16"
+																						class="gs_or_svg">
+																						<path
+																							d="M7.25 5.5l-2-2L0.75 8l4.5 4.5 2-2L4.75 8zM14.25 5.5l-2-2L7.75 8l4.5 4.5 2-2L11.75 8z" />
+																						</svg></a></div>
+																		</div>
+																	</div>
+																	<div class="gs_r gs_or gs_scl"
+																		data-cid="944K75TrkHkJ" data-did="944K75TrkHkJ"
+																		data-lid="" data-aid="944K75TrkHkJ"
+																		data-rp="32">
+																		<div class="gs_ggs gs_fl">
+																			<div class="gs_ggsd">
+																				<div class="gs_or_ggsm"
+																					ontouchstart="gs_evt_dsp(event)"
+																					tabindex="-1"><a
+																						href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.3.2095&amp;rep=rep1&amp;type=pdf"
+																						data-clk="hl=zh-CN&amp;sa=T&amp;oi=gga&amp;ct=gga&amp;cd=32&amp;d=8759760300133748471&amp;ei=w6bCYci3D4bmyQS34LC4Cg"
+																						data-clk-atid="944K75TrkHkJ"><span class=gs_ctg2>[PDF]</span>
+																						psu.edu</a></div>
+																			</div>
+																		</div>
+																		<div class="gs_ri">
+																			<h3 class="gs_rt"
+																				ontouchstart="gs_evt_dsp(event)"><a
+																					id="944K75TrkHkJ"
+																					href="https://dl.acm.org/doi/abs/10.1145/502217.502257"
+																					data-clk="hl=zh-CN&amp;sa=T&amp;ct=res&amp;cd=32&amp;d=8759760300133748471&amp;ei=w6bCYci3D4bmyQS34LC4Cg"
+																					data-clk-atid="944K75TrkHkJ">Computation
+																					<b>offloading </b>to save energy on
+																					handheld devices: a partition
+																					scheme</a></h3>
+																			<div class="gs_a">Z Li, <a
+																					href="/citations?user=36gSGWkAAAAJ&amp;hl=zh-CN&amp;oi=sra">C
+																					Wang</a>, R Xu - Proceedings of the
+																				2001 international conference …, 2001 -
+																				dl.acm.org</div>
+																			<div class="gs_rs">We consider handheld
+																				computing devices which are connected to
+																				a server (or a powerful
+																				<br>desktop machine) via a wireless LAN. On such devices, it is often possible to save the …</div>
+																				<div class="gs_fl"><a
+																						href="javascript:void(0)"
+																						class="gs_or_sav gs_or_btn"
+																						role="button"><svg
+																							viewBox="0 0 15 16"
+																							class="gs_or_svg">
+																							<path
+																								d="M7.5 11.57l3.824 2.308-1.015-4.35 3.379-2.926-4.45-.378L7.5 2.122 5.761 6.224l-4.449.378 3.379 2.926-1.015 4.35z" />
+																							</svg><span class="gs_or_btn_lbl">保存</span></a>
+																					<a href="javascript:void(0)"
+																						class="gs_or_cit gs_or_btn gs_nph"
+																						role="button"
+																						aria-controls="gs_cit"
+																						aria-haspopup="true"><svg
+																							viewBox="0 0 15 16"
+																							class="gs_or_svg">
+																							<path
+																								d="M6.5 3.5H1.5V8.5H3.75L1.75 12.5H4.75L6.5 9V3.5zM13.5 3.5H8.5V8.5H10.75L8.75 12.5H11.75L13.5 9V3.5z" />
+																							</svg><span>引用</span></a> <a
+																						href="/scholar?cites=8759760300133748471&amp;as_sdt=5,48&amp;sciodt=0,48&amp;hl=zh-CN">被引用次数：398</a>
+																					<a
+																						href="/scholar?q=related:944K75TrkHkJ:scholar.google.com/&amp;scioq=offloading+&amp;hl=zh-CN&amp;as_sdt=0,48">相关文章</a>
+																					<a href="/scholar?cluster=8759760300133748471&amp;hl=zh-CN&amp;as_sdt=0,48"
+																						class="gs_nph">所有 6 个版本</a> <a
+																						href="javascript:void(0)"
+																						title="更多"
+																						class="gs_or_mor gs_oph"
+																						role="button"><svg
+																							viewBox="0 0 15 16"
+																							class="gs_or_svg">
+																							<path
+																								d="M0.75 5.5l2-2L7.25 8l-4.5 4.5-2-2L3.25 8zM7.75 5.5l2-2L14.25 8l-4.5 4.5-2-2L10.25 8z" />
+																							</svg></a> <a
+																						href="javascript:void(0)"
+																						title="隐藏"
+																						class="gs_or_nvi gs_or_mor"
+																						role="button"><svg
+																							viewBox="0 0 15 16"
+																							class="gs_or_svg">
+																							<path
+																								d="M7.25 5.5l-2-2L0.75 8l4.5 4.5 2-2L4.75 8zM14.25 5.5l-2-2L7.75 8l4.5 4.5 2-2L11.75 8z" />
+																							</svg></a></div>
+																			</div>
+																		</div>
+																		<div class="gs_r gs_or gs_scl"
+																			data-cid="QswsJw-8zRIJ"
+																			data-did="QswsJw-8zRIJ" data-lid=""
+																			data-aid="QswsJw-8zRIJ" data-rp="33">
+																			<div class="gs_ggs gs_fl">
+																				<div class="gs_ggsd">
+																					<div class="gs_or_ggsm"
+																						ontouchstart="gs_evt_dsp(event)"
+																						tabindex="-1"><a
+																							href="https://www.ibr.cs.tu-bs.de/courses/ws1011/advnet1/paper/chants2010/p31.pdf"
+																							data-clk="hl=zh-CN&amp;sa=T&amp;oi=gga&amp;ct=gga&amp;cd=33&amp;d=1354945836176165954&amp;ei=w6bCYci3D4bmyQS34LC4Cg"
+																							data-clk-atid="QswsJw-8zRIJ"><span class=gs_ctg2>[PDF]</span>
+																							tu-bs.de</a></div>
+																				</div>
+																			</div>
+																			<div class="gs_ri">
+																				<h3 class="gs_rt"
+																					ontouchstart="gs_evt_dsp(event)"><a
+																						id="QswsJw-8zRIJ"
+																						href="https://dl.acm.org/doi/abs/10.1145/1859934.1859943"
+																						data-clk="hl=zh-CN&amp;sa=T&amp;ct=res&amp;cd=33&amp;d=1354945836176165954&amp;ei=w6bCYci3D4bmyQS34LC4Cg"
+																						data-clk-atid="QswsJw-8zRIJ">Cellular
+																						traffic
+																						<b>offloading </b>through
+																						opportunistic communications: a
+																						case study</a></h3>
+																				<div class="gs_a"><a
+																						href="/citations?user=BhRa314AAAAJ&amp;hl=zh-CN&amp;oi=sra">B
+																						Han</a>, <a
+																						href="/citations?user=dcDrhzMAAAAJ&amp;hl=zh-CN&amp;oi=sra">P
+																						Hui</a>, <a
+																						href="/citations?user=BnxU9TEAAAAJ&amp;hl=zh-CN&amp;oi=sra">VSA
+																						Kumar</a>, <a
+																						href="/citations?user=diIore8AAAAJ&amp;hl=zh-CN&amp;oi=sra">MV
+																						Marathe</a>, <a
+																						href="/citations?user=TZDAbmEAAAAJ&amp;hl=zh-CN&amp;oi=sra">G
+																						Pei</a>… - Proceedings of the
+																					5th …, 2010 - dl.acm.org</div>
+																				<div class="gs_rs">Due to the increasing
+																					popularity of various applications
+																					for smartphones, 3G networks are <br>currently overloaded by mobile data traffic.
+																					<b>Offloading </b>cellular traffic
+																					through opportunistic …</div>
+																				<div class="gs_fl"><a
+																						href="javascript:void(0)"
+																						class="gs_or_sav gs_or_btn"
+																						role="button"><svg
+																							viewBox="0 0 15 16"
+																							class="gs_or_svg">
+																							<path
+																								d="M7.5 11.57l3.824 2.308-1.015-4.35 3.379-2.926-4.45-.378L7.5 2.122 5.761 6.224l-4.449.378 3.379 2.926-1.015 4.35z" />
+																							</svg><span class="gs_or_btn_lbl">保存</span></a>
+																					<a href="javascript:void(0)"
+																						class="gs_or_cit gs_or_btn gs_nph"
+																						role="button"
+																						aria-controls="gs_cit"
+																						aria-haspopup="true"><svg
+																							viewBox="0 0 15 16"
+																							class="gs_or_svg">
+																							<path
+																								d="M6.5 3.5H1.5V8.5H3.75L1.75 12.5H4.75L6.5 9V3.5zM13.5 3.5H8.5V8.5H10.75L8.75 12.5H11.75L13.5 9V3.5z" />
+																							</svg><span>引用</span></a> <a
+																						href="/scholar?cites=1354945836176165954&amp;as_sdt=5,48&amp;sciodt=0,48&amp;hl=zh-CN">被引用次数：343</a>
+																					<a
+																						href="/scholar?q=related:QswsJw-8zRIJ:scholar.google.com/&amp;scioq=offloading+&amp;hl=zh-CN&amp;as_sdt=0,48">相关文章</a>
+																					<a href="/scholar?cluster=1354945836176165954&amp;hl=zh-CN&amp;as_sdt=0,48"
+																						class="gs_nph">所有 13 个版本</a> <a
+																						href="javascript:void(0)"
+																						title="更多"
+																						class="gs_or_mor gs_oph"
+																						role="button"><svg
+																							viewBox="0 0 15 16"
+																							class="gs_or_svg">
+																							<path
+																								d="M0.75 5.5l2-2L7.25 8l-4.5 4.5-2-2L3.25 8zM7.75 5.5l2-2L14.25 8l-4.5 4.5-2-2L10.25 8z" />
+																							</svg></a> <a
+																						href="javascript:void(0)"
+																						title="隐藏"
+																						class="gs_or_nvi gs_or_mor"
+																						role="button"><svg
+																							viewBox="0 0 15 16"
+																							class="gs_or_svg">
+																							<path
+																								d="M7.25 5.5l-2-2L0.75 8l4.5 4.5 2-2L4.75 8zM14.25 5.5l-2-2L7.75 8l4.5 4.5 2-2L11.75 8z" />
+																							</svg></a></div>
+																			</div>
+																		</div>
+																		<div class="gs_r gs_or gs_scl"
+																			data-cid="3xWlOAaUIn4J"
+																			data-did="3xWlOAaUIn4J" data-lid=""
+																			data-aid="3xWlOAaUIn4J" data-rp="34">
+																			<div class="gs_ggs gs_fl">
+																				<div class="gs_ggsd">
+																					<div class="gs_or_ggsm"
+																						ontouchstart="gs_evt_dsp(event)"
+																						tabindex="-1"><a
+																							href="https://www.researchgate.net/profile/Li-Lin-25/publication/334337488_Computation_Offloading_Toward_Edge_Computing/links/5d425627299bf1995b5b80e1/Computation-Offloading-Toward-Edge-Computing.pdf"
+																							data-clk="hl=zh-CN&amp;sa=T&amp;oi=gga&amp;ct=gga&amp;cd=34&amp;d=9088989752428139999&amp;ei=w6bCYci3D4bmyQS34LC4Cg"
+																							data-clk-atid="3xWlOAaUIn4J"><span class=gs_ctg2>[PDF]</span>
+																							researchgate.net</a></div>
+																				</div>
+																			</div>
+																			<div class="gs_ri">
+																				<h3 class="gs_rt"
+																					ontouchstart="gs_evt_dsp(event)"><a
+																						id="3xWlOAaUIn4J"
+																						href="https://ieeexplore.ieee.org/abstract/document/8758310/"
+																						data-clk="hl=zh-CN&amp;sa=T&amp;ct=res&amp;cd=34&amp;d=9088989752428139999&amp;ei=w6bCYci3D4bmyQS34LC4Cg"
+																						data-clk-atid="3xWlOAaUIn4J">Computation
+																						<b>offloading </b>toward edge
+																						computing</a></h3>
+																				<div class="gs_a"><a
+																						href="/citations?user=nohP_hQAAAAJ&amp;hl=zh-CN&amp;oi=sra">L
+																						Lin</a>, X Liao, <a
+																						href="/citations?user=o02W0aEAAAAJ&amp;hl=zh-CN&amp;oi=sra">H
+																						Jin</a>, <a
+																						href="/citations?user=BwVWb8UAAAAJ&amp;hl=zh-CN&amp;oi=sra">P
+																						Li</a> - Proceedings of the
+																					IEEE, 2019 - ieeexplore.ieee.org
+																				</div>
+																				<div class="gs_rs">We are living in a
+																					world where massive end devices
+																					perform computing everywhere and
+																					<br>everyday. However, these devices are constrained by the battery and computational …</div>
+																					<div class="gs_fl"><a
+																							href="javascript:void(0)"
+																							class="gs_or_sav gs_or_btn"
+																							role="button"><svg
+																								viewBox="0 0 15 16"
+																								class="gs_or_svg">
+																								<path
+																									d="M7.5 11.57l3.824 2.308-1.015-4.35 3.379-2.926-4.45-.378L7.5 2.122 5.761 6.224l-4.449.378 3.379 2.926-1.015 4.35z" />
+																								</svg><span class="gs_or_btn_lbl">保存</span></a>
+																						<a href="javascript:void(0)"
+																							class="gs_or_cit gs_or_btn gs_nph"
+																							role="button"
+																							aria-controls="gs_cit"
+																							aria-haspopup="true"><svg
+																								viewBox="0 0 15 16"
+																								class="gs_or_svg">
+																								<path
+																									d="M6.5 3.5H1.5V8.5H3.75L1.75 12.5H4.75L6.5 9V3.5zM13.5 3.5H8.5V8.5H10.75L8.75 12.5H11.75L13.5 9V3.5z" />
+																								</svg><span>引用</span></a>
+																						<a
+																							href="/scholar?cites=9088989752428139999&amp;as_sdt=5,48&amp;sciodt=0,48&amp;hl=zh-CN">被引用次数：124</a>
+																						<a
+																							href="/scholar?q=related:3xWlOAaUIn4J:scholar.google.com/&amp;scioq=offloading+&amp;hl=zh-CN&amp;as_sdt=0,48">相关文章</a>
+																						<a href="/scholar?cluster=9088989752428139999&amp;hl=zh-CN&amp;as_sdt=0,48"
+																							class="gs_nph">所有 2 个版本</a>
+																						<a href="javascript:void(0)"
+																							title="更多"
+																							class="gs_or_mor gs_oph"
+																							role="button"><svg
+																								viewBox="0 0 15 16"
+																								class="gs_or_svg">
+																								<path
+																									d="M0.75 5.5l2-2L7.25 8l-4.5 4.5-2-2L3.25 8zM7.75 5.5l2-2L14.25 8l-4.5 4.5-2-2L10.25 8z" />
+																								</svg></a> <a
+																							href="javascript:void(0)"
+																							title="隐藏"
+																							class="gs_or_nvi gs_or_mor"
+																							role="button"><svg
+																								viewBox="0 0 15 16"
+																								class="gs_or_svg">
+																								<path
+																									d="M7.25 5.5l-2-2L0.75 8l4.5 4.5 2-2L4.75 8zM14.25 5.5l-2-2L7.75 8l4.5 4.5 2-2L11.75 8z" />
+																								</svg></a></div>
+																				</div>
+																			</div>
+																			<div class="gs_r gs_or gs_scl"
+																				data-cid="ANwcfPHqbIYJ"
+																				data-did="ANwcfPHqbIYJ" data-lid=""
+																				data-aid="ANwcfPHqbIYJ" data-rp="35">
+																				<div class="gs_ggs gs_fl">
+																					<div class="gs_ggsd">
+																						<div class="gs_or_ggsm"
+																							ontouchstart="gs_evt_dsp(event)"
+																							tabindex="-1"><a
+																								href="https://www.researchgate.net/profile/Madhav-Marathe/publication/224236770_Mobile_Data_Offloading_through_Opportunistic_Communications_and_Social_Participation/links/09e41508e662e44c62000000/Mobile-Data-Offloading-through-Opportunistic-Communications-and-Social-Participation.pdf"
+																								data-clk="hl=zh-CN&amp;sa=T&amp;oi=gga&amp;ct=gga&amp;cd=35&amp;d=9686375221457378304&amp;ei=w6bCYci3D4bmyQS34LC4Cg"
+																								data-clk-atid="ANwcfPHqbIYJ"><span class=gs_ctg2>[PDF]</span>
+																								researchgate.net</a>
+																						</div>
+																					</div>
+																				</div>
+																				<div class="gs_ri">
+																					<h3 class="gs_rt"
+																						ontouchstart="gs_evt_dsp(event)">
+																						<a id="ANwcfPHqbIYJ"
+																							href="https://ieeexplore.ieee.org/abstract/document/5765984/"
+																							data-clk="hl=zh-CN&amp;sa=T&amp;ct=res&amp;cd=35&amp;d=9686375221457378304&amp;ei=w6bCYci3D4bmyQS34LC4Cg"
+																							data-clk-atid="ANwcfPHqbIYJ">Mobile
+																							data
+																							<b>offloading </b>through
+																							opportunistic communications
+																							and social participation</a>
+																					</h3>
+																					<div class="gs_a"><a
+																							href="/citations?user=BhRa314AAAAJ&amp;hl=zh-CN&amp;oi=sra">B
+																							Han</a>, <a
+																							href="/citations?user=dcDrhzMAAAAJ&amp;hl=zh-CN&amp;oi=sra">P
+																							Hui</a>, <a
+																							href="/citations?user=MNJ-E9UAAAAJ&amp;hl=zh-CN&amp;oi=sra">VSA
+																							Kumar</a>, <a
+																							href="/citations?user=diIore8AAAAJ&amp;hl=zh-CN&amp;oi=sra">MV
+																							Marathe</a>… - … on mobile
+																						computing, 2011 -
+																						ieeexplore.ieee.org</div>
+																					<div class="gs_rs">3G networks are
+																						currently overloaded, due to the
+																						increasing popularity of various
+																						<br>applications for smartphones.
+																						<b>Offloading </b>mobile data
+																						traffic through opportunistic …
+																					</div>
+																					<div class="gs_fl"><a
+																							href="javascript:void(0)"
+																							class="gs_or_sav gs_or_btn"
+																							role="button"><svg
+																								viewBox="0 0 15 16"
+																								class="gs_or_svg">
+																								<path
+																									d="M7.5 11.57l3.824 2.308-1.015-4.35 3.379-2.926-4.45-.378L7.5 2.122 5.761 6.224l-4.449.378 3.379 2.926-1.015 4.35z" />
+																								</svg><span class="gs_or_btn_lbl">保存</span></a>
+																						<a href="javascript:void(0)"
+																							class="gs_or_cit gs_or_btn gs_nph"
+																							role="button"
+																							aria-controls="gs_cit"
+																							aria-haspopup="true"><svg
+																								viewBox="0 0 15 16"
+																								class="gs_or_svg">
+																								<path
+																									d="M6.5 3.5H1.5V8.5H3.75L1.75 12.5H4.75L6.5 9V3.5zM13.5 3.5H8.5V8.5H10.75L8.75 12.5H11.75L13.5 9V3.5z" />
+																								</svg><span>引用</span></a>
+																						<a
+																							href="/scholar?cites=9686375221457378304&amp;as_sdt=5,48&amp;sciodt=0,48&amp;hl=zh-CN">被引用次数：660</a>
+																						<a
+																							href="/scholar?q=related:ANwcfPHqbIYJ:scholar.google.com/&amp;scioq=offloading+&amp;hl=zh-CN&amp;as_sdt=0,48">相关文章</a>
+																						<a href="/scholar?cluster=9686375221457378304&amp;hl=zh-CN&amp;as_sdt=0,48"
+																							class="gs_nph">所有 12 个版本</a>
+																						<a href="javascript:void(0)"
+																							title="更多"
+																							class="gs_or_mor gs_oph"
+																							role="button"><svg
+																								viewBox="0 0 15 16"
+																								class="gs_or_svg">
+																								<path
+																									d="M0.75 5.5l2-2L7.25 8l-4.5 4.5-2-2L3.25 8zM7.75 5.5l2-2L14.25 8l-4.5 4.5-2-2L10.25 8z" />
+																								</svg></a> <a
+																							href="javascript:void(0)"
+																							title="隐藏"
+																							class="gs_or_nvi gs_or_mor"
+																							role="button"><svg
+																								viewBox="0 0 15 16"
+																								class="gs_or_svg">
+																								<path
+																									d="M7.25 5.5l-2-2L0.75 8l4.5 4.5 2-2L4.75 8zM14.25 5.5l-2-2L7.75 8l4.5 4.5 2-2L11.75 8z" />
+																								</svg></a></div>
+																				</div>
+																			</div>
+																			<div class="gs_r gs_or gs_scl"
+																				data-cid="A4nnUUgQW9QJ"
+																				data-did="A4nnUUgQW9QJ" data-lid=""
+																				data-aid="A4nnUUgQW9QJ" data-rp="36">
+																				<div class="gs_ggs gs_fl">
+																					<div class="gs_ggsd">
+																						<div class="gs_or_ggsm"
+																							ontouchstart="gs_evt_dsp(event)"
+																							tabindex="-1"><a
+																								href="https://arxiv.org/pdf/1712.08768"
+																								data-clk="hl=zh-CN&amp;sa=T&amp;oi=gga&amp;ct=gga&amp;cd=36&amp;d=15301842061719210243&amp;ei=w6bCYci3D4bmyQS34LC4Cg"
+																								data-clk-atid="A4nnUUgQW9QJ"><span class=gs_ctg2>[PDF]</span>
+																								arxiv.org</a></div>
+																					</div>
+																				</div>
+																				<div class="gs_ri">
+																					<h3 class="gs_rt"
+																						ontouchstart="gs_evt_dsp(event)">
+																						<a id="A4nnUUgQW9QJ"
+																							href="https://ieeexplore.ieee.org/abstract/document/8598893/"
+																							data-clk="hl=zh-CN&amp;sa=T&amp;ct=res&amp;cd=36&amp;d=15301842061719210243&amp;ei=w6bCYci3D4bmyQS34LC4Cg"
+																							data-clk-atid="A4nnUUgQW9QJ">Learning-based
+																							computation
+																							<b>offloading </b>for IoT
+																							devices with energy
+																							harvesting</a></h3>
+																					<div class="gs_a"><a
+																							href="/citations?user=oqEBaUcAAAAJ&amp;hl=zh-CN&amp;oi=sra">M
+																							Min</a>, <a
+																							href="/citations?user=jLCBw1IAAAAJ&amp;hl=zh-CN&amp;oi=sra">L
+																							Xiao</a>, Y Chen, <a
+																							href="/citations?user=0Z1uk7YAAAAJ&amp;hl=zh-CN&amp;oi=sra">P
+																							Cheng</a>, <a
+																							href="/citations?user=guhA4VoAAAAJ&amp;hl=zh-CN&amp;oi=sra">D
+																							Wu</a>… - IEEE Transactions
+																						on …, 2019 - ieeexplore.ieee.org
+																					</div>
+																					<div class="gs_rs">Internet of
+																						Things (IoT) devices can apply
+																						mobile edge computing (MEC) and
+																						energy
+																						<br>harvesting (EH) to provide high-level experiences for computational intensive applications …</div>
+																						<div class="gs_fl"><a
+																								href="javascript:void(0)"
+																								class="gs_or_sav gs_or_btn"
+																								role="button"><svg
+																									viewBox="0 0 15 16"
+																									class="gs_or_svg">
+																									<path
+																										d="M7.5 11.57l3.824 2.308-1.015-4.35 3.379-2.926-4.45-.378L7.5 2.122 5.761 6.224l-4.449.378 3.379 2.926-1.015 4.35z" />
+																									</svg><span class="gs_or_btn_lbl">保存</span></a>
+																							<a href="javascript:void(0)"
+																								class="gs_or_cit gs_or_btn gs_nph"
+																								role="button"
+																								aria-controls="gs_cit"
+																								aria-haspopup="true"><svg
+																									viewBox="0 0 15 16"
+																									class="gs_or_svg">
+																									<path
+																										d="M6.5 3.5H1.5V8.5H3.75L1.75 12.5H4.75L6.5 9V3.5zM13.5 3.5H8.5V8.5H10.75L8.75 12.5H11.75L13.5 9V3.5z" />
+																									</svg><span>引用</span></a>
+																							<a
+																								href="/scholar?cites=15301842061719210243&amp;as_sdt=5,48&amp;sciodt=0,48&amp;hl=zh-CN">被引用次数：243</a>
+																							<a
+																								href="/scholar?q=related:A4nnUUgQW9QJ:scholar.google.com/&amp;scioq=offloading+&amp;hl=zh-CN&amp;as_sdt=0,48">相关文章</a>
+																							<a href="/scholar?cluster=15301842061719210243&amp;hl=zh-CN&amp;as_sdt=0,48"
+																								class="gs_nph">所有 8
+																								个版本</a> <a
+																								href="javascript:void(0)"
+																								title="更多"
+																								class="gs_or_mor gs_oph"
+																								role="button"><svg
+																									viewBox="0 0 15 16"
+																									class="gs_or_svg">
+																									<path
+																										d="M0.75 5.5l2-2L7.25 8l-4.5 4.5-2-2L3.25 8zM7.75 5.5l2-2L14.25 8l-4.5 4.5-2-2L10.25 8z" />
+																									</svg></a> <a
+																								href="javascript:void(0)"
+																								title="隐藏"
+																								class="gs_or_nvi gs_or_mor"
+																								role="button"><svg
+																									viewBox="0 0 15 16"
+																									class="gs_or_svg">
+																									<path
+																										d="M7.25 5.5l-2-2L0.75 8l4.5 4.5 2-2L4.75 8zM14.25 5.5l-2-2L7.75 8l4.5 4.5 2-2L11.75 8z" />
+																									</svg></a></div>
+																					</div>
+																				</div>
+																				<div class="gs_r gs_or gs_scl"
+																					data-cid="7PSQmnMTthIJ"
+																					data-did="7PSQmnMTthIJ" data-lid=""
+																					data-aid="7PSQmnMTthIJ"
+																					data-rp="37">
+																					<div class="gs_ri">
+																						<h3 class="gs_rt"
+																							ontouchstart="gs_evt_dsp(event)">
+																							<a id="7PSQmnMTthIJ"
+																								href="https://ieeexplore.ieee.org/abstract/document/7112504/"
+																								data-clk="hl=zh-CN&amp;sa=T&amp;ct=res&amp;cd=37&amp;d=1348286525679400172&amp;ei=w6bCYci3D4bmyQS34LC4Cg"
+																								data-clk-atid="7PSQmnMTthIJ">Efficiency
+																								analysis of WiFi
+																								<b>offloading </b>techniques</a>
+																						</h3>
+																						<div class="gs_a"><a
+																								href="/citations?user=fk0ofNMAAAAJ&amp;hl=zh-CN&amp;oi=sra">D
+																								Suh</a>, <a
+																								href="/citations?user=-kACiWIAAAAJ&amp;hl=zh-CN&amp;oi=sra">H
+																								Ko</a>, <a
+																								href="/citations?user=UCKmmOwAAAAJ&amp;hl=zh-CN&amp;oi=sra">S
+																								Pack</a> - IEEE
+																							Transactions on Vehicular …,
+																							2015 - ieeexplore.ieee.org
+																						</div>
+																						<div class="gs_rs">WiFi
+																							<b>offloading </b>is a
+																							promising technique for
+																							addressing the mobile data
+																							explosion problem. <br>In this paper, we consider two types of WiFi
+																							<b>offloading </b>techniques:
+																							1) opportunistic WiFi …
+																						</div>
+																						<div class="gs_fl"><a
+																								href="javascript:void(0)"
+																								class="gs_or_sav gs_or_btn"
+																								role="button"><svg
+																									viewBox="0 0 15 16"
+																									class="gs_or_svg">
+																									<path
+																										d="M7.5 11.57l3.824 2.308-1.015-4.35 3.379-2.926-4.45-.378L7.5 2.122 5.761 6.224l-4.449.378 3.379 2.926-1.015 4.35z" />
+																									</svg><span class="gs_or_btn_lbl">保存</span></a>
+																							<a href="javascript:void(0)"
+																								class="gs_or_cit gs_or_btn gs_nph"
+																								role="button"
+																								aria-controls="gs_cit"
+																								aria-haspopup="true"><svg
+																									viewBox="0 0 15 16"
+																									class="gs_or_svg">
+																									<path
+																										d="M6.5 3.5H1.5V8.5H3.75L1.75 12.5H4.75L6.5 9V3.5zM13.5 3.5H8.5V8.5H10.75L8.75 12.5H11.75L13.5 9V3.5z" />
+																									</svg><span>引用</span></a>
+																							<a
+																								href="/scholar?cites=1348286525679400172&amp;as_sdt=5,48&amp;sciodt=0,48&amp;hl=zh-CN">被引用次数：65</a>
+																							<a
+																								href="/scholar?q=related:7PSQmnMTthIJ:scholar.google.com/&amp;scioq=offloading+&amp;hl=zh-CN&amp;as_sdt=0,48">相关文章</a>
+																							<a href="/scholar?cluster=1348286525679400172&amp;hl=zh-CN&amp;as_sdt=0,48"
+																								class="gs_nph">所有 2
+																								个版本</a> <a
+																								href="javascript:void(0)"
+																								title="更多"
+																								class="gs_or_mor gs_oph"
+																								role="button"><svg
+																									viewBox="0 0 15 16"
+																									class="gs_or_svg">
+																									<path
+																										d="M0.75 5.5l2-2L7.25 8l-4.5 4.5-2-2L3.25 8zM7.75 5.5l2-2L14.25 8l-4.5 4.5-2-2L10.25 8z" />
+																									</svg></a> <a
+																								href="javascript:void(0)"
+																								title="隐藏"
+																								class="gs_or_nvi gs_or_mor"
+																								role="button"><svg
+																									viewBox="0 0 15 16"
+																									class="gs_or_svg">
+																									<path
+																										d="M7.25 5.5l-2-2L0.75 8l4.5 4.5 2-2L4.75 8zM14.25 5.5l-2-2L7.75 8l4.5 4.5 2-2L11.75 8z" />
+																									</svg></a></div>
+																					</div>
+																				</div>
+																				<div class="gs_r gs_or gs_scl"
+																					data-cid="tnOPGYXkGuQJ"
+																					data-did="tnOPGYXkGuQJ" data-lid=""
+																					data-aid="tnOPGYXkGuQJ"
+																					data-rp="38">
+																					<div class="gs_ggs gs_fl">
+																						<div class="gs_ggsd">
+																							<div class="gs_or_ggsm"
+																								ontouchstart="gs_evt_dsp(event)"
+																								tabindex="-1"><a
+																									href="https://arxiv.org/pdf/1207.6607"
+																									data-clk="hl=zh-CN&amp;sa=T&amp;oi=gga&amp;ct=gga&amp;cd=38&amp;d=16436701050352661430&amp;ei=w6bCYci3D4bmyQS34LC4Cg"
+																									data-clk-atid="tnOPGYXkGuQJ"><span class=gs_ctg2>[PDF]</span>
+																									arxiv.org</a></div>
+																						</div>
+																					</div>
+																					<div class="gs_ri">
+																						<h3 class="gs_rt"
+																							ontouchstart="gs_evt_dsp(event)">
+																							<a id="tnOPGYXkGuQJ"
+																								href="https://ieeexplore.ieee.org/abstract/document/6702845/"
+																								data-clk="hl=zh-CN&amp;sa=T&amp;ct=res&amp;cd=38&amp;d=16436701050352661430&amp;ei=w6bCYci3D4bmyQS34LC4Cg"
+																								data-clk-atid="tnOPGYXkGuQJ">Economics
+																								of WiFi
+																								<b>offloading</b>:
+																								Trading delay for
+																								cellular capacity</a>
+																						</h3>
+																						<div class="gs_a"><a
+																								href="/citations?user=IYwbFHIAAAAJ&amp;hl=zh-CN&amp;oi=sra">J
+																								Lee</a>, <a
+																								href="/citations?user=bg92wVEAAAAJ&amp;hl=zh-CN&amp;oi=sra">Y
+																								Yi</a>, <a
+																								href="/citations?user=m2Lm6f4AAAAJ&amp;hl=zh-CN&amp;oi=sra">S
+																								Chong</a>, <a
+																								href="/citations?user=hQ2m8lUAAAAJ&amp;hl=zh-CN&amp;oi=sra">Y
+																								Jin</a> - IEEE
+																							Transactions on Wireless …,
+																							2014 - ieeexplore.ieee.org
+																						</div>
+																						<div class="gs_rs">Cellular
+																							networks are facing severe
+																							traffic overloads due to the
+																							proliferation of smart
+																							<br>handheld devices and traffic-hungry applications. A cost-effective and practical solution is to …</div>
+																							<div class="gs_fl"><a
+																									href="javascript:void(0)"
+																									class="gs_or_sav gs_or_btn"
+																									role="button"><svg
+																										viewBox="0 0 15 16"
+																										class="gs_or_svg">
+																										<path
+																											d="M7.5 11.57l3.824 2.308-1.015-4.35 3.379-2.926-4.45-.378L7.5 2.122 5.761 6.224l-4.449.378 3.379 2.926-1.015 4.35z" />
+																										</svg><span class="gs_or_btn_lbl">保存</span></a>
+																								<a href="javascript:void(0)"
+																									class="gs_or_cit gs_or_btn gs_nph"
+																									role="button"
+																									aria-controls="gs_cit"
+																									aria-haspopup="true"><svg
+																										viewBox="0 0 15 16"
+																										class="gs_or_svg">
+																										<path
+																											d="M6.5 3.5H1.5V8.5H3.75L1.75 12.5H4.75L6.5 9V3.5zM13.5 3.5H8.5V8.5H10.75L8.75 12.5H11.75L13.5 9V3.5z" />
+																										</svg><span>引用</span></a>
+																								<a
+																									href="/scholar?cites=16436701050352661430&amp;as_sdt=5,48&amp;sciodt=0,48&amp;hl=zh-CN">被引用次数：199</a>
+																								<a
+																									href="/scholar?q=related:tnOPGYXkGuQJ:scholar.google.com/&amp;scioq=offloading+&amp;hl=zh-CN&amp;as_sdt=0,48">相关文章</a>
+																								<a href="/scholar?cluster=16436701050352661430&amp;hl=zh-CN&amp;as_sdt=0,48"
+																									class="gs_nph">所有 15
+																									个版本</a> <a
+																									href="javascript:void(0)"
+																									title="更多"
+																									class="gs_or_mor gs_oph"
+																									role="button"><svg
+																										viewBox="0 0 15 16"
+																										class="gs_or_svg">
+																										<path
+																											d="M0.75 5.5l2-2L7.25 8l-4.5 4.5-2-2L3.25 8zM7.75 5.5l2-2L14.25 8l-4.5 4.5-2-2L10.25 8z" />
+																										</svg></a> <a
+																									href="javascript:void(0)"
+																									title="隐藏"
+																									class="gs_or_nvi gs_or_mor"
+																									role="button"><svg
+																										viewBox="0 0 15 16"
+																										class="gs_or_svg">
+																										<path
+																											d="M7.25 5.5l-2-2L0.75 8l4.5 4.5 2-2L4.75 8zM14.25 5.5l-2-2L7.75 8l4.5 4.5 2-2L11.75 8z" />
+																										</svg></a></div>
+																						</div>
+																					</div>
+																					<div class="gs_r gs_or gs_scl"
+																						data-cid="Jg2ztppZyJsJ"
+																						data-did="Jg2ztppZyJsJ"
+																						data-lid=""
+																						data-aid="Jg2ztppZyJsJ"
+																						data-rp="39">
+																						<div class="gs_ggs gs_fl">
+																							<div class="gs_ggsd">
+																								<div class="gs_or_ggsm"
+																									ontouchstart="gs_evt_dsp(event)"
+																									tabindex="-1"><a
+																										href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.1.1667&amp;rep=rep1&amp;type=pdf"
+																										data-clk="hl=zh-CN&amp;sa=T&amp;oi=gga&amp;ct=gga&amp;cd=39&amp;d=11225320592245984550&amp;ei=w6bCYci3D4bmyQS34LC4Cg"
+																										data-clk-atid="Jg2ztppZyJsJ"><span class=gs_ctg2>[PDF]</span>
+																										psu.edu</a>
+																								</div>
+																							</div>
+																						</div>
+																						<div class="gs_ri">
+																							<h3 class="gs_rt"
+																								ontouchstart="gs_evt_dsp(event)">
+																								<a id="Jg2ztppZyJsJ"
+																									href="https://ieeexplore.ieee.org/abstract/document/1192732/"
+																									data-clk="hl=zh-CN&amp;sa=T&amp;ct=res&amp;cd=39&amp;d=11225320592245984550&amp;ei=w6bCYci3D4bmyQS34LC4Cg"
+																									data-clk-atid="Jg2ztppZyJsJ">Adaptive
+																									<b>offloading </b>inference
+																									for delivering
+																									applications in
+																									pervasive computing
+																									environments</a>
+																							</h3>
+																							<div class="gs_a"><a
+																									href="/citations?user=6K6lvxAAAAAJ&amp;hl=zh-CN&amp;oi=sra">X
+																									Gu</a>, <a
+																									href="/citations?user=TW0t25AAAAAJ&amp;hl=zh-CN&amp;oi=sra">K
+																									Nahrstedt</a>, A
+																								Messer… - Proceedings of
+																								the …, 2003 -
+																								ieeexplore.ieee.org
+																							</div>
+																							<div class="gs_rs">Pervasive
+																								computing allows a user
+																								to access an application
+																								on heterogeneous devices
+																								<br>continuously and consistently. However it is challenging to deliver complex applications on …</div>
+																								<div class="gs_fl"><a
+																										href="javascript:void(0)"
+																										class="gs_or_sav gs_or_btn"
+																										role="button"><svg
+																											viewBox="0 0 15 16"
+																											class="gs_or_svg">
+																											<path
+																												d="M7.5 11.57l3.824 2.308-1.015-4.35 3.379-2.926-4.45-.378L7.5 2.122 5.761 6.224l-4.449.378 3.379 2.926-1.015 4.35z" />
+																											</svg><span class="gs_or_btn_lbl">保存</span></a>
+																									<a href="javascript:void(0)"
+																										class="gs_or_cit gs_or_btn gs_nph"
+																										role="button"
+																										aria-controls="gs_cit"
+																										aria-haspopup="true"><svg
+																											viewBox="0 0 15 16"
+																											class="gs_or_svg">
+																											<path
+																												d="M6.5 3.5H1.5V8.5H3.75L1.75 12.5H4.75L6.5 9V3.5zM13.5 3.5H8.5V8.5H10.75L8.75 12.5H11.75L13.5 9V3.5z" />
+																											</svg><span>引用</span></a>
+																									<a
+																										href="/scholar?cites=11225320592245984550&amp;as_sdt=5,48&amp;sciodt=0,48&amp;hl=zh-CN">被引用次数：201</a>
+																									<a
+																										href="/scholar?q=related:Jg2ztppZyJsJ:scholar.google.com/&amp;scioq=offloading+&amp;hl=zh-CN&amp;as_sdt=0,48">相关文章</a>
+																									<a href="/scholar?cluster=11225320592245984550&amp;hl=zh-CN&amp;as_sdt=0,48"
+																										class="gs_nph">所有
+																										13 个版本</a> <a
+																										href="javascript:void(0)"
+																										title="更多"
+																										class="gs_or_mor gs_oph"
+																										role="button"><svg
+																											viewBox="0 0 15 16"
+																											class="gs_or_svg">
+																											<path
+																												d="M0.75 5.5l2-2L7.25 8l-4.5 4.5-2-2L3.25 8zM7.75 5.5l2-2L14.25 8l-4.5 4.5-2-2L10.25 8z" />
+																											</svg></a>
+																									<a href="javascript:void(0)"
+																										title="隐藏"
+																										class="gs_or_nvi gs_or_mor"
+																										role="button"><svg
+																											viewBox="0 0 15 16"
+																											class="gs_or_svg">
+																											<path
+																												d="M7.25 5.5l-2-2L0.75 8l4.5 4.5 2-2L4.75 8zM14.25 5.5l-2-2L7.75 8l4.5 4.5 2-2L11.75 8z" />
+																											</svg></a>
+																								</div>
+																							</div>
+																						</div>
+																					</div>
+																					<div id="gs_res_ccl_bot">
+																						<div
+																							class="gs_r gs_alrt_btm gs_oph gs_ota">
+																							<a href="/scholar_alerts?view_op=create_alert_options&amp;hl=zh-CN&amp;alert_query=intitle:offloading&amp;alert_params=%3Fhl%3Dzh-CN%26as_sdt%3D0,48"
+																								class="gs_btnM gs_in_ib"><span class="gs_ico"></span><span class="gs_lbl">创建快讯</span></a>
+																						</div>
+																						<div id="gs_n"
+																							role="navigation">
+																							<center>
+																								<table cellpadding="0"
+																									width="1%">
+																									<tr align="center"
+																										valign="top">
+																										<td align="right"
+																											nowrap><a
+																												href="/scholar?start=20&amp;q=offloading+&amp;hl=zh-CN&amp;as_sdt=0,48"><span class="gs_ico gs_ico_nav_previous"></span><b style="display:block;margin-right:35px">上一页</b></a>
+																										</td>
+																										<td><a
+																												href="/scholar?start=0&amp;q=offloading+&amp;hl=zh-CN&amp;as_sdt=0,48"><span class="gs_ico gs_ico_nav_page"></span>1</a>
+																										</td>
+																										<td><a
+																												href="/scholar?start=10&amp;q=offloading+&amp;hl=zh-CN&amp;as_sdt=0,48"><span class="gs_ico gs_ico_nav_page"></span>2</a>
+																										</td>
+																										<td><a
+																												href="/scholar?start=20&amp;q=offloading+&amp;hl=zh-CN&amp;as_sdt=0,48"><span class="gs_ico gs_ico_nav_page"></span>3</a>
+																										</td>
+																										<td><span class="gs_ico gs_ico_nav_current"></span><b>4</b>
+																										</td>
+																										<td><a
+																												href="/scholar?start=40&amp;q=offloading+&amp;hl=zh-CN&amp;as_sdt=0,48"><span class="gs_ico gs_ico_nav_page"></span>5</a>
+																										</td>
+																										<td><a
+																												href="/scholar?start=50&amp;q=offloading+&amp;hl=zh-CN&amp;as_sdt=0,48"><span class="gs_ico gs_ico_nav_page"></span>6</a>
+																										</td>
+																										<td><a
+																												href="/scholar?start=60&amp;q=offloading+&amp;hl=zh-CN&amp;as_sdt=0,48"><span class="gs_ico gs_ico_nav_page"></span>7</a>
+																										</td>
+																										<td><a
+																												href="/scholar?start=70&amp;q=offloading+&amp;hl=zh-CN&amp;as_sdt=0,48"><span class="gs_ico gs_ico_nav_page"></span>8</a>
+																										</td>
+																										<td><a
+																												href="/scholar?start=80&amp;q=offloading+&amp;hl=zh-CN&amp;as_sdt=0,48"><span class="gs_ico gs_ico_nav_page"></span>9</a>
+																										</td>
+																										<td><a
+																												href="/scholar?start=90&amp;q=offloading+&amp;hl=zh-CN&amp;as_sdt=0,48"><span class="gs_ico gs_ico_nav_page"></span>10</a>
+																										</td>
+																										<td align="left"
+																											nowrap><a
+																												href="/scholar?start=40&amp;q=offloading+&amp;hl=zh-CN&amp;as_sdt=0,48"><span class="gs_ico gs_ico_nav_next"></span><b style="display:block;margin-left:53px">下一页</b></a>
+																										</td>
+																									</tr>
+																								</table>
+																							</center>
+																						</div>
+																						<div id="gs_nm"
+																							role="navigation">
+																							<button type="button" onclick="window.location='/scholar?start\x3d20\x26q\x3doffloading+\x26hl\x3dzh-CN\x26as_sdt\x3d0,48'" aria-label="上一页" class="gs_btnPL gs_in_ib gs_btn_lrge gs_btn_half gs_btn_lsu"><span class="gs_wr"><span class="gs_ico"></span><span class="gs_lbl"></span></span></button><button type="button" onclick="window.location='/scholar?start\x3d40\x26q\x3doffloading+\x26hl\x3dzh-CN\x26as_sdt\x3d0,48'" aria-label="下一页" class="gs_btnPR gs_in_ib gs_btn_lrge gs_btn_half gs_btn_lsu"><span class="gs_wr"><span class="gs_ico"></span><span class="gs_lbl"></span></span></button>
+																							<div id="gs_nml"><a
+																									class="gs_nma"
+																									href="/scholar?start=0&amp;q=offloading+&amp;hl=zh-CN&amp;as_sdt=0,48">1</a><a
+																									class="gs_nma"
+																									href="/scholar?start=10&amp;q=offloading+&amp;hl=zh-CN&amp;as_sdt=0,48">2</a><a
+																									class="gs_nma"
+																									href="/scholar?start=20&amp;q=offloading+&amp;hl=zh-CN&amp;as_sdt=0,48">3</a><b class="gs_nma">4</b><a
+																									class="gs_nma"
+																									href="/scholar?start=40&amp;q=offloading+&amp;hl=zh-CN&amp;as_sdt=0,48">5</a><a
+																									class="gs_nma"
+																									href="/scholar?start=50&amp;q=offloading+&amp;hl=zh-CN&amp;as_sdt=0,48">6</a><a
+																									class="gs_nma"
+																									href="/scholar?start=60&amp;q=offloading+&amp;hl=zh-CN&amp;as_sdt=0,48">7</a><a
+																									class="gs_nma"
+																									href="/scholar?start=70&amp;q=offloading+&amp;hl=zh-CN&amp;as_sdt=0,48">8</a><a
+																									class="gs_nma"
+																									href="/scholar?start=80&amp;q=offloading+&amp;hl=zh-CN&amp;as_sdt=0,48">9</a><a
+																									class="gs_nma"
+																									href="/scholar?start=90&amp;q=offloading+&amp;hl=zh-CN&amp;as_sdt=0,48">10</a>
+																							</div>
+																						</div>
+																					</div>
+																				</div><iframe
+																					src="//scholar.google.com/gen_nid"
+																					style="display:none"></iframe>
+																			</div>
+																		</div>
+																		<script>
+																			var gs_zvb;!function(u){gs_zvb=new Image();gs_zvb.onload=gs_zvb.onerror=function(){gs_zvb=0};gs_zvb.src=u;}("https://id.google.com.hk/verify/AHGvNoy5_k64gkWMIT46kVDsN5Wjbru0v1onbfxYWyVv4BV0snFeDSMgd8h58jgBhJ02rpYwyKbdimmrMCkLc0EO0V_eM2c0GcPQiiAjC1nSiikZt34vNXUUpl4g3UUJk2Fr8iamofQ.gif");
+																		</script>
+																		<noscript><img src="https://id.google.com.hk/verify/AHGvNoy5_k64gkWMIT46kVDsN5Wjbru0v1onbfxYWyVv4BV0snFeDSMgd8h58jgBhJ02rpYwyKbdimmrMCkLc0EO0V_eM2c0GcPQiiAjC1nSiikZt34vNXUUpl4g3UUJk2Fr8iamofQ.gif" width="1" height="1" alt="" style="margin:-1px"></noscript>
+																			<div id="gs_ftr_sp" role="presentation">
+																			</div>
+																			<div id="gs_ftr" role="contentinfo">
+																				<div id="gs_ftr_rt"><a
+																						href="/intl/zh-CN/scholar/about.html">帮助</a><a
+																						href="//www.google.com.hk/intl/zh-CN/policies/privacy/">隐私权</a><a
+																						href="//www.google.com.hk/intl/zh-CN/policies/terms/">条款</a>
+																				</div>
+																			</div>
+																	</div>
+</body>
+
+</html>

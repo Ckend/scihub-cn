@@ -1,15 +1,11 @@
 from scihub import SciHub
+import bs4
 
-sh = SciHub()
+if __name__ == '__main__':
+    soup = bs4.BeautifulSoup(open('./index.html', mode='rt', encoding='utf8'), from_encoding="utf8", features="lxml")
 
-# 搜索词
-keywords = "quant"
 
-# 搜索该关键词相关的论文，limit为篇数
-result = sh.search(keywords, limit=10)
-
-print(result)
-
-for index, paper in enumerate(result.get("papers", [])):
-    # 批量下载这些论文
-    sh.download(paper["doi"], path=f"files/{keywords.replace(' ', '_')}_{index}.pdf")
+    res_set = soup.find_all(
+        lambda tag: tag.name == 'a' and tag.has_attr('id') and tag.has_attr('href')
+                    and tag.has_attr('data-clk') and tag.has_attr('data-clk-atid') and tag.attrs['href'].startswith(
+            'http'), recursive=True)

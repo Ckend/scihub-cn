@@ -7,7 +7,7 @@ Sci-API Unofficial API
 @author zaytoun
 @updated by Python实用宝典
 """
-
+import sys
 import re
 import asyncio
 import hashlib
@@ -16,7 +16,12 @@ import os
 import json
 import aiohttp
 import requests
+import yaml
 from bs4 import BeautifulSoup
+from scholar import SearchScholarQuery, ScholarQuerier
+from enum import Enum
+import argparse
+import time
 
 # log config
 logging.basicConfig()
@@ -31,6 +36,204 @@ BAIDU_XUESHU_URL = 'https://xueshu.baidu.com/s'
 HEADERS = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36',
 }
+
+
+class NotExistError(Exception):
+    """论文找不到的错误"""
+
+
+class ScholarConf:
+    """Helper class for global settings."""
+
+    VERSION = '2.10'
+    LOG_LEVEL = 1
+    MAX_PAGE_RESULTS = 10  # Current default for per-page results
+    SCHOLAR_SITE = 'http://scholar.google.com'
+
+    # USER_AGENT = 'Mozilla/5.0 (X11; U; FreeBSD i386; en-US; rv:1.9.2.9) Gecko/20100913 Firefox/3.6.9'
+    # Let's update at this point (3/14):
+    USER_AGENT = 'Mozilla/5.0 (X11; Linux x86_64; rv:27.0) Gecko/20100101 Firefox/27.0'
+
+    # If set, we will use this file to read/save cookies to enable
+    # cookie use across sessions.
+    COOKIE_JAR_FILE = None
+
+
+def construct_download_setting():
+    parser = argparse.ArgumentParser(
+        prog="sichub",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        description='''
+           SciHub to PDF
+           ----------------------------------------------------
+           使用doi，论文标题，或者bibtex文件批量下载论文
+
+           给出bibtex文件
+
+           $ scihub.py -i input.bib
+
+           给出论文doi名称
+
+           $ scihub.py 10.1038/s41524-017-0032-0
+
+           给出论文url
+
+           $ scihub.py https://ieeexplore.ieee.org/document/9429985
+
+           给出论文名称
+
+           $ scihub.py  paper_name
+
+           给出论文doi的txt文本文件，荣誉
+
+           ```
+           10.1038/s41524-017-0032-0
+           10.1063/1.3149495
+           .....
+           ```
+           ```
+           $ scihub.py -i dois.txt --doi
+           ```
+           给出所有论文名称的txt文本文件
+
+           ```
+           Some Title 1
+           Some Title 2
+           .....
+           ```
+           ```
+           $ scihub.py -i titles.txt --title
+           ```
+           给出所有论文url的txt文件
+           ```
+           url 1
+           url 2
+           ```
+           $ scihub.py -i urls.txt --url
+           ''')
+    parser.add_argument(
+        "--input", "-i",
+        dest="inputfile",
+        help="bibtex input file",
+    )
+    parser.add_argument(
+        "-t",
+        dest="title",
+        action="store_true",
+        help="download from paper title"
+    )
+    parser.add_argument("--title",
+                        dest="title",
+                        help="download from paper titles file")
+    parser.add_argument(
+        "--p",
+        dest="proxy",
+        help="use proxy to download papers",
+    )
+    parser.add_argument(
+        "--location", "-l",
+        help="folder, ex: -l 'folder/'",
+    )
+    parser.add_argument(
+        "--doi",
+        dest="doi",
+        action="store_true",
+        help="download paper from dois file",
+    )
+    parser.add_argument("url", dest="url", action="store_true", help="download paper from url file")
+    command_args = parser.parse_args()
+    pattern = re.compile(r'.*/.*')
+    arg = sys.argv[1]
+    setting = None
+    if not command_args.inputfile:
+        setting = DownLoadCommandSetting()  # 从命令行参数下载
+        end = len(sys.argv)
+        for i in range(1, len(sys.argv)):
+            if sys.argv[i].startswith('-'):
+                end = i
+                break
+        if arg.startswith('http') or arg.startswith('https'):
+            for i in range(1, end):
+                if not arg.startswith('http') and not arg.startswith('https'):
+                    logger.error('输入的url有误，请重新输入')
+                    return None
+            if end > 2:  # 有多个url参数
+                setting.urls = sys.argv[1:end]
+            else:
+                setting.url = arg
+        elif pattern.match(arg):
+            for i in range(1, end):
+                if not pattern.match(sys.argv[i]):
+                    logger.error('输入的doi有误，请重新输入')
+                    return None
+            if end > 2:  # 有多个个doi参数
+                setting.dois = sys.argv[1:end]
+            else:
+                setting.doi = arg
+        else:
+            if end > 2:
+                setting.words = sys.argv[1:end]
+
+    else:
+        setting = DownLoadCommandFileSetting()  # 从命令行得到的文件路径中下载
+        if command_args.url:
+            setting.urls_file = command_args.inputfile
+        elif command_args.doi:
+            setting.dois_file = command_args.inputfile
+        elif command_args.title:
+            setting.title_file = command_args.inputfile
+        else:
+            setting.bibtex_file = command_args.inputfile
+
+    with open('./config.yml', mode='rt') as f:
+        res = yaml.load(f)
+        try:
+            setting.downloadChannel = (DownLoadSetting.Channel[res['download_channel']])
+        except Exception as e:
+            logger.error(
+                'Download channels must be selected from GOOGLE_SCHOLAR or BAIDU_XUESHU or PUBLONS or SCIENCE_DIRECT')
+            return None
+        if 'proxy' in res:
+            setting.proxy = (res['proxy']['ip'] + ':' + res['proxy']['port'])
+
+        if 'output' in res:
+            setting.outputPath = res['output']
+        else:
+            setting.outputPath = DownLoadSetting.DEFAULT_OUTPUT_PATH
+    return setting
+
+
+def download_command():
+    # setting = construct_download_setting()
+    setting = DownLoadCommandSetting()
+    setting.outputPath = r'C:\Users\胡磊\Desktop\paper'
+    setting.url = 'https://ieeexplore.ieee.org/abstract/document/8770530'
+    sh = SciHub()
+    for attr, value in vars(setting).items():
+        if 'words' in attr:
+            sh.download(sh.search_by_google_scholar(' '.join(value), limit=10), setting.outputPath)
+            continue
+        if isinstance(setting, DownLoadCommandFileSetting):
+            if 'bibtex' in attr:
+                pass
+            elif 'title' in attr:
+                for title in readline_paper_info(value):
+                    sh.download(sh.search_by_google_scholar(title), setting.outputPath)
+            else:
+                for input_ in readline_paper_info(value):
+                    sh.download(sh.generate_paper_info(input_), setting.outputPath)
+        if isinstance(value, list):
+            for input_ in value:
+                sh.download(sh.generate_paper_info(input_), setting.outputPath)
+        else:
+            sh.download(sh.generate_paper_info(value), setting.outputPath)
+
+
+def readline_paper_info(file_name):
+    res = None
+    with open(file_name, mode='rt', encoding='utf8') as f:
+        res = f.readlines()
+    return res
 
 
 class SciHub(object):
@@ -130,7 +333,6 @@ class SciHub(object):
 
             papers = json.loads(res.content).get("results", [])
 
-
             for paper in papers:
                 name = paper['publon']['name']
                 link = f"https://publons.com/{paper['publon']['url']}#{name}"
@@ -151,10 +353,12 @@ class SciHub(object):
         """
         默认使用百度学术进行文献搜索
         """
+
         def fetch_doi(url):
             res = self.sess.get(url)
             s = self._get_soup(res.content)
-            dois = [doi.text.replace("DOI：", "").replace("ISBN：", "").strip() for doi in s.find_all('div', class_='doi_wr')]
+            dois = [doi.text.replace("DOI：", "").replace("ISBN：", "").strip() for doi in
+                    s.find_all('div', class_='doi_wr')]
             if dois:
                 return dois[0]
             else:
@@ -190,32 +394,38 @@ class SciHub(object):
 
             start += 10
 
-    def download(self, identifier, destination='', path=None):
+    def download(self, info, destination='', path=None):
         """
         Downloads a paper from sci-hub given an indentifier (DOI, PMID, URL).
         Currently, this can potentially be blocked by a captcha if a certain
         limit has been reached.
         """
-        data = self.fetch(identifier)
+        name = None
+        if 'response' in info:  # 论文本身不需要下载
+            data = info['response'].content
+            name = self._generate_name_hash(info['response'])
+        else:
+            data = self.fetch(info)
+            name = info['name']
+
         if not data:
             return
         if not 'err' in data:
             self._save(data['pdf'],
-                       os.path.join(destination, path if path else data['name']))
+                       os.path.join(destination, self.vaild_name(name)))
 
         return data
 
-    def fetch(self, identifier):
+    def fetch(self, info):
         """
         Fetches the paper by first retrieving the direct link to the pdf.
         If the indentifier is a DOI, PMID, or URL pay-wall, then use Sci-Hub
         to access and download paper. Otherwise, just download paper directly.
         """
-
         try:
-            url = self._get_direct_url(identifier)
+            url = self._get_direct_url(info['doi'])
 
-            # verify=False is dangerous but sci-hub.io 
+            # verify=False is dangerous but sci-hub.io
             # requires intermediate certificates to verify
             # and requests doesn't know how to download them.
             # as a hacky fix, you can add them to your store
@@ -224,25 +434,20 @@ class SciHub(object):
 
             if res.headers['Content-Type'] != 'application/pdf':
                 self._change_base_url()
-                logger.info('由于验证码问题，获取 pdf 失败 identifier: %s '
-                                           '(resolved url %s)' % (identifier, url))
+                logger.info('由于验证码问题，获取 pdf 失败 论文名称: %s '
+                            '(resolved url %s)' % (info['name'], url))
             else:
-                return {
-                    'pdf': res.content,
-                    'url': url,
-                    'name': self._generate_name(res)
-                }
-
+                return res.content
         except requests.exceptions.ConnectionError:
             logger.info('Cannot access {}, changing url'.format(self.available_base_url_list[0]))
             self._change_base_url()
 
         except requests.exceptions.RequestException as e:
-            logger.info('由于请求失败，获取pdf失败 %s (resolved url %s).'
-                       % (identifier, url))
+            logger.info('由于请求失败，获取pdf失败 论文名称: %s (resolved url %s).'
+                        % (info['name'], url))
             return {
-                'err': '由于请求失败，获取pdf失败 %s (resolved url %s).'
-                       % (identifier, url)
+                'err': '由于请求失败，获取pdf失败 论文名称:%s (resolved url %s).'
+                       % (info['name'], url)
             }
 
     def _get_direct_url(self, identifier):
@@ -298,9 +503,24 @@ class SciHub(object):
         """
         return BeautifulSoup(html, 'html.parser')
 
-    def _generate_name(self, res):
+    def generate_paper_info(self, identifier):
         """
-        Generate unique filename for paper. Returns a name by calcuating 
+        根据标识符获得论文的标题
+        """
+        res = self.sess.get(self.base_url + identifier, verify=False)
+        s = self._get_soup(res.content)
+        url = 'https:' + s.find('div', attrs={'id': 'link'}).find('a').attrs['href']
+        citation = s.find(name='div', attrs={'id': 'citation'}, recursive=True)
+        name = citation.find('i').text
+        doi = citation.text[citation.text.find('doi:') + 4:-1]
+        if not url or not name or not doi:
+            logger.error('scihub数据库不存在这篇论文！')
+            return None
+        return {'name': name, 'doi': doi, 'url': url}
+
+    def _generate_name_hash(self, res):
+        """
+        Generate unique filename for paper. Returns a name by calcuating
         md5 hash of file contents, then appending the last 20 characters
         of the url which typically provides a good paper identifier.
         """
@@ -309,10 +529,65 @@ class SciHub(object):
         pdf_hash = hashlib.md5(res.content).hexdigest()
         return '%s-%s' % (pdf_hash, name[-20:])
 
+    def vaild_name(self, name):
+        """
+        使得下载的论文名称合法
+        """
+        max_len = 252
+        name = name.replace('/', ' ').replace('|', ' ').replace('\\', ' ').replace('?',
+                                                                                   ' '). \
+            replace('<', ' ').replace('>', ' ').replace('*', ' ').replace(':', ' ').replace('"', ' ')
+        if len(name) > max_len:
+            return name[:max_len] + '.pdf'
+        return name + '.pdf'
+
+    def search_by_google_scholar(self, query, limit=10):
+        """
+        根据论文名称获得论文url 基于google scholar引擎
+
+        """
+        i = 0
+        results = []
+        while limit > 0:
+            html = requests.get(url=GOOGLE_SCHOLAR_URL + '?hl=zh-CN&q=' + query + '&start=' + str(i),
+                                headers={'User-Agent': ScholarConf.USER_AGENT})
+
+            soup = BeautifulSoup(html.text, features='lxml')
+
+            res_set = soup.find_all(
+                lambda tag: tag.name == 'a' and tag.has_attr('id') and tag.has_attr('href')
+                            and tag.has_attr('data-clk') and tag.has_attr('data-clk-atid') and tag.attrs[
+                                'href'].startswith(
+                    'http'), recursive=True)
+            if not res_set:
+                logger.error("Error:google scholar 需要人机验证")
+                return None
+
+            j = 0
+            for tag in res_set:
+                base_url = tag.attrs['href']
+                response = self.sess.get(base_url, headers={'User-Agent': ScholarConf.USER_AGENT})
+                content_type_ = response.headers['Content-Type']
+                if content_type_.find('text/html') < 0 and content_type_.find('application') >= 0:
+                    logger.info(base_url + '这是一个直接可以下载的链接！')
+                    results.append({'base_url': base_url, 'response': response})
+                    continue
+                info = self.generate_paper_info(base_url)
+                if not info:  # 在scihub数据库能查到该论文时
+                    info['base_url'] = base_url
+                    results.append(info)
+                    j += 1
+            i += 10
+            limit -= j
+            time.sleep(0.5)
+
+        return results
+
     async def async_get_direct_url(self, identifier):
         """
         异步获取scihub直链
         """
+
         async with aiohttp.ClientSession() as sess:
             async with sess.get(self.base_url + identifier) as res:
                 logger.info(f"获取 {self.base_url + identifier} 中...")
@@ -331,6 +606,7 @@ class SciHub(object):
         """
         异步下载文件
         """
+
         if not url:
             return
         file_name = url.split("/")[-1].split("#")[0]
@@ -358,3 +634,140 @@ class SciHub(object):
             finished, unfinished = await asyncio.wait(tasks)
             # 触发await，等待任务完成
             [r.result() for r in finished]
+
+
+class DownLoadSetting:
+    DEFAULT_OUTPUT_PATH = r'C:\Users\papers'
+
+    class Channel(Enum):
+        GOOGLE_SCHOLAR = 1
+        BAIDU_XUESHU = 2
+        PUBLONS = 3
+        SCIENCE_DIRECT = 4
+
+    def __init__(self) -> None:
+        super().__init__()
+        self.__outputPath = None
+        self.__proxy = None
+        self.__downloadChannel = None  # 论文搜索渠道
+
+    @property
+    def outputPath(self):
+        return self.__outputPath
+
+    @outputPath.setter
+    def outputPath(self, outputPath):
+        self.__outputPath = outputPath
+
+    @property
+    def proxy(self):
+        return self.__proxy
+
+    @proxy.setter
+    def proxy(self, proxy):
+        self.__proxy = proxy
+
+    @property
+    def downloadChannel(self):
+        return self.__outputPath
+
+    @downloadChannel.setter
+    def downloadChannel(self, downloadChannel):
+        self.__downloadChannel = downloadChannel
+
+
+class DownLoadCommandSetting(DownLoadSetting):
+
+    def __init__(self) -> None:
+        super().__init__()
+        self.__doi = None
+        self.__url = None
+        self.__words = None
+        self.__dois = None
+        self.__urls = None
+
+    @property
+    def doi(self):
+        return self.__doi
+
+    @doi.setter
+    def doi(self, doi):
+        self.__doi = doi
+
+    @property
+    def url(self):
+        return self.__doi
+
+    @url.setter
+    def url(self, url):
+        self.__url = url
+
+    @property
+    def words(self):
+        return self.__doi
+
+    @words.setter
+    def words(self, words):
+        self.__words = words
+
+    @property
+    def dois(self):
+        return self.__dois
+
+    @dois.setter
+    def dois(self, dois):
+        self.__dois = dois
+
+    @property
+    def urls(self):
+        return self.__urls
+
+    @urls.setter
+    def urls(self, urls):
+        self.__urls = urls
+
+
+class DownLoadCommandFileSetting(DownLoadSetting):
+
+    def __init__(self) -> None:
+        super().__init__()
+        self.__bibtex_file = None
+        self.__dois_file = None
+        self.__urls_file = None
+        self.__title_file = None
+
+    @property
+    def bibtex_file(self):
+        return self.__bibtex_file
+
+    @bibtex_file.setter
+    def bibtex_file(self, bibtex_file):
+        self.__bibtex_file = bibtex_file
+
+    @property
+    def dois_file(self):
+        return self.__dois_file
+
+    @dois_file.setter
+    def dois_file(self, dois_file):
+        self.__dois_file = dois_file
+
+    @property
+    def urls_file(self):
+        return self.__urls_file
+
+    @urls_file.setter
+    def urls_file(self, urls_file):
+        self.__urls_file = urls_file
+
+    @property
+    def title_file(self):
+        return self.__title_file
+
+    @title_file.setter
+    def title_file(self, title_file):
+        self.__title_file = title_file
+
+
+if __name__ == '__main__':
+    download_command()
