@@ -313,7 +313,7 @@ class SciHub(object):
                 return results
 
             for paper in papers:
-                results.append(self._generate_name_hash(paper['doi']))
+                results.append(self.generate_paper_info(paper['doi']))
                 if len(results) >= limit:
                     return results
 
