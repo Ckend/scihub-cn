@@ -1,5 +1,5 @@
-output: c:/user
-#proxy:
-#  ip: 127.0.0.1
-#  port: 7890
-download_channel: GOOGLE_SCHOLAR
+output: D:\paper
+proxy:
+  ip: 127.0.0.1
+  port: 7890
+search-engine: google_scholar

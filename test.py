@@ -30,3 +30,35 @@ def total(n):
 
 
 print(S(9, 6) * 720)
+
+# pattern = re.compile(r'.*/.*')
+# arg = sys.argv[1]
+# setting = None
+# if not command_args.inputfile:
+#     setting = DownLoadCommandSetting()  # 从命令行参数下载
+#     end = len(sys.argv)
+#     for i in range(1, len(sys.argv)):
+#         if sys.argv[i].startswith('-'):
+#             end = i
+#             break
+#     if arg.startswith('http') or arg.startswith('https'):
+#         for i in range(1, end):
+#             if not arg.startswith('http') and not arg.startswith('https'):
+#                 logger.error('输入的url有误，请重新输入')
+#                 return None
+#         if end > 2:  # 有多个url参数
+#             setting.urls = sys.argv[1:end]
+#         else:
+#             setting.url = arg
+#     elif pattern.match(arg):
+#         for i in range(1, end):
+#             if not pattern.match(sys.argv[i]):
+#                 logger.error('输入的doi有误，请重新输入')
+#                 return None
+#         if end > 2:  # 有多个个doi参数
+#             setting.dois = sys.argv[1:end]
+#         else:
+#             setting.doi = arg
+#     else:
+#         if end > 2:
+#             setting.words = sys.argv[1:end]
