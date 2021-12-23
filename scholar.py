@@ -167,7 +167,7 @@ import re
 import sys
 import warnings
 import requests
-from numpy import basestring
+# from numpy import basestring
 
 try:
     # Try importing for Python 3
