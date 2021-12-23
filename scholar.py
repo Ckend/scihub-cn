@@ -167,6 +167,7 @@ import re
 import sys
 import warnings
 import requests
+from numpy import basestring
 
 try:
     # Try importing for Python 3
@@ -193,12 +194,12 @@ except ImportError:
 
 # Support unicode in both Python 2 and 3. In Python 3, unicode is str.
 if sys.version_info[0] == 3:
-    unicode = str # pylint: disable-msg=W0622
-    encode = lambda s: unicode(s) # pylint: disable-msg=C0103
+    unicode = str  # pylint: disable-msg=W0622
+    encode = lambda s: unicode(s)  # pylint: disable-msg=C0103
 else:
     def encode(s):
         if isinstance(s, basestring):
-            return s.encode('utf-8') # pylint: disable-msg=C0103
+            return s.encode('utf-8')  # pylint: disable-msg=C0103
         else:
             return str(s)
 
@@ -236,12 +237,13 @@ class SoupKitchen(object):
 
         return BeautifulSoup(markup)
 
+
 class ScholarConf(object):
     """Helper class for global settings."""
 
     VERSION = '2.10'
     LOG_LEVEL = 1
-    MAX_PAGE_RESULTS = 10 # Current default for per-page results
+    MAX_PAGE_RESULTS = 10  # Current default for per-page results
     SCHOLAR_SITE = 'http://scholar.google.com'
 
     # USER_AGENT = 'Mozilla/5.0 (X11; U; FreeBSD i386; en-US; rv:1.9.2.9) Gecko/20100913 Firefox/3.6.9'
@@ -252,12 +254,13 @@ class ScholarConf(object):
     # cookie use across sessions.
     COOKIE_JAR_FILE = None
 
+
 class ScholarUtils(object):
     """A wrapper for various utensils that come in handy."""
 
     LOG_LEVELS = {'error': 1,
-                  'warn':  2,
-                  'info':  3,
+                  'warn': 2,
+                  'info': 3,
                   'debug': 4}
 
     @staticmethod
@@ -282,22 +285,23 @@ class ScholarArticle(object):
     A class representing articles listed on Google Scholar.  The class
     provides basic dictionary-like behavior.
     """
+
     def __init__(self):
         # The triplets for each keyword correspond to (1) the actual
         # value, (2) a user-suitable label for the item, and (3) an
         # ordering index:
         self.attrs = {
-            'title':         [None, 'Title',          0],
-            'url':           [None, 'URL',            1],
-            'year':          [None, 'Year',           2],
-            'num_citations': [0,    'Citations',      3],
-            'num_versions':  [0,    'Versions',       4],
-            'cluster_id':    [None, 'Cluster ID',     5],
-            'url_pdf':       [None, 'PDF link',       6],
+            'title': [None, 'Title', 0],
+            'url': [None, 'URL', 1],
+            'year': [None, 'Year', 2],
+            'num_citations': [0, 'Citations', 3],
+            'num_versions': [0, 'Versions', 4],
+            'cluster_id': [None, 'Cluster ID', 5],
+            'url_pdf': [None, 'PDF link', 6],
             'url_citations': [None, 'Citations list', 7],
-            'url_versions':  [None, 'Versions list',  8],
-            'url_citation':  [None, 'Citation link',  9],
-            'excerpt':       [None, 'Excerpt',       10],
+            'url_versions': [None, 'Versions list', 8],
+            'url_citation': [None, 'Citation link', 9],
+            'excerpt': [None, 'Excerpt', 10],
         }
 
         # The citation data in one of the standard export formats,
@@ -363,6 +367,7 @@ class ScholarArticleParser(object):
     Google Scholar. This is a base class; concrete implementations
     adapting to tweaks made by Google over time follow below.
     """
+
     def __init__(self, site=None):
         self.soup = None
         self.article = None
@@ -444,7 +449,7 @@ class ScholarArticleParser(object):
                     if not hasattr(tag2, 'name'):
                         continue
                     if tag2.name == 'span' and \
-                       self._tag_has_class(tag2, 'gs_fl'):
+                            self._tag_has_class(tag2, 'gs_fl'):
                         self._parse_links(tag2)
 
     def _parse_links(self, span):
@@ -485,7 +490,6 @@ class ScholarArticleParser(object):
             if tag.getText().startswith('Import'):
                 self.article['url_citation'] = self._path2url(tag.get('href'))
 
-
     @staticmethod
     def _tag_has_class(tag, klass):
         """
@@ -502,7 +506,7 @@ class ScholarArticleParser(object):
     @staticmethod
     def _tag_results_checker(tag):
         return tag.name == 'div' \
-            and ScholarArticleParser._tag_has_class(tag, 'gs_r')
+               and ScholarArticleParser._tag_has_class(tag, 'gs_r')
 
     @staticmethod
     def _as_int(obj):
@@ -536,6 +540,7 @@ class ScholarArticleParser120201(ScholarArticleParser):
     This class reflects update to the Scholar results page layout that
     Google recently.
     """
+
     def _parse_article(self, div):
         self.article = ScholarArticle()
 
@@ -562,6 +567,7 @@ class ScholarArticleParser120726(ScholarArticleParser):
     This class reflects update to the Scholar results page layout that
     Google made 07/26/12.
     """
+
     def _parse_article(self, div):
         self.article = ScholarArticle()
 
@@ -627,6 +633,7 @@ class ScholarQuery(object):
     """
     The base class for any kind of results query we send to Scholar.
     """
+
     def __init__(self):
         self.url = None
 
@@ -708,8 +715,8 @@ class ClusterScholarQuery(ScholarQuery):
     know about.
     """
     SCHOLAR_CLUSTER_URL = ScholarConf.SCHOLAR_SITE + '/scholar?' \
-        + 'cluster=%(cluster)s' \
-        + '%(num)s'
+                          + 'cluster=%(cluster)s' \
+                          + '%(num)s'
 
     def __init__(self, cluster=None):
         ScholarQuery.__init__(self)
@@ -728,7 +735,7 @@ class ClusterScholarQuery(ScholarQuery):
         if self.cluster is None:
             raise QueryArgumentError('cluster query needs cluster ID')
 
-        urlargs = {'cluster': self.cluster }
+        urlargs = {'cluster': self.cluster}
 
         for key, val in urlargs.items():
             urlargs[key] = quote(encode(val))
@@ -747,28 +754,28 @@ class SearchScholarQuery(ScholarQuery):
     configure on the Scholar website, in the advanced search options.
     """
     SCHOLAR_QUERY_URL = ScholarConf.SCHOLAR_SITE + '/scholar?' \
-        + 'as_q=%(words)s' \
-        + '&as_epq=%(phrase)s' \
-        + '&as_oq=%(words_some)s' \
-        + '&as_eq=%(words_none)s' \
-        + '&as_occt=%(scope)s' \
-        + '&as_sauthors=%(authors)s' \
-        + '&as_publication=%(pub)s' \
-        + '&as_ylo=%(ylo)s' \
-        + '&as_yhi=%(yhi)s' \
-        + '&as_vis=%(citations)s' \
-        + '&btnG=&hl=en' \
-        + '%(num)s' \
-        + '&as_sdt=%(patents)s%%2C5'
+                        + 'as_q=%(words)s' \
+                        + '&as_epq=%(phrase)s' \
+                        + '&as_oq=%(words_some)s' \
+                        + '&as_eq=%(words_none)s' \
+                        + '&as_occt=%(scope)s' \
+                        + '&as_sauthors=%(authors)s' \
+                        + '&as_publication=%(pub)s' \
+                        + '&as_ylo=%(ylo)s' \
+                        + '&as_yhi=%(yhi)s' \
+                        + '&as_vis=%(citations)s' \
+                        + '&btnG=&hl=en' \
+                        + '%(num)s' \
+                        + '&as_sdt=%(patents)s%%2C5'
 
     def __init__(self):
         ScholarQuery.__init__(self)
         self._add_attribute_type('num_results', 'Results', 0)
-        self.words = None # The default search behavior
-        self.words_some = None # At least one of those words
-        self.words_none = None # None of these words
+        self.words = None  # The default search behavior
+        self.words_some = None  # At least one of those words
+        self.words_none = None  # None of these words
         self.phrase = None
-        self.scope_title = False # If True, search in title only
+        self.scope_title = False  # If True, search in title only
         self.author = None
         self.pub = None
         self.timeframe = [None, None]
@@ -873,7 +880,7 @@ class ScholarSettings(object):
     CITFORM_BIBTEX = 4
 
     def __init__(self):
-        self.citform = 0 # Citation format, default none
+        self.citform = 0  # Citation format, default none
         self.per_page_results = None
         self._is_configured = False
 
@@ -906,18 +913,18 @@ class ScholarQuerier(object):
 
     # Default URLs for visiting and submitting Settings pane, as of 3/14
     GET_SETTINGS_URL = ScholarConf.SCHOLAR_SITE + '/scholar_settings?' \
-        + 'sciifh=1&hl=en&as_sdt=0,5'
+                       + 'sciifh=1&hl=en&as_sdt=0,5'
 
     SET_SETTINGS_URL = ScholarConf.SCHOLAR_SITE + '/scholar_setprefs?' \
-        + 'q=' \
-        + '&scisig=%(scisig)s' \
-        + '&inststart=0' \
-        + '&as_sdt=1,5' \
-        + '&as_sdtp=' \
-        + '&num=%(num)s' \
-        + '&scis=%(scis)s' \
-        + '%(scisf)s' \
-        + '&hl=en&lang=all&instq=&inst=569367360547434339&save='
+                       + 'q=' \
+                       + '&scisig=%(scisig)s' \
+                       + '&inststart=0' \
+                       + '&as_sdt=1,5' \
+                       + '&as_sdtp=' \
+                       + '&num=%(num)s' \
+                       + '&scis=%(scis)s' \
+                       + '%(scisf)s' \
+                       + '&hl=en&lang=all&instq=&inst=569367360547434339&save='
 
     # Older URLs:
     # ScholarConf.SCHOLAR_SITE + '/scholar?q=%s&hl=en&btnG=Search&as_sdt=2001&as_sdtp=on
@@ -941,17 +948,17 @@ class ScholarQuerier(object):
 
         # If we have a cookie file, load it:
         if ScholarConf.COOKIE_JAR_FILE and \
-           os.path.exists(ScholarConf.COOKIE_JAR_FILE):
+                os.path.exists(ScholarConf.COOKIE_JAR_FILE):
             try:
                 self.cjar.load(ScholarConf.COOKIE_JAR_FILE,
                                ignore_discard=True)
                 ScholarUtils.log('info', 'loaded cookies file')
             except Exception as msg:
                 ScholarUtils.log('warn', 'could not load cookies file: %s' % msg)
-                self.cjar = MozillaCookieJar() # Just to be safe
+                self.cjar = MozillaCookieJar()  # Just to be safe
 
         self.opener = build_opener(HTTPCookieProcessor(self.cjar))
-        self.settings = None # Last settings object, if any
+        self.settings = None  # Last settings object, if any
 
     def apply_settings(self, settings):
         """
@@ -982,7 +989,7 @@ class ScholarQuerier(object):
             ScholarUtils.log('info', 'parsing settings failed: no form')
             return False
 
-        tag = tag.find('input', attrs={'type':'hidden', 'name':'scisig'})
+        tag = tag.find('input', attrs={'type': 'hidden', 'name': 'scisig'})
         if tag is None:
             ScholarUtils.log('info', 'parsing settings failed: scisig')
             return False
@@ -1088,12 +1095,12 @@ class ScholarQuerier(object):
             html = hdl.read()
 
             ScholarUtils.log('debug', log_msg)
-            ScholarUtils.log('debug', '>>>>' + '-'*68)
+            ScholarUtils.log('debug', '>>>>' + '-' * 68)
             ScholarUtils.log('debug', 'url: %s' % hdl.geturl())
             ScholarUtils.log('debug', 'result: %s' % hdl.getcode())
             ScholarUtils.log('debug', 'headers:\n' + str(hdl.info()))
-            ScholarUtils.log('debug', 'data:\n' + html.decode('utf-8')) # For Python 3
-            ScholarUtils.log('debug', '<<<<' + '-'*68)
+            ScholarUtils.log('debug', 'data:\n' + html.decode('utf-8'))  # For Python 3
+            ScholarUtils.log('debug', '<<<<' + '-' * 68)
 
             return html
         except Exception as err:
@@ -1115,7 +1122,7 @@ def txt(querier, with_globals):
         items = sorted(list(querier.query.attrs.values()), key=lambda item: item[2])
         # Find largest label length:
         max_label_len = max([len(str(item[1])) for item in items] + [max_label_len])
-        fmt = '[G] %%%ds %%s' % max(0, max_label_len-4)
+        fmt = '[G] %%%ds %%s' % max(0, max_label_len - 4)
         for item in items:
             if item[0] is not None:
                 print(fmt % (item[1], item[0]))
@@ -1126,12 +1133,14 @@ def txt(querier, with_globals):
     for art in articles:
         print(encode(art.as_txt()) + '\n')
 
+
 def csv(querier, header=False, sep='|'):
     articles = querier.articles
     for art in articles:
         result = art.as_csv(header=header, sep=sep)
         print(encode(result))
         header = False
+
 
 def citation_export(querier):
     articles = querier.articles
@@ -1233,8 +1242,8 @@ scholar.py -c 5 -a "albert einstein" -t --none "quantum theory" --after 1970"""
     # makes no sense to have search arguments:
     if options.cluster_id is not None:
         if options.author or options.allw or options.some or options.none \
-           or options.phrase or options.title_only or options.pub \
-           or options.after or options.before:
+                or options.phrase or options.title_only or options.pub \
+                or options.after or options.before:
             print('Cluster ID queries do not allow additional search arguments.')
             return 1
 
@@ -1299,6 +1308,7 @@ scholar.py -c 5 -a "albert einstein" -t --none "quantum theory" --after 1970"""
         querier.save_cookies()
 
     return 0
+
 
 if __name__ == "__main__":
     sys.exit(main())
