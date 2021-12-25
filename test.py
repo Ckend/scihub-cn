@@ -1,35 +1,9 @@
+import yaml
+
 from scihub import SciHub
 import bs4
 
 # -*-encoding=utf-8-*-
-import numpy as np
-
-# 第二类斯特林数
-'''
-n个元素的集合划分为正好k个非空子集的方法的数目
-递推公式为： 　　S(n,k)=0; (n<k||k=0) 　　S(n,n) = S(n,1) = 1, 　　
-S(n,k) = S(n-1,k-1) + kS(n-1,k).
-'''
-
-
-def S(n, m):
-    if m > n or m == 0:
-        return 0
-    if n == m:
-        return 1
-    if m == 1:
-        return 1
-    return S(n - 1, m - 1) + S(n - 1, m) * m
-
-
-def total(n):
-    sumtotal = 0
-    for i in np.arange(0, n + 1, 1):
-        sumtotal = sumtotal + S(n, i)
-    return sumtotal
-
-
-print(S(9, 6) * 720)
 
 # pattern = re.compile(r'.*/.*')
 # arg = sys.argv[1]
@@ -62,3 +36,32 @@ print(S(9, 6) * 720)
 #     else:
 #         if end > 2:
 #             setting.words = sys.argv[1:end]
+
+bibtex = """@ARTICLE{Cesar2013,
+  author = {Jean César},
+  title = {An amazing title},
+  year = {2013},
+  volume = {12},
+  pages = {12--23},
+  journal = {Nice Journal},
+  abstract = {This is an abstract. This line should be long enough to test
+     multilines...},
+  comments = {A comment},
+  keywords = {keyword1, keyword2}
+}
+"""
+import aiohttp
+
+
+# https://ieeexplore.ieee.org/ielaam/5/8789751/8763885-aam.pdf
+async def main():
+    async with aiohttp.ClientSession() as sess:
+        async with sess.get('https://sci-hub.se/https://ieeexplore.ieee.org/abstract/document/9146372/') as response:
+            html = await response.text()
+            print(len(html))
+
+
+if __name__ == '__main__':
+    import asyncio
+    while True:
+        asyncio.get_event_loop().run_until_complete(main())
