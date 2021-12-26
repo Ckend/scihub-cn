@@ -104,7 +104,7 @@ def construct_download_setting():
 
            $ scihub.py -u https://ieeexplore.ieee.org/document/9429985
            
-           给出论文关键字(关键字之间用_链接)
+           给出论文关键字(关键字之间用_链接,如machine_learning)
            
            $ scihub.py -w word1_words2_words3
 
@@ -131,6 +131,7 @@ def construct_download_setting():
            $ scihub.py -i urls.txt --url
            
            你可以在末尾添加-p(--proxy),-o(--output),-e(--engine)来指定代理，输出文件夹以及搜索引擎
+           搜索引擎包括 google_scholar、baidu_xueshu、publons、以及science_direct
            ''')
     parser.add_argument("-u", dest="url", help="input the download url")
     parser.add_argument("-d", dest="doi", help="input the download doi")
@@ -143,7 +144,7 @@ def construct_download_setting():
     parser.add_argument(
         "-w", "--words",
         dest="words",
-        help="download from some key words"
+        help="download from some key words,keywords are linked by _,like machine_learning."
     )
     parser.add_argument("--title",
                         dest="title_file",
