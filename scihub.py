@@ -604,11 +604,13 @@ class SciHub(object):
         """
         使得下载的论文名称合法
         """
+        if name.endswith('.pdf'):
+            name = name[:name.rfind('.pdf')]
         max_len = 223
         name = name.replace('/', ' ').replace('|', ' ').replace('\\', ' ').replace('?',
                                                                                    ' '). \
             replace('<', ' ').replace('>', ' ').replace('*', ' ').replace(':', ' ').replace('"', ' ').replace('-', ' ')
-        if len(name) > max_len and not name.endswith('.pdf'):
+        if len(name) > max_len:
             return name[:max_len] + '.pdf'
         return name + '.pdf'
 
