@@ -16,6 +16,7 @@ import os
 import json
 from asyncio import ALL_COMPLETED
 from datetime import datetime
+import random
 
 import aiohttp
 import requests
@@ -203,14 +204,19 @@ def construct_download_setting():
             raise ArgumentsError(
                 'search-engine must be selected from GOOGLE_SCHOLAR or BAIDU_XUESHU or PUBLONS or SCIENCE_DIRECT')
         if 'proxy' in res:
-            setting.proxy = (res['proxy']['ip'] + ':' + str(res['proxy']['port']))
+            setting.proxy = 'http://' + (res['proxy']['ip'] + ':' + str(res['proxy']['port']))
 
         if 'output' in res:
             setting.outputPath = res['output']
         if 'limit' in res:
             setting.limit = res['limit']
     if command_args.proxy:
-        setting.proxy = command_args.proxy
+        proxy = command_args.proxy
+        if not proxy.startswith('http://') and not proxy.startswith('https://'):
+            setting.proxy = 'http://' + command_args.proxy
+        else:
+            setting.proxy = command_args.proxy
+
     if command_args.output:
         setting.outputPath = command_args.output
     if command_args.limit:
@@ -226,8 +232,7 @@ def construct_download_setting():
 
 def main():
     setting = construct_download_setting()
-    sh = SciHub()
-    sh.set_proxy(setting.proxy)
+    sh = SciHub(setting.proxy)
     loop = asyncio.get_event_loop()
     infos = []
     for attr, value in vars(setting).items():  # 解析设定中的各个参数
@@ -276,16 +281,17 @@ class SciHub(object):
     and fetch/download papers from sci-hub.io
     """
 
-    def __init__(self):
+    def __init__(self, proxy):
         self.sess = requests.Session()
         self.sess.headers = HEADERS
+        self.set_proxy(proxy)
         self.available_base_url_list = self._get_available_scihub_urls()
         self.base_url = self.available_base_url_list[0] + '/'
 
     def search(self, search_engine, query, limit=10, cookie=''):
         """选择一个搜索引擎搜索内容"""
         if search_engine == SearchEngine.google_scholar:
-            return self.search_by_google_scholar(query, None, limit)
+            return self.search_by_google_scholar(query, limit)
         elif search_engine == SearchEngine.baidu_xueshu:
             return self.search_by_baidu(query, limit)
         elif search_engine == SearchEngine.science_direct:
@@ -298,7 +304,7 @@ class SciHub(object):
         Finds available scihub urls via http://tool.yovisun.com/scihub/
         '''
         urls = []
-        res = requests.get('http://tool.yovisun.com/scihub/')
+        res = self.sess.get('http://tool.yovisun.com/scihub/')
         s = self._get_soup(res.content)
         for a in s.find_all('a', href=True):
             if 'sci-hub.' in a['href']:
@@ -351,8 +357,8 @@ class SciHub(object):
                 paper_info = self.generate_paper_info(paper['doi'])
                 if paper_info:
                     results.append(paper_info)
-                if len(results) >= limit:
-                    return results
+                    if len(results) >= limit:
+                        return results
 
             start += 25
 
@@ -375,10 +381,8 @@ class SciHub(object):
                 paper_info = self.generate_paper_info(paper['doi'])
                 if paper_info:
                     results.append(paper_info)
-                if len(results) >= limit:
-                    return results
-            if len(results) >= limit:
-                return results
+                    if len(results) >= limit:
+                        return results
 
             start += 1
 
@@ -418,8 +422,8 @@ class SciHub(object):
                     paper_info = self.generate_paper_info(fetch_doi(url))
                     if paper_info:
                         results.append(paper_info)
-            if len(results) >= limit:
-                return results
+                        if len(results) >= limit:
+                            return results
 
             start += 10
 
@@ -546,8 +550,8 @@ class SciHub(object):
             check_info = self.check_download_url(identifier)
             if check_info:
                 return check_info
+        time.sleep(random.random() / 5)
         res = self.sess.get(self.base_url + identifier, verify=True, headers={'User-Agent': ScholarConf.USER_AGENT})
-        print(len(res.content))
         s = self._get_soup(res.content)
         try:
             scihub_url = 'https:' + s.find('div', attrs={'id': 'link'}).find('a').attrs['href']
@@ -609,7 +613,7 @@ class SciHub(object):
             return name[:max_len] + '.pdf'
         return name + '.pdf'
 
-    def search_by_google_scholar(self, query, proxy, limit=10):
+    def search_by_google_scholar(self, query, limit=10):
         """
         根据论文名称获得论文url 基于google scholar引擎
 
@@ -617,7 +621,6 @@ class SciHub(object):
         from datetime import datetime
         i = 0
         results = []
-        loop = asyncio.get_event_loop()
 
         while True:
             html = self.sess.get(url=GOOGLE_SCHOLAR_URL + '?hl=zh-CN&q=' + query + '&start=' + str(i),
@@ -631,12 +634,12 @@ class SciHub(object):
                     'http'), recursive=True)
             if not res_set:
                 raise VerifcationError("Error:google scholar 需要人机验证")
-
-            infos = filter_none([self.generate_paper_info(tag.attrs['href']) for tag in res_set])
-            results.extend(infos)
-            limit -= len(infos)
-            if limit <= 0:
-                return results
+            for tag in res_set:
+                info = self.generate_paper_info(tag.attrs['href'])
+                if info:
+                    results.append(info)
+                    if len(results) >= limit:
+                        return results
             i += 10
             if len(res_set) < 10:  # 谷歌搜索不足10个条目
                 break
@@ -682,11 +685,11 @@ class SciHub(object):
             name = self._generate_name_hash(info['response'])
         else:
             if 'doi' in info and info['doi']:
-                url = await self.async_get_direct_url(info['doi'], proxy)
+                url = self._get_direct_url(info['doi'])
             else:
                 pattern = re.compile('https?://sci-hub.*?/')
-                url = await self.async_get_direct_url(
-                    info['scihub_url'][pattern.search(info['scihub_url']).end():], proxy
+                url = self._get_direct_url(
+                    info['scihub_url'][pattern.search(info['scihub_url']).end():]
                 )
             try:
                 url_handler = await session.get(url, proxy=proxy)
