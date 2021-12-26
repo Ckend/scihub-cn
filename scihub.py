@@ -103,9 +103,9 @@ def construct_download_setting():
            给出论文url
 
            $ scihub.py -u https://ieeexplore.ieee.org/document/9429985
-           
+
            给出论文关键字(关键字之间用_链接,如machine_learning)
-           
+
            $ scihub.py -w word1_words2_words3
 
 
@@ -129,7 +129,7 @@ def construct_download_setting():
            url 2
            ```
            $ scihub.py -i urls.txt --url
-           
+
            你可以在末尾添加-p(--proxy),-o(--output),-e(--engine)来指定代理，输出文件夹以及搜索引擎
            搜索引擎包括 google_scholar、baidu_xueshu、publons、以及science_direct
            ''')
@@ -277,14 +277,14 @@ def readline_paper_info(file_name):
 
 class SciHub(object):
     """
-    SciHub class can search for papers on Google Scholars 
+    SciHub class can search for papers on Google Scholars
     and fetch/download papers from sci-hub.io
     """
 
     def __init__(self, proxy):
         self.sess = requests.Session()
         self.sess.headers = HEADERS
-        self.set_proxy(proxy)
+        self.proxies = self.get_proxies(proxy)
         self.available_base_url_list = self._get_available_scihub_urls()
         self.base_url = self.available_base_url_list[0] + '/'
 
@@ -304,23 +304,24 @@ class SciHub(object):
         Finds available scihub urls via http://tool.yovisun.com/scihub/
         '''
         urls = []
-        res = self.sess.get('http://tool.yovisun.com/scihub/')
+        res = self.sess.request(method='GET', url='http://tool.yovisun.com/scihub/', proxies=self.proxies)
         s = self._get_soup(res.content)
         for a in s.find_all('a', href=True):
             if 'sci-hub.' in a['href']:
                 urls.append(a['href'])
         return urls
 
-    def set_proxy(self, proxy):
+    def get_proxies(self, proxy):
         '''
         set proxy for session
         :param proxy_dict:
         :return:
         '''
         if proxy:
-            self.sess.proxies = {
+            return {
                 "http": proxy,
                 "https": proxy, }
+        return None
 
     def _change_base_url(self):
         if not self.available_base_url_list:
@@ -338,8 +339,10 @@ class SciHub(object):
         self.sess.headers["Cookie"] = cookie
         while True:
             try:
-                res = self.sess.get(SCHOLARS_BASE_URL, params={'qs': ' '.join(query), 'offset': start,
-                                                               "hostname": "www.sciencedirect.com"})
+                res = self.sess.request(method='GET', url=SCHOLARS_BASE_URL,
+                                        params={'qs': ' '.join(query), 'offset': start,
+                                                "hostname": "www.sciencedirect.com"},
+                                        proxies=self.proxies)
             except requests.exceptions.RequestException as e:
                 logger.error('Failed to complete search with query %s (connection error)' % query)
                 return results
@@ -370,7 +373,8 @@ class SciHub(object):
         results = []
         while True:
             try:
-                res = self.sess.get(WEB_OF_SCIENCE_URL, params={'title': ' '.join(query), 'page': start})
+                res = self.sess.request(method='GET', url=WEB_OF_SCIENCE_URL,
+                                        params={'title': ' '.join(query), 'page': start}, proxies=self.proxies)
             except requests.exceptions.RequestException as e:
                 logger.error('Failed to complete search with query %s (connection error)' % query)
                 return results
@@ -392,7 +396,7 @@ class SciHub(object):
         """
 
         def fetch_doi(url):
-            res = self.sess.get(url)
+            res = self.sess.request(method='GET', url=url, proxies=self.proxies)
             s = self._get_soup(res.content)
             dois = [doi.text.replace("DOI：", "").replace("ISBN：", "").strip() for doi in
                     s.find_all('div', class_='doi_wr')]
@@ -406,8 +410,9 @@ class SciHub(object):
         results = []
         while True:
             try:
-                res = self.sess.get(BAIDU_XUESHU_URL,
-                                    params={'wd': ' '.join(query), 'pn': start, 'filter': 'sc_type%3D%7B1%7D'})
+                res = self.sess.request(method='GET', url=BAIDU_XUESHU_URL,
+                                        params={'wd': ' '.join(query), 'pn': start, 'filter': 'sc_type%3D%7B1%7D'},
+                                        proxies=self.proxies)
             except requests.exceptions.RequestException as e:
                 logger.error('Failed to complete search with query %s (connection error)' % query)
                 return results
@@ -468,7 +473,7 @@ class SciHub(object):
             # and requests doesn't know how to download them.
             # as a hacky fix, you can add them to your store
             # and verifying would work. will fix this later.
-            res = self.sess.get(url, verify=True)
+            res = self.sess.request(method='GET', url=url, verify=True, proxies=self.proxies)
 
             if res.headers['Content-Type'] != 'application/pdf':
                 self._change_base_url()
@@ -502,7 +507,7 @@ class SciHub(object):
         Sci-Hub embeds papers in an iframe. This function finds the actual
         source url which looks something like https://moscow.sci-hub.io/.../....pdf.
         """
-        res = self.sess.get(self.base_url + identifier, verify=False)
+        res = self.sess.request(method='GET', url=self.base_url + identifier, verify=False, proxies=self.proxies)
         logger.info(f"获取 {self.base_url + identifier} 中...")
         s = self._get_soup(res.content)
         frame = s.find('iframe') or s.find('embed')
@@ -551,7 +556,8 @@ class SciHub(object):
             if check_info:
                 return check_info
         time.sleep(random.random() / 5)
-        res = self.sess.get(self.base_url + identifier, verify=True, headers={'User-Agent': ScholarConf.USER_AGENT})
+        res = self.sess.request(method='GET', url=self.base_url + identifier, verify=True,
+                                headers={'User-Agent': ScholarConf.USER_AGENT}, proxies=self.proxies)
         s = self._get_soup(res.content)
         try:
             scihub_url = 'https:' + s.find('div', attrs={'id': 'link'}).find('a').attrs['href']
@@ -625,8 +631,8 @@ class SciHub(object):
         results = []
 
         while True:
-            html = self.sess.get(url=GOOGLE_SCHOLAR_URL + '?hl=zh-CN&q=' + query + '&start=' + str(i),
-                                 headers={'User-Agent': ScholarConf.USER_AGENT}, verify=True)
+            html = self.sess.request(method='GET', url=GOOGLE_SCHOLAR_URL + '?hl=zh-CN&q=' + query + '&start=' + str(i),
+                                     headers={'User-Agent': ScholarConf.USER_AGENT}, verify=True, proxies=self.proxies)
             soup = BeautifulSoup(html.text, features='lxml')
 
             res_set = soup.find_all(
@@ -651,7 +657,8 @@ class SciHub(object):
     def check_download_url(self, url):
         """查看该链接是否可以直接下载"""
         try:
-            response = self.sess.get(url, headers={'User-Agent': ScholarConf.USER_AGENT})
+            response = self.sess.request(method='GET', url=url, headers={'User-Agent': ScholarConf.USER_AGENT},
+                                         proxies=self.proxies)
             content_type_ = response.headers['Content-Type']
             if content_type_.find('text/html') < 0 and content_type_.find('application') >= 0:
                 logger.info(url + '这是一个直接可以下载的链接！')
@@ -666,8 +673,8 @@ class SciHub(object):
         """
 
         async with aiohttp.ClientSession() as sess:
-            async with sess.get(self.base_url + identifier, proxy=proxy,
-                                headers={'User-Agent': ScholarConf.USER_AGENT}) as res:
+            async with sess.request(method='GET', url=self.base_url + identifier,
+                                    headers={'User-Agent': ScholarConf.USER_AGENT}) as res:
                 logger.info(f"获取 {self.base_url + identifier} 中...")
                 # await 等待任务完成
                 html = await res.text(encoding='utf-8')
