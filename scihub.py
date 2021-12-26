@@ -22,7 +22,6 @@ import aiohttp
 import requests
 import yaml
 from bs4 import BeautifulSoup
-from scholar import SearchScholarQuery, ScholarQuerier
 from enum import Enum
 import argparse
 import time
