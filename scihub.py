@@ -650,11 +650,14 @@ class SciHub(object):
 
     def check_download_url(self, url):
         """查看该链接是否可以直接下载"""
-        response = self.sess.get(url, headers={'User-Agent': ScholarConf.USER_AGENT})
-        content_type_ = response.headers['Content-Type']
-        if content_type_.find('text/html') < 0 and content_type_.find('application') >= 0:
-            logger.info(url + '这是一个直接可以下载的链接！')
-            return {'base_url': url, 'response': response}
+        try:
+            response = self.sess.get(url, headers={'User-Agent': ScholarConf.USER_AGENT})
+            content_type_ = response.headers['Content-Type']
+            if content_type_.find('text/html') < 0 and content_type_.find('application') >= 0:
+                logger.info(url + '这是一个直接可以下载的链接！')
+                return {'base_url': url, 'response': response}
+        except Exception as e:
+            return None
         return None
 
     async def async_get_direct_url(self, identifier, proxy=None):
