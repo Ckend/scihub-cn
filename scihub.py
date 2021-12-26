@@ -608,7 +608,7 @@ class SciHub(object):
         name = name.replace('/', ' ').replace('|', ' ').replace('\\', ' ').replace('?',
                                                                                    ' '). \
             replace('<', ' ').replace('>', ' ').replace('*', ' ').replace(':', ' ').replace('"', ' ')
-        if len(name) > max_len:
+        if len(name) > max_len and not name.startswith('.pdf'):
             return name[:max_len] + '.pdf'
         return name + '.pdf'
 
