@@ -1,0 +1,6 @@
+output: E:\paper
+proxy:
+  ip: 127.0.0.1
+  port: 7890
+search-engine: google_scholar
+limit: 10

@@ -1,15 +1,7 @@
 from scihub import SciHub
+if __name__ == '__main__':
+    sh = SciHub('http://127.0.0.1:7890')
+    print(sh._vaild_name('d:\\apper\\EIE. ACM SIGARCH Computer Architecture News, 44(3), 243–254..pdf'))
 
-sh = SciHub()
 
-# 搜索词
-keywords = "quant"
 
-# 搜索该关键词相关的论文，limit为篇数
-result = sh.search(keywords, limit=10)
-
-print(result)
-
-for index, paper in enumerate(result.get("papers", [])):
-    # 批量下载这些论文
-    sh.download(paper["doi"], path=f"files/{keywords.replace(' ', '_')}_{index}.pdf")
