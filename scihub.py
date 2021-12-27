@@ -109,7 +109,7 @@ def construct_download_setting():
            $ scihub.py -w word1_words2_words3
 
 
-           给出论文doi的txt文本文件，荣誉
+           给出论文doi的txt文本文件，比如
 
            ```
            10.1038/s41524-017-0032-0
@@ -130,7 +130,7 @@ def construct_download_setting():
            ```
            $ scihub.py -i urls.txt --url
 
-           你可以在末尾添加-p(--proxy),-o(--output),-e(--engine)来指定代理，输出文件夹以及搜索引擎
+           你可以在末尾添加-p(--proxy),-o(--output),-e(--engine)，-l(--limit)来指定代理，输出文件夹、搜索引擎以及限制的搜索的条目数
            搜索引擎包括 google_scholar、baidu_xueshu、publons、以及science_direct
            ''')
     parser.add_argument("-u", dest="url", help="input the download url")
