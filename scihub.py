@@ -616,7 +616,7 @@ class SciHub(object):
         max_len = 223
         name = name.replace('/', ' ').replace('|', ' ').replace('\\', ' ').replace('?',
                                                                                    ' '). \
-            replace('<', ' ').replace('>', ' ').replace('*', ' ').replace(':', ' ').replace('"', ' ').replace('-', ' ').replace('–',' ')
+            replace('<', ' ').replace('>', ' ').replace('*', ' ').replace(':', ' ').replace('"', ' ').replace('-', ' ')
         if len(name) > max_len:
             return name[:max_len] + '.pdf'
         return name + '.pdf'
@@ -658,7 +658,7 @@ class SciHub(object):
         """查看该链接是否可以直接下载"""
         try:
             response = self.sess.request(method='GET', url=url, headers={'User-Agent': ScholarConf.USER_AGENT},
-                                         proxies=self.proxies, timeout=4.0)
+                                         proxies=self.proxies, timeout=5.5)
             content_type_ = response.headers['Content-Type']
             if content_type_.find('text/html') < 0 and content_type_.find('application') >= 0:
                 logger.info(url + '这是一个直接可以下载的链接！')
