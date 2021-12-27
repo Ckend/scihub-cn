@@ -4,7 +4,7 @@
 Sci-API Unofficial API
 [Search|Download] research papers from [scholar.google.com|sci-hub.io].
 
-@author zaytoun
+@author zaytoun hulei6188
 @updated by Python实用宝典
 """
 import sys
