@@ -558,8 +558,7 @@ class SciHub(object):
         res = self.sess.request(method='GET', url=self.base_url + identifier, verify=True,
                                 headers={'User-Agent': ScholarConf.USER_AGENT}, proxies=self.proxies)
         if len(res.content) <= 0:
-            logger.info("scihub网站访问次数过多！请稍后！")
-            time.sleep(5.0)
+            return None
 
         s = self._get_soup(res.content)
         try:
