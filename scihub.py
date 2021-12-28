@@ -243,7 +243,7 @@ def main():
         if isinstance(setting, DownLoadCommandFileSetting):
             if 'bibtex' in attr:
                 logger.info("info:开始从配置文件中指定的%s文件中下载..." % value[value.rfind('\\') + 1:])
-                infos.extend(sh.generatoe_paper_info_by_bibtex(value))
+                infos.extend(sh.generate_paper_info_by_bibtex(value))
             elif 'title' in attr:
                 logger.info("info:开始从配置文件中指定的%s文件中下载..." % value[value.rfind('\\') + 1:])
                 for title in readline_paper_info(value):
@@ -557,6 +557,10 @@ class SciHub(object):
                 return check_info
         res = self.sess.request(method='GET', url=self.base_url + identifier, verify=True,
                                 headers={'User-Agent': ScholarConf.USER_AGENT}, proxies=self.proxies)
+        if len(res.content) <= 0:
+            logger.info("scihub网站访问次数过多！请稍后！")
+            time.sleep(5.0)
+
         s = self._get_soup(res.content)
         try:
             scihub_url = 'https:' + s.find('div', attrs={'id': 'link'}).find('a').attrs['href']
@@ -575,7 +579,7 @@ class SciHub(object):
             return None
         return {'title': name, 'doi': doi, 'scihub_url': scihub_url, 'download_url': download_url}
 
-    def generatoe_paper_info_by_bibtex(self, bibtex_file_path):
+    def generate_paper_info_by_bibtex(self, bibtex_file_path):
         """
         从bibtex文件中获得论文信息
         Returns:
