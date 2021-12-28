@@ -197,7 +197,7 @@ def construct_download_setting():
             setting = DownLoadCommandFileSetting()
 
     with open('./config.yml', mode='rt') as f:
-        res = yaml.load(f)
+        res = yaml.load(f, yaml.FullLoader)
         try:
             setting.search_engine = SearchEngine[res['search-engine']]
         except Exception as e:
@@ -555,7 +555,6 @@ class SciHub(object):
             check_info = self.check_download_url(identifier)
             if check_info:
                 return check_info
-        time.sleep(random.random() / 5)
         res = self.sess.request(method='GET', url=self.base_url + identifier, verify=True,
                                 headers={'User-Agent': ScholarConf.USER_AGENT}, proxies=self.proxies)
         s = self._get_soup(res.content)
@@ -566,10 +565,15 @@ class SciHub(object):
             doi_location = citation.text.find('doi:')
             name = title.text if title else citation.text[:doi_location]
             doi = citation.text[doi_location + 4:-1]
+            frame = s.find('iframe') or s.find('embed')
+            download_url = None
+            if frame:
+                download_url = frame.get('src') if not frame.get('src').startswith('//') \
+                    else 'http:' + frame.get('src')
         except Exception as e:
             logger.info(identifier + '  scihub数据库不存在这篇论文！')
             return None
-        return {'title': name, 'doi': doi, 'scihub_url': scihub_url}
+        return {'title': name, 'doi': doi, 'scihub_url': scihub_url, 'download_url': download_url}
 
     def generatoe_paper_info_by_bibtex(self, bibtex_file_path):
         """
@@ -626,7 +630,6 @@ class SciHub(object):
         根据论文名称获得论文url 基于google scholar引擎
 
         """
-        from datetime import datetime
         i = 0
         results = []
 
@@ -640,6 +643,8 @@ class SciHub(object):
                             and tag.has_attr('data-clk') and tag.has_attr('data-clk-atid') and tag.attrs[
                                 'href'].startswith(
                     'http'), recursive=True)
+            citations = soup.find_all(lambda tag: tag.name == 'span' and tag.has_attr('class') and tag.attrs[
+                'class'][0] == 'gs_ct1' and tag.text == '[引用]', recursive=True)
             if not res_set:
                 raise VerifcationError("Error:google scholar 需要人机验证")
             for tag in res_set:
@@ -649,7 +654,7 @@ class SciHub(object):
                     if len(results) >= limit:
                         return results
             i += 10
-            if len(res_set) < 10:  # 谷歌搜索不足10个条目
+            if len(res_set) + len(citations) < 10:  # 谷歌搜索不足10个条目
                 break
 
         return results
@@ -696,21 +701,15 @@ class SciHub(object):
             res = info['response'].content
             name = self._generate_name_hash(info['response'])
         else:
-            if 'doi' in info and info['doi']:
-                url = self._get_direct_url(info['doi'])
-            else:
-                pattern = re.compile('https?://sci-hub.*?/')
-                url = self._get_direct_url(
-                    info['scihub_url'][pattern.search(info['scihub_url']).end():]
-                )
             try:
-                url_handler = await session.get(url, proxy=proxy)
+                logger.info(f"获取 {info['scihub_url']} 中...")
+                url_handler = await session.get(info['download_url'], proxy=proxy)
                 res = await url_handler.read()
             except Exception as e:
                 logger.error(f"获取源文件出错: {e}，大概率是下载超时，请检查")
 
             name = info['title'] if 'title' in info and info['title'] else hashlib.md5(
-                bytes(url.split("/")[-1].split("#")[0], encoding="utf8")).hexdigest()
+                bytes(info['download_url'].split("/")[-1].split("#")[0], encoding="utf8")).hexdigest()
 
         if not res:
             return
