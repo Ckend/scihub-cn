@@ -1,0 +1,3 @@
+[console_scripts]
+scihub-cn = scihub_cn.scihub:main
+

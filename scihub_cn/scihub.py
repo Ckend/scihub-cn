@@ -196,23 +196,26 @@ def construct_download_setting():
         if not setting.words and not setting.url and not setting.doi:
             setting = DownLoadCommandFileSetting()
 
-    with open('./config.yml', mode='rt') as f:
-        res = yaml.load(f, yaml.FullLoader)
-        try:
-            setting.search_engine = SearchEngine[res['search-engine']]
-        except Exception as e:
-            raise ArgumentsError(
-                'search-engine must be selected from google_scholar, baidu_xueshu, publons and science_direct')
-        if 'proxy' in res:
-            setting.proxy = 'http://' + (res['proxy']['ip'] + ':' + str(res['proxy']['port']))
+    # with open('./config.yml', mode='rt') as f:
+    #     res = yaml.load(f, yaml.FullLoader)
+    #     try:
+    #         setting.search_engine = SearchEngine[res['search-engine']]
+    #     except Exception as e:
+    #         raise ArgumentsError(
+    #             'search-engine must be selected from google_scholar, baidu_xueshu, publons and science_direct')
+    #     if 'proxy' in res:
+    #         setting.proxy = 'http://' + (res['proxy']['ip'] + ':' + str(res['proxy']['port']))
+    #
+    #     if 'output' in res:
+    #         setting.outputPath = res['output']
+    #     if 'limit' in res:
+    #         setting.limit = res['limit']
 
-        if 'output' in res:
-            setting.outputPath = res['output']
-        if 'limit' in res:
-            setting.limit = res['limit']
     if command_args.proxy:
         proxy = command_args.proxy
-        if not proxy.startswith('http://') and not proxy.startswith('https://'):
+        if not proxy:
+            setting.proxy = None
+        elif not proxy.startswith('http://') and not proxy.startswith('https://'):
             setting.proxy = 'http://' + command_args.proxy
         else:
             setting.proxy = command_args.proxy
