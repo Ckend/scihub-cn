@@ -1,10 +1,60 @@
-文献搜索对于广大学子来说真的是个麻烦事![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/880f5b5d72e54ed6b86913494b8c1cd9~tplv-k3u1fbpfcp-zoom-1.image)，如果你的学校购买的论文下载权限不够多，或者你不在校园网覆盖的范围内，想必会令你非常头痛。
+SciHub to PDF
+----------------------------------------------------
+使用doi，论文标题，或者bibtex文件批量下载论文
 
-  
+使用方法如下：
 
-幸好，我们有Python制作的这个论文搜索工具，简化了我们学习的复杂性![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/dcb414b1082c47408d7e4cfb4ccef5b4~tplv-k3u1fbpfcp-zoom-1.image)  
+1.给出bibtex文件
+```
+$python scihub.py -i input.bib --bib
+```
 
-  
+2.给出论文doi名称
+```
+$python scihub.py -d 10.1038/s41524-017-0032-0
+```
+
+3.给出论文url
+```
+$python scihub.py -u https://ieeexplore.ieee.org/document/9429985
+```
+
+4.给出论文关键字(关键字之间用_链接,如machine_learning)
+```
+$python scihub.py -w word1_words2_words3
+```
+
+5.给出论文doi的txt文本文件，比如
+```
+10.1038/s41524-017-0032-0
+10.1063/1.3149495
+```
+```
+$python scihub.py -i dois.txt --doi
+```
+
+6.给出所有论文名称的txt文本文件
+```
+Some Title 1
+Some Title 2
+```
+```
+$python scihub.py -i titles.txt --title
+```
+
+
+7.给出所有论文url的txt文件
+```
+url 1
+url 2
+```
+```
+$python scihub.py -i urls.txt --url
+```
+你可以在末尾添加-p(--proxy),-o(--output),-e(--engine)，-l(--limit)来指定代理，输出文件夹、搜索引擎以及限制的搜索的条目数
+搜索引擎包括 google_scholar、baidu_xueshu、publons、以及science_direct
+
+
 
 更新日志：
 
@@ -17,6 +67,18 @@
 **2021-04-08补充**：由于sciencedirect增加了机器人检验，现在搜索下载功能需要先在HEADERS中填入Cookie才可爬取，详见第4步。
 
 **2021-04-25补充**：搜索下载增加百度学术、publons渠道。
+
+**2021-12-31补充**：大更新，支持使用命令行下载。
+
+
+下面是旧版说明：
+
+文献搜索对于广大学子来说真的是个麻烦事![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/880f5b5d72e54ed6b86913494b8c1cd9~tplv-k3u1fbpfcp-zoom-1.image)，如果你的学校购买的论文下载权限不够多，或者你不在校园网覆盖的范围内，想必会令你非常头痛。
+
+
+幸好，我们有Python制作的这个论文搜索工具，简化了我们学习的复杂性![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/dcb414b1082c47408d7e4cfb4ccef5b4~tplv-k3u1fbpfcp-zoom-1.image)  
+
+  
 
 本文完整源代码可在 GitHub 找到：
 

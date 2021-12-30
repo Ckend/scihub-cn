@@ -202,7 +202,7 @@ def construct_download_setting():
             setting.search_engine = SearchEngine[res['search-engine']]
         except Exception as e:
             raise ArgumentsError(
-                'search-engine must be selected from GOOGLE_SCHOLAR or BAIDU_XUESHU or PUBLONS or SCIENCE_DIRECT')
+                'search-engine must be selected from google_scholar, baidu_xueshu, publons and science_direct')
         if 'proxy' in res:
             setting.proxy = 'http://' + (res['proxy']['ip'] + ':' + str(res['proxy']['port']))
 
@@ -555,7 +555,7 @@ class SciHub(object):
             check_info = self.check_download_url(identifier)
             if check_info:
                 return check_info
-        res = self.sess.request(method='GET', url=self.base_url + identifier, verify=True,
+        res = self.sess.request(method='GET', url=self.base_url + identifier, verify=False,
                                 headers={'User-Agent': ScholarConf.USER_AGENT}, proxies=self.proxies)
         if len(res.content) <= 0:
             return None
