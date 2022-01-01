@@ -1,6 +1,9 @@
 SciHub Downloader
 ----------------------------------------------------
-使用doi，论文标题，或者bibtex文件批量下载论文
+使用doi，论文标题，或者bibtex文件批量下载论文。
+
+支持Python3.6及以上版本。
+
 安装：
 ```
 pip install scihub-cn
