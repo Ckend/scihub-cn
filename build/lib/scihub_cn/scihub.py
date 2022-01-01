@@ -741,7 +741,7 @@ class DownLoadSetting:
 
     def __init__(self) -> None:
         super().__init__()
-        self.__outputPath = r"D:\paper"
+        self.__outputPath = "./"
         self.__proxy = None
         self.__search_engine = SearchEngine.google_scholar
         self.__cookie = ''

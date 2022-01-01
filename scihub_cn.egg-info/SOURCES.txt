@@ -1,4 +1,5 @@
 LICENSE
+README.md
 setup.py
 .idea/.gitignore
 .idea/deployment.xml
@@ -9,8 +10,6 @@ setup.py
 .idea/vcs.xml
 .idea/inspectionProfiles/Project_Default.xml
 .idea/inspectionProfiles/profiles_settings.xml
-scihub_cn/.gitignore
-scihub_cn/README.md
 scihub_cn/__init__.py
 scihub_cn/config.yml
 scihub_cn/dois.txt

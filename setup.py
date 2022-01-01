@@ -5,7 +5,7 @@ from setuptools import setup
 
 setup(
     name='scihub-cn',
-    version='0.0.5',
+    version='0.0.6',
     author='ckend',
     author_email='admin@pythondict.com',
     url='https://github.com/Ckend/scihub-cn',
