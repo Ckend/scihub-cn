@@ -94,19 +94,19 @@ def construct_download_setting():
 
            给出bibtex文件
 
-           $ scihub.py -i input.bib --bib
+           $ scihub-cn -i mybibtex.bib --bib
 
            给出论文doi名称
 
-           $ scihub.py -d 10.1038/s41524-017-0032-0
+           $ scihub-cn -d 10.1038/s41524-017-0032-0
 
            给出论文url
 
-           $ scihub.py -u https://ieeexplore.ieee.org/document/9429985
+           $ scihub-cn -u https://ieeexplore.ieee.org/document/9429985
 
            给出论文关键字(关键字之间用_链接,如machine_learning)
 
-           $ scihub.py -w word1_words2_words3
+           $ scihub-cn -w word1_words2_words3
 
 
            给出论文doi的txt文本文件，比如
@@ -115,20 +115,20 @@ def construct_download_setting():
            10.1038/s41524-017-0032-0
            10.1063/1.3149495
            ```
-           $ scihub.py -i dois.txt --doi
+           $ scihub-cn -i dois.txt --doi
            给出所有论文名称的txt文本文件
 
            ```
            Some Title 1
            Some Title 2
            ```
-           $ scihub.py -i titles.txt --title
+           $ scihub-cn -i titles.txt --title
            给出所有论文url的txt文件
            ```
            url 1
            url 2
            ```
-           $ scihub.py -i urls.txt --url
+           $ scihub-cn -i urls.txt --url
 
            你可以在末尾添加-p(--proxy),-o(--output),-e(--engine)，-l(--limit)来指定代理，输出文件夹、搜索引擎以及限制的搜索的条目数
            搜索引擎包括 google_scholar、baidu_xueshu、publons、以及science_direct
@@ -743,7 +743,7 @@ class DownLoadSetting:
         super().__init__()
         self.__outputPath = "./"
         self.__proxy = None
-        self.__search_engine = SearchEngine.google_scholar
+        self.__search_engine = SearchEngine.baidu_xueshu
         self.__cookie = ''
         self.__limit = 10
 
