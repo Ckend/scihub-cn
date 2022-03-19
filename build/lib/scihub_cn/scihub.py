@@ -312,7 +312,7 @@ class SciHub(object):
         for a in s.find_all('a', href=True):
             if 'sci-hub.' in a['href']:
                 urls.append(a['href'])
-        return urls
+        return list(set(urls))
 
     def get_proxies(self, proxy):
         '''
