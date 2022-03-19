@@ -21,6 +21,7 @@ dist/scihub-cn-0.0.5.tar.gz
 dist/scihub-cn-0.0.6.tar.gz
 dist/scihub-cn-0.0.7.tar.gz
 dist/scihub-cn-0.0.8.tar.gz
+dist/scihub-cn-0.0.8.win-amd64.zip
 dist/scihub_cn-0.0.1-py3.6.egg
 dist/scihub_cn-0.0.2-py3.6.egg
 dist/scihub_cn-0.0.3-py3.6.egg
