@@ -289,7 +289,7 @@ class SciHub(object):
         self.sess.headers = HEADERS
         self.proxies = self.get_proxies(proxy)
         self.available_base_url_list = self._get_available_scihub_urls()
-        self.base_url = self.available_base_url_list[0] + '/'
+        self.base_url = self.available_base_url_list[1] + '/'
 
     def search(self, search_engine, query, limit=10, cookie=''):
         """选择一个搜索引擎搜索内容"""
