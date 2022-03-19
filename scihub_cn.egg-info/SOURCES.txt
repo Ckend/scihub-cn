@@ -1,5 +1,7 @@
+.gitignore
 LICENSE
 README.md
+README.rst
 setup.py
 .idea/.gitignore
 .idea/deployment.xml
@@ -10,6 +12,23 @@ setup.py
 .idea/vcs.xml
 .idea/inspectionProfiles/Project_Default.xml
 .idea/inspectionProfiles/profiles_settings.xml
+__pycache__/scihub.cpython-36.pyc
+dist/scihub-cn-0.0.1.tar.gz
+dist/scihub-cn-0.0.2.tar.gz
+dist/scihub-cn-0.0.3.tar.gz
+dist/scihub-cn-0.0.4.tar.gz
+dist/scihub-cn-0.0.5.tar.gz
+dist/scihub-cn-0.0.6.tar.gz
+dist/scihub-cn-0.0.7.tar.gz
+dist/scihub-cn-0.0.8.tar.gz
+dist/scihub_cn-0.0.1-py3.6.egg
+dist/scihub_cn-0.0.2-py3.6.egg
+dist/scihub_cn-0.0.3-py3.6.egg
+dist/scihub_cn-0.0.4-py3.6.egg
+dist/scihub_cn-0.0.5-py3.6.egg
+dist/scihub_cn-0.0.6-py3.6.egg
+dist/scihub_cn-0.0.7-py3.6.egg
+dist/scihub_cn-0.0.8-py3.6.egg
 scihub_cn/__init__.py
 scihub_cn/config.yml
 scihub_cn/dois.txt
@@ -25,3 +44,4 @@ scihub_cn.egg-info/dependency_links.txt
 scihub_cn.egg-info/entry_points.txt
 scihub_cn.egg-info/requires.txt
 scihub_cn.egg-info/top_level.txt
+scihub_cn/__pycache__/__init__.cpython-36.pyc
