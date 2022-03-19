@@ -29,7 +29,7 @@ else:
 
 setup(
     name='scihub-cn',
-    version='0.0.8',
+    version='0.0.9',
     author='ckend',
     author_email='admin@pythondict.com',
     url='https://github.com/Ckend/scihub-cn',
@@ -41,7 +41,6 @@ setup(
         "beautifulsoup4==4.10.0",
         "requests==2.26.0",
         "retrying==1.3.3",
-        "pysocks==1.7.1",
         "PyYaml==5.4",
         "bibtexparser==1.2.0",
         "aiohttp==3.8.1",
