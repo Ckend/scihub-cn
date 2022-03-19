@@ -307,7 +307,7 @@ class SciHub(object):
         Finds available scihub urls via http://tool.yovisun.com/scihub/
         '''
         urls = []
-        res = self.sess.request(method='GET', url='http://tool.yovisun.com/scihub/', proxies=self.proxies)
+        res = self.sess.request(method='GET', url='https://tool.yovisun.com/scihub/', proxies=self.proxies)
         s = self._get_soup(res.content)
         for a in s.find_all('a', href=True):
             if 'sci-hub.' in a['href']:
