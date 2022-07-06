@@ -4,4 +4,4 @@ retrying==1.3.3
 PyYaml==5.4
 bibtexparser==1.2.0
 aiohttp==3.8.1
-lxml==4.7.1
+lxml==4.9.1
