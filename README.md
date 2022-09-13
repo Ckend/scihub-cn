@@ -128,13 +128,15 @@ pip install -r requirements.txt
 
 然后我们就可以准备开始使用啦！![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/4488c5ae98544f92b293fbe7e7fd72f8~tplv-k3u1fbpfcp-zoom-1.image)
 
+### 1.ieee文章  ❌
+
 这个工具使用起来非常简单，有两种方式，第一种方式你可以先在 Google 学术（搜索到论文的网址即可）或ieee上找到你需要的论文，复制论文网址如：
 
 http://ieeexplore.ieee.org/xpl/login.jsp?tp=&arnumber=1648853
 
 ![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6ccd905b9ab94e798cd039f08ce87a28~tplv-k3u1fbpfcp-zoom-1.image)
 
-ieee文章  
+
 
 然后在scihub-cn文件夹里新建一个文件叫 my\_test.py 输入以下代码：
 
@@ -162,12 +164,13 @@ python my_test.py
 
 ![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/7568bf21fec347c193a573dc2015d65e~tplv-k3u1fbpfcp-zoom-1.image)
 
-将DOI号填入download函数中：
+### 2.提供`doi`号填入download函数中✅
 
 ```python
-from scihub import SciHub
+from scihub_cn.scihub import SciHub
 sh = SciHub()
-result = sh.download('10.1016/j.compeleceng.2020.106640', path='paper2.pdf')
+# 设置is_translate_title可将paper's title进行翻译后下载存储
+result = sh.download({"doi": '10.1109/ACC.1999.786344'}, is_translate_title=True)
 ```
 
   
@@ -178,7 +181,53 @@ result = sh.download('10.1016/j.compeleceng.2020.106640', path='paper2.pdf')
 
 ![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b881bec169884a9c82f82c8469be17b1~tplv-k3u1fbpfcp-zoom-1.image)
 
-  
+
+
+### 3.提供`scihub_url`链接填入download函数中✅
+
+  ```python
+  from scihub import SciHub
+  sh = SciHub()
+  # 设置is_translate_title可将paper's title进行翻译后下载存储
+  result = sh.download(
+      info={
+          'scihub_url': "https://sci-hub.se/10.1016/j.apsb.2021.06.014"
+      }, is_translate_title=True
+  )
+  print(f"论文信息: {result}")
+  ```
+
+注：如果下载比较慢，则可以使用代理，操作如下所示：
+
+1. 使用http代理
+
+```python
+from scihub import SciHub
+https_proxy = "http://10.10.1.10:1080"
+sh = SciHub(proxy=https_proxy)
+
+result = sh.download({"doi": '10.1109/ACC.1999.786344'}, is_translate_title=True)
+print(f"论文下载: {result}")
+assert type(result) is PaperInfo
+```
+
+2. 使用sock代理
+
+> 安装`pip install requests[socks]`
+
+```python
+from scihub import SciHub
+sock_proxy = "socks5h://127.0.0.1:10808"
+sh = SciHub(proxy=sock_proxy)
+
+result = sh.download({"doi": '10.1109/ACC.1999.786344'}, is_translate_title=True)
+print(f"论文下载: {result}")
+assert type(result) is PaperInfo
+```
+
+通过设置`https_proxy`即可使用代理，所用的端口号可以通过代理软件自行设置。
+
+
 
 除了这种最简单的方式，我们还提供了 **论文关键词搜索批量下载** 及 **论文关键词批量异步下载** 两种高级的下载方法。
 
@@ -236,7 +285,7 @@ for index, paper in enumerate(result.get("papers", [])):
 ![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/1bd1c541b9334e6892bfe49c1b6b8ae8~tplv-k3u1fbpfcp-zoom-1.image)
 
 
-  
+
 
 **2.使用sciencedirect搜索时**，需要用 **`search_by_science_direct`** 函数，并将cookie作为参数之一传入：
 
@@ -434,7 +483,7 @@ if __name__ == '__main__':
 
 ![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/5cd59e2d2ade48968b35a80c438a2cd0~tplv-k3u1fbpfcp-zoom-1.image)  
 
-  
+
 比以前的方式舒服太多太多了... 如果你要增加超时时间，请修改async\_download函数中的 total=300，把这个请求总时间调高即可。
 
 最新代码前往GitHub上下载：  

@@ -33,12 +33,13 @@ dist/scihub_cn-0.0.8-py3.6.egg
 scihub_cn/__init__.py
 scihub_cn/config.yml
 scihub_cn/dois.txt
+scihub_cn/exceptions.py
+scihub_cn/models.py
 scihub_cn/mybibtex.bib
-scihub_cn/requirements.txt
 scihub_cn/scihub.py
-scihub_cn/test.py
 scihub_cn/titles.txt
 scihub_cn/urls.txt
+scihub_cn/utils.py
 scihub_cn.egg-info/PKG-INFO
 scihub_cn.egg-info/SOURCES.txt
 scihub_cn.egg-info/dependency_links.txt
