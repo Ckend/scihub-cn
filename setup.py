@@ -35,7 +35,7 @@ setup(
     url='https://github.com/Ckend/scihub-cn',
     description='中文环境下可用的全网文献下载工具',
     long_description=long_description,
-    long_description_content_type="text/x-rst",
+    long_description_content_type="text/markdown",
     packages=['scihub_cn'],
     install_requires=install_requires,
     entry_points={
