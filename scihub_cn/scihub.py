@@ -285,7 +285,7 @@ class SciHub(object):
                 return results
 
             for paper in papers:
-                paper_info = self.generate_paper_info(paper['doi'])
+                paper_info = self._get_paper_info(paper['doi'])
                 if paper_info:
                     results.append(paper_info)
                     if len(results) >= limit:
@@ -310,7 +310,7 @@ class SciHub(object):
             papers = json.loads(res.content).get("results", [])
 
             for paper in papers:
-                paper_info = self.generate_paper_info(paper['doi'])
+                paper_info = self._get_paper_info(paper['doi'])
                 if paper_info:
                     results.append(paper_info)
                     if len(results) >= limit:
@@ -352,7 +352,7 @@ class SciHub(object):
                 if not paper.find('table'):
                     link = paper.find('h3', class_='t c_font')
                     url = str(link.find('a')['href'].replace("\n", "").strip())
-                    paper_info = self.generate_paper_info(fetch_doi(url))
+                    paper_info = self._get_paper_info(fetch_doi(url))
                     if paper_info:
                         results.append(paper_info)
                         if len(results) >= limit:
@@ -540,9 +540,9 @@ class SciHub(object):
             else:
                 paper_info = None
                 if 'doi' in info and not paper_info:
-                    paper_info = self.generate_paper_info(info['doi'])
+                    paper_info = self._get_paper_info(info['doi'])
                 if 'url' in info and not paper_info:
-                    paper_info = self.generate_paper_info(info['url'])
+                    paper_info = self._get_paper_info(info['url'])
                 if not paper_info:
                     res.append(paper_info)
                 else:
@@ -597,7 +597,7 @@ class SciHub(object):
             if not res_set:
                 raise VerificationError("Error:google scholar 需要人机验证")
             for tag in res_set:
-                info = self.generate_paper_info(tag.attrs['href'])
+                info = self._get_paper_info(tag.attrs['href'])
                 if info:
                     results.append(info)
                     if len(results) >= limit:
@@ -646,19 +646,14 @@ class SciHub(object):
         异步下载文件
         """
         res = None
-        if 'response' in info:  # 论文本身不需要下载
-            res = info['response'].content
-            name = self._generate_name_hash(info['response'])
-        else:
-            try:
-                logger.info(f"获取 {info['scihub_url']} 中...")
-                url_handler = await session.get(info['download_url'], proxy=proxy)
-                res = await url_handler.read()
-            except Exception as e:
-                logger.error(f"获取源文件出错: {e}，大概率是下载超时，请检查")
+        try:
+            logger.info(f"获取 {info.url} 中...")
+            url_handler = await session.get(info.url, proxy=proxy)
+            res = await url_handler.read()
+        except Exception as e:
+            logger.error(f"获取源文件出错: {e}，大概率是下载超时，请检查")
 
-            name = info['title'] if 'title' in info and info['title'] else hashlib.md5(
-                bytes(info['download_url'].split("/")[-1].split("#")[0], encoding="utf8")).hexdigest()
+        name = info.title
 
         if not res:
             return
@@ -701,7 +696,7 @@ def main():
                                            cookie=setting.cookie))
             else:
                 logger.info("info:开始从配置文件中指定的%s文件中下载..." % value[value.rfind('\\') + 1:])
-                infos.extend([sh.generate_paper_info(input_) for input_ in readline_paper_info(value)])
+                infos.extend([sh._get_paper_info(input_) for input_ in readline_paper_info(value)])
         else:
             if 'words' == attr:
                 logger.info("info:根据关键字%s开始搜索并下载..." % attr)
@@ -710,7 +705,7 @@ def main():
                                        cookie=setting.cookie))
             else:
                 logger.info("info:根据论文信息%s开始下载..." % attr)
-                infos.append(sh.generate_paper_info(value))
+                infos.append(sh._get_paper_info(value))
     infos = filter_none(infos)
     if len(infos) > 0:
         loop.run_until_complete(

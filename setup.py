@@ -14,7 +14,7 @@ else:
 
 setup(
     name='scihub-cn',
-    version='0.0.19',
+    version='0.1.0',
     author='ckend',
     author_email='admin@pythondict.com',
     url='https://github.com/Ckend/scihub-cn',
