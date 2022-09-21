@@ -520,7 +520,7 @@ class SciHub(object):
                 download_url = frame.get('src') if not frame.get('src').startswith('//') \
                     else 'http:' + frame.get('src')
         except Exception as e:
-            logger.info(identifier + '  scihub数据库不存在这篇论文！')
+            logger.info(identifier + f'  scihub数据库不存在这篇论文：{e}')
             return None
         return {'title': name, 'doi': doi, 'scihub_url': scihub_url, 'download_url': download_url}
 
