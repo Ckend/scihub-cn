@@ -37,15 +37,7 @@ setup(
     long_description=long_description,
     long_description_content_type="text/x-rst",
     packages=['scihub_cn'],
-    install_requires=[
-        "beautifulsoup4==4.10.0",
-        "requests==2.26.0",
-        "retrying==1.3.3",
-        "PyYaml==5.4",
-        "bibtexparser==1.2.0",
-        "aiohttp==3.8.1",
-        "lxml==4.7.1",
-    ],
+    install_requires=install_requires,
     entry_points={
         "console_scripts": ['scihub-cn=scihub_cn.scihub:main']
     },
