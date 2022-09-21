@@ -679,8 +679,7 @@ class SciHub(object):
             # 触发await，等待任务完成
             [r.result() for r in finished]
 
-
-if __name__ == '__main__':
+def main():
     setting = construct_download_setting()
     sh = SciHub(setting.proxy)
     loop = asyncio.get_event_loop()
@@ -716,3 +715,6 @@ if __name__ == '__main__':
     if len(infos) > 0:
         loop.run_until_complete(
             sh.async_download(asyncio.get_event_loop(), infos, setting.outputPath, proxy=setting.proxy))
+
+if __name__ == '__main__':
+    main()
