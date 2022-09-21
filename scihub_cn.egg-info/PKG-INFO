@@ -1,10 +1,12 @@
 Metadata-Version: 2.1
 Name: scihub-cn
-Version: 0.0.13
+Version: 0.0.14
 Summary: 中文环境下可用的全网文献下载工具
 Home-page: https://github.com/Ckend/scihub-cn
 Author: ckend
 Author-email: admin@pythondict.com
+License: UNKNOWN
+Platform: UNKNOWN
 Description-Content-Type: text/x-rst
 License-File: LICENSE
 
@@ -19,7 +21,7 @@ SciHub Downloader
 
 ::
 
-    pip install scihub-cn
+   pip install scihub-cn
 
 使用方法如下：
 
@@ -27,62 +29,61 @@ SciHub Downloader
 
 ::
 
-    $scihub-cn -i input.bib --bib
+   $scihub-cn -i input.bib --bib
 
 2.给出论文doi名称
 
 ::
 
-    $scihub-cn -d 10.1038/s41524-017-0032-0
+   $scihub-cn -d 10.1038/s41524-017-0032-0
 
 3.给出论文url
 
 ::
 
-    $scihub-cn -u https://ieeexplore.ieee.org/document/9429985
+   $scihub-cn -u https://ieeexplore.ieee.org/document/9429985
 
-4.给出论文关键字(关键字之间用\_链接,如machine\_learning)
+4.给出论文关键字(关键字之间用_链接,如machine_learning)
 
 ::
 
-    $scihub-cn -w word1_words2_words3
+   $scihub-cn -w word1_words2_words3
 
 5.给出论文doi的txt文本文件，比如
 
 ::
 
-    10.1038/s41524-017-0032-0
-    10.1063/1.3149495
+   10.1038/s41524-017-0032-0
+   10.1063/1.3149495
 
 ::
 
-    $scihub-cn -i dois.txt --doi
+   $scihub-cn -i dois.txt --doi
 
 6.给出所有论文名称的txt文本文件
 
 ::
 
-    Some Title 1
-    Some Title 2
+   Some Title 1
+   Some Title 2
 
 ::
 
-    $scihub-cn -i titles.txt --title
+   $scihub-cn -i titles.txt --title
 
 7.给出所有论文url的txt文件
 
 ::
 
-    url 1
-    url 2
+   url 1
+   url 2
 
 ::
 
-    $scihub-cn -i urls.txt --url
+   $scihub-cn -i urls.txt --url
 
-你可以在末尾添加-p(--proxy),-o(--output),-e(--engine)，-l(--limit)来指定代理，输出文件夹、搜索引擎以及限制的搜索的条目数
-搜索引擎包括
-google\_scholar、baidu\_xueshu、publons、以及science\_direct
+你可以在末尾添加-p(–proxy),-o(–output),-e(–engine)，-l(–limit)来指定代理，输出文件夹、搜索引擎以及限制的搜索的条目数
+搜索引擎包括 google_scholar、baidu_xueshu、publons、以及science_direct
 
 更新日志：
 
@@ -113,15 +114,14 @@ https://github.com/Ckend/scihub-cn
 
 首先给大家介绍一下Sci-hub这个线上数据库，这个数据库提供了约8千万篇科学学术论文和文章下载。由一名叫亚历珊卓·艾尔巴金的研究生建立，她过去在哈佛大学从事研究时发现支付所需要的数百篇论文的费用实在是太高了，因此就萌生了创建这个网站，让更多人获得知识的想法\ |image2|
 
-.. figure:: https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/aa82fbe1ba1342fb8c124cafeb4e0f30~tplv-k3u1fbpfcp-zoom-1.image
-   :alt: 
+|image3|
 
 后来，这个网站越来越出名，逐渐地在更多地国家如印度、印度尼西亚、中国、俄罗斯等国家盛行，并成功地和一些组织合作，共同维护和运营这个网站。到了2017年的时候，网站上已有81600000篇学术论文，占到了所有学术论文的69%，基本满足大部分论文的需求，而剩下的31%是研究者不想获取的论文。
 
 **2. 为什么我们需要用Python工具下载**
 -------------------------------------
 
-在起初，这个网站是所有人都能够访问的，但是随着其知名度的提升，越来越多的出版社盯上了他们，在2015年时被美国法院封禁后其在美国的服务器便无法被继续访问，因此从那个时候开始，他们就跟出版社们打起了游击战\ |image3|
+在起初，这个网站是所有人都能够访问的，但是随着其知名度的提升，越来越多的出版社盯上了他们，在2015年时被美国法院封禁后其在美国的服务器便无法被继续访问，因此从那个时候开始，他们就跟出版社们打起了游击战\ |image4|
 
 游击战的缺点就是导致scihub的地址需要经常更换，所以我们没办法准确地一直使用某一个地址访问这个数据库。当然也有一些别的方法可让我们长时间访问这个网站，比如说修改DNS，修改hosts文件，不过这些方法不仅麻烦，而且也不是长久之计，还是存在失效的可能的。
 
@@ -134,62 +134,109 @@ https://github.com/Ckend/scihub-cn
 | https://github.com/Ckend/scihub-cn
 
 欢迎给我一个Star，鼓励我继续维护这个仓库。如果你访问不了GitHub，请在
-Python实用宝典 公众号后台回复 \ **scihub**\ ，下载最新可用代码。
+Python实用宝典 公众号后台回复 **scihub**\ ，下载最新可用代码。
 
 解压下载的压缩包后，使用CMD/Terminal进入这个文件夹，输入以下命令（默认你已经安装好了Python）安装依赖：
 
 ::
 
-    pip install -r requirements.txt
+   pip install -r requirements.txt
 
-然后我们就可以准备开始使用啦！\ |image4|
+然后我们就可以准备开始使用啦！\ |image5|
+
+1.ieee文章 ❌
+~~~~~~~~~~~~
 
 这个工具使用起来非常简单，有两种方式，第一种方式你可以先在 Google
 学术（搜索到论文的网址即可）或ieee上找到你需要的论文，复制论文网址如：
 
 http://ieeexplore.ieee.org/xpl/login.jsp?tp=&arnumber=1648853
 
-.. figure:: https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6ccd905b9ab94e798cd039f08ce87a28~tplv-k3u1fbpfcp-zoom-1.image
-   :alt: 
+|image6|
 
-ieee文章
-
-然后在scihub-cn文件夹里新建一个文件叫 my\_test.py 输入以下代码：
+然后在scihub-cn文件夹里新建一个文件叫 my_test.py 输入以下代码：
 
 .. code:: python
 
-    from scihub import SciHub
-    sh = SciHub()
-    # 第一个参数输入论文的网站地址
-    # path: 文件保存路径
-    result = sh.download('https://ieeexplore.ieee.org/document/26502', path='paper.pdf')
+   from scihub import SciHub
+   sh = SciHub()
+   # 第一个参数输入论文的网站地址
+   # path: 文件保存路径
+   result = sh.download('https://ieeexplore.ieee.org/document/26502', path='paper.pdf')
 
 进入该文件夹后在cmd/terminal中运行：
 
 ``shell script python my_test.py``
 
-你就会发现文件成功下载到你的当前目录啦，名字为paper.pdf\ |image5|\ 如果不行，有可能是网络问题，多试几次。实在不行可以在下方留言区询问哦。
+你就会发现文件成功下载到你的当前目录啦，名字为paper.pdf\ |image7|\ 如果不行，有可能是网络问题，多试几次。实在不行可以在下方留言区询问哦。
 
 上述是第一种下载方式，第二种方式你可以通过在知网或者百度学术上搜索论文拿到DOI号进行下载，比如：
 
-.. figure:: https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/7568bf21fec347c193a573dc2015d65e~tplv-k3u1fbpfcp-zoom-1.image
-   :alt: 
+|image8|
 
-将DOI号填入download函数中：
+2.提供\ ``doi``\ 号填入download函数中✅
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code:: python
 
-    from scihub import SciHub
-    sh = SciHub()
-    result = sh.download('10.1016/j.compeleceng.2020.106640', path='paper2.pdf')
+   from scihub_cn.scihub import SciHub
+   sh = SciHub()
+   # 设置is_translate_title可将paper's title进行翻译后下载存储
+   result = sh.download({"doi": '10.1109/ACC.1999.786344'}, is_translate_title=True)
 
 下载完成后就会在文件夹中出现该文献：
 
-.. figure:: https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b881bec169884a9c82f82c8469be17b1~tplv-k3u1fbpfcp-zoom-1.image
-   :alt: 
+|image9|
 
-除了这种最简单的方式，我们还提供了 \ **论文关键词搜索批量下载**
-及 \ **论文关键词批量异步下载** 两种高级的下载方法。
+3.提供\ ``scihub_url``\ 链接填入download函数中✅
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+   from scihub import SciHub
+   sh = SciHub()
+   # 设置is_translate_title可将paper's title进行翻译后下载存储
+   result = sh.download(
+       info={
+           'scihub_url': "https://sci-hub.se/10.1016/j.apsb.2021.06.014"
+       }, is_translate_title=True
+   )
+   print(f"论文信息: {result}")
+
+注：如果下载比较慢，则可以使用代理，操作如下所示：
+
+1. 使用http代理
+
+.. code:: python
+
+   from scihub import SciHub
+   https_proxy = "http://10.10.1.10:1080"
+   sh = SciHub(proxy=https_proxy)
+
+   result = sh.download({"doi": '10.1109/ACC.1999.786344'}, is_translate_title=True)
+   print(f"论文下载: {result}")
+   assert type(result) is PaperInfo
+
+2. 使用sock代理
+
+..
+
+   安装\ ``pip install requests[socks]``
+
+.. code:: python
+
+   from scihub import SciHub
+   sock_proxy = "socks5h://127.0.0.1:10808"
+   sh = SciHub(proxy=sock_proxy)
+
+   result = sh.download({"doi": '10.1109/ACC.1999.786344'}, is_translate_title=True)
+   print(f"论文下载: {result}")
+   assert type(result) is PaperInfo
+
+通过设置\ ``https_proxy``\ 即可使用代理，所用的端口号可以通过代理软件自行设置。
+
+除了这种最简单的方式，我们还提供了 **论文关键词搜索批量下载**
+及 **论文关键词批量异步下载** 两种高级的下载方法。
 
 我们在下文将会详细地讲解这两种方法的使用，大家可以看项目内的
 **``test.py``** 文件，你可以了解到论文搜索批量下载的方法。
@@ -205,26 +252,25 @@ Festival）：
 
 .. code:: python
 
-    from scihub import SciHub
+   from scihub import SciHub
 
-    sh = SciHub()
+   sh = SciHub()
 
-    # 搜索词
-    keywords = "Dragon Boat Festival"
+   # 搜索词
+   keywords = "Dragon Boat Festival"
 
-    # 搜索该关键词相关的论文，limit为篇数
-    result = sh.search(keywords, limit=10)
+   # 搜索该关键词相关的论文，limit为篇数
+   result = sh.search(keywords, limit=10)
 
-    print(result)
+   print(result)
 
-    for index, paper in enumerate(result.get("papers", [])):
-        # 批量下载这些论文
-        sh.download(paper["doi"], path=f"files/{keywords.replace(' ', '_')}_{index}.pdf")
+   for index, paper in enumerate(result.get("papers", [])):
+       # 批量下载这些论文
+       sh.download(paper["doi"], path=f"files/{keywords.replace(' ', '_')}_{index}.pdf")
 
 **默认会使用百度学术进行论文搜索，拿到DOI号后再通过scihub下载，运行成功：**
 
-.. figure:: https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/4865fed715f044c7be2e85bd0f405261~tplv-k3u1fbpfcp-zoom-1.image
-   :alt: 
+|image10|
 
 **2021-04-25 更新：**
 
@@ -247,29 +293,28 @@ Festival）：
 
 **1.获取Cookie**
 
-.. figure:: https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/1bd1c541b9334e6892bfe49c1b6b8ae8~tplv-k3u1fbpfcp-zoom-1.image
-   :alt: 
+|image11|
 
 **2.使用sciencedirect搜索时**\ ，需要用 **``search_by_science_direct``**
 函数，并将cookie作为参数之一传入：
 
 .. code:: python
 
-    from scihub import SciHub
+   from scihub import SciHub
 
-    sh = SciHub()
+   sh = SciHub()
 
-    # 搜索词
-    keywords = "Dragon Boat Festival"
+   # 搜索词
+   keywords = "Dragon Boat Festival"
 
-    # 搜索该关键词相关的论文，limit为篇数
-    result = sh.search_by_science_direct(keywords, cookie="你的cookie", limit=10)
+   # 搜索该关键词相关的论文，limit为篇数
+   result = sh.search_by_science_direct(keywords, cookie="你的cookie", limit=10)
 
-    print(result)
+   print(result)
 
-    for index, paper in enumerate(result.get("papers", [])):
-        # 批量下载这些论文
-        sh.download(paper["doi"], path=f"files/{keywords.replace(' ', '_')}_{index}.pdf")
+   for index, paper in enumerate(result.get("papers", [])):
+       # 批量下载这些论文
+       sh.download(paper["doi"], path=f"files/{keywords.replace(' ', '_')}_{index}.pdf")
 
 这样大概率就能顺利通过sciencedirect搜索并下载文献了。
 
@@ -281,21 +326,21 @@ Festival）：
 
 .. code:: python
 
-    from scihub import SciHub
+   from scihub import SciHub
 
-    sh = SciHub()
+   sh = SciHub()
 
-    # 搜索词
-    keywords = "Dragon Boat Festival"
+   # 搜索词
+   keywords = "Dragon Boat Festival"
 
-    # 搜索该关键词相关的论文，limit为篇数
-    result = sh.search_by_publons(keywords, limit=10)
+   # 搜索该关键词相关的论文，limit为篇数
+   result = sh.search_by_publons(keywords, limit=10)
 
-    print(result)
+   print(result)
 
-    for index, paper in enumerate(result.get("papers", [])):
-        # 批量下载这些论文
-        sh.download(paper["doi"], path=f"files/{keywords.replace(' ', '_')}_{index}.pdf")
+   for index, paper in enumerate(result.get("papers", [])):
+       # 批量下载这些论文
+       sh.download(paper["doi"], path=f"files/{keywords.replace(' ', '_')}_{index}.pdf")
 
 **5. 异步下载优化，增加超时控制**
 ---------------------------------
@@ -315,171 +360,169 @@ asyncio 异步的形式去进行文件的下载。
 
 .. code:: python
 
-    async def async_get_direct_url(self, identifier):
-        """
-        异步获取scihub直链
-        """
-        async with aiohttp.ClientSession() as sess:
-            async with sess.get(self.base_url + identifier) as res:
-                logger.info(f"Fetching {self.base_url + identifier}...")
-                # await 等待任务完成
-                html = await res.text(encoding='utf-8')
-                s = self._get_soup(html)
-                iframe = s.find('iframe')
-                if iframe:
-                    return iframe.get('src') if not iframe.get('src').startswith('//') \
-                        else 'http:' + iframe.get('src')
-                else:
-                    return None
+   async def async_get_direct_url(self, identifier):
+       """
+       异步获取scihub直链
+       """
+       async with aiohttp.ClientSession() as sess:
+           async with sess.get(self.base_url + identifier) as res:
+               logger.info(f"Fetching {self.base_url + identifier}...")
+               # await 等待任务完成
+               html = await res.text(encoding='utf-8')
+               s = self._get_soup(html)
+               iframe = s.find('iframe')
+               if iframe:
+                   return iframe.get('src') if not iframe.get('src').startswith('//') \
+                       else 'http:' + iframe.get('src')
+               else:
+                   return None
 
 这样，在搜索论文后，调用该接口就能获取所有需要下载的scihub直链，速度很快：
 
 .. code:: python
 
-    def search(keywords: str, limit: int):
-        """
-        搜索相关论文并下载
+   def search(keywords: str, limit: int):
+       """
+       搜索相关论文并下载
 
-        Args:
-            keywords (str): 关键词
-            limit (int): 篇数
-        """
+       Args:
+           keywords (str): 关键词
+           limit (int): 篇数
+       """
 
-        sh = SciHub()
-        result = sh.search(keywords, limit=limit)
-        print(result)
+       sh = SciHub()
+       result = sh.search(keywords, limit=limit)
+       print(result)
 
-        loop = asyncio.get_event_loop()
-        # 获取所有需要下载的scihub直链
-        tasks = [sh.async_get_direct_url(paper["doi"]) for paper in result.get("papers", [])]
-        all_direct_urls = loop.run_until_complete(asyncio.gather(*tasks))
-        print(all_direct_urls)
+       loop = asyncio.get_event_loop()
+       # 获取所有需要下载的scihub直链
+       tasks = [sh.async_get_direct_url(paper["doi"]) for paper in result.get("papers", [])]
+       all_direct_urls = loop.run_until_complete(asyncio.gather(*tasks))
+       print(all_direct_urls)
 
-.. figure:: https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/e157d17f977748469081ea93013bff45~tplv-k3u1fbpfcp-zoom-1.image
-   :alt: 
+|image12|
 
 获取直链后，需要下载论文，同样也是IO密集型操作，增加2个异步函数：
 
 .. code:: python
 
-    async def job(self, session, url, destination='', path=None):
-        """
-        异步下载文件
-        """
-        if not url:
-            return
-        file_name = url.split("/")[-1].split("#")[0]
-        logger.info(f"正在读取并写入 {file_name} 中...")
-        # 异步读取内容
-        try:
-            url_handler = await session.get(url)
-            content = await url_handler.read()
-        except Exception as e:
-            logger.error(f"获取源文件出错: {e}，大概率是下载超时，请检查")
-            return str(url)
-        with open(os.path.join(destination, path + file_name), 'wb') as f:
-            # 写入至文件
-            f.write(content)
-        return str(url)
+   async def job(self, session, url, destination='', path=None):
+       """
+       异步下载文件
+       """
+       if not url:
+           return
+       file_name = url.split("/")[-1].split("#")[0]
+       logger.info(f"正在读取并写入 {file_name} 中...")
+       # 异步读取内容
+       try:
+           url_handler = await session.get(url)
+           content = await url_handler.read()
+       except Exception as e:
+           logger.error(f"获取源文件出错: {e}，大概率是下载超时，请检查")
+           return str(url)
+       with open(os.path.join(destination, path + file_name), 'wb') as f:
+           # 写入至文件
+           f.write(content)
+       return str(url)
 
-    async def async_download(self, loop, urls, destination='', path=None):
-        """
-        触发异步下载任务
-        如果你要增加超时时间，请修改 total=300
-        """
-        async with aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(total=300)) as session:
-            # 建立会话session
-            tasks = [loop.create_task(self.job(session, url, destination, path)) for url in urls]
-            # 建立所有任务
-            finished, unfinished = await asyncio.wait(tasks)
-            # 触发await，等待任务完成
-            [r.result() for r in finished]
+   async def async_download(self, loop, urls, destination='', path=None):
+       """
+       触发异步下载任务
+       如果你要增加超时时间，请修改 total=300
+       """
+       async with aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(total=300)) as session:
+           # 建立会话session
+           tasks = [loop.create_task(self.job(session, url, destination, path)) for url in urls]
+           # 建立所有任务
+           finished, unfinished = await asyncio.wait(tasks)
+           # 触发await，等待任务完成
+           [r.result() for r in finished]
 
 最后，在search函数中补充下载操作：
 
 .. code:: python
 
-    import asyncio
-    from scihub import SciHub
+   import asyncio
+   from scihub import SciHub
 
 
-    def search(keywords: str, limit: int):
-        """
-        搜索相关论文并下载
+   def search(keywords: str, limit: int):
+       """
+       搜索相关论文并下载
 
-        Args:
-            keywords (str): 关键词
-            limit (int): 篇数
-        """
+       Args:
+           keywords (str): 关键词
+           limit (int): 篇数
+       """
 
-        sh = SciHub()
-        result = sh.search(keywords, limit=limit)
-        print(result)
+       sh = SciHub()
+       result = sh.search(keywords, limit=limit)
+       print(result)
 
-        loop = asyncio.get_event_loop()
-        # 获取所有需要下载的scihub直链
-        tasks = [sh.async_get_direct_url(paper["doi"]) for paper in result.get("papers", [])]
-        all_direct_urls = loop.run_until_complete(asyncio.gather(*tasks))
-        print(all_direct_urls)
+       loop = asyncio.get_event_loop()
+       # 获取所有需要下载的scihub直链
+       tasks = [sh.async_get_direct_url(paper["doi"]) for paper in result.get("papers", [])]
+       all_direct_urls = loop.run_until_complete(asyncio.gather(*tasks))
+       print(all_direct_urls)
 
-        # 下载所有论文
-        loop.run_until_complete(sh.async_download(loop, all_direct_urls, path=f"scihub_cn/files/"))
-        loop.close()
+       # 下载所有论文
+       loop.run_until_complete(sh.async_download(loop, all_direct_urls, path=f"scihub_cn/files/"))
+       loop.close()
 
 
-    if __name__ == '__main__':
-        search("quant", 10)
+   if __name__ == '__main__':
+       search("quant", 10)
 
 一个完整的下载过程就OK了：
 
-.. figure:: https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/5cd59e2d2ade48968b35a80c438a2cd0~tplv-k3u1fbpfcp-zoom-1.image
-   :alt: 
+|image13|
 
-比以前的方式舒服太多太多了...
-如果你要增加超时时间，请修改async\_download函数中的
+比以前的方式舒服太多太多了…
+如果你要增加超时时间，请修改async_download函数中的
 total=300，把这个请求总时间调高即可。
 
 | 最新代码前往GitHub上下载：
 | https://github.com/Ckend/scihub-cn
 
-或者从Python实用宝典公众号后台回复 \ **scihub** 下载。
+或者从Python实用宝典公众号后台回复 **scihub** 下载。
 **6.根据DOI号下载文献**
 
 最近有同学希望直接通过DOI号下载文献，因此补充了这部分内容。
 
 .. code:: python
 
-    import asyncio
-    from scihub import SciHub
+   import asyncio
+   from scihub import SciHub
 
 
-    def fetch_by_doi(dois: list, path: str):
-        """
-        根据 doi 获取文档
-        Args:
-            dois: 文献DOI号列表
-            path: 存储文件夹
-        """
+   def fetch_by_doi(dois: list, path: str):
+       """
+       根据 doi 获取文档
+       Args:
+           dois: 文献DOI号列表
+           path: 存储文件夹
+       """
 
-        sh = SciHub()
-        loop = asyncio.get_event_loop()
-        # 获取所有需要下载的scihub直链
-        tasks = [sh.async_get_direct_url(doi) for doi in dois]
-        all_direct_urls = loop.run_until_complete(asyncio.gather(*tasks))
-        print(all_direct_urls)
+       sh = SciHub()
+       loop = asyncio.get_event_loop()
+       # 获取所有需要下载的scihub直链
+       tasks = [sh.async_get_direct_url(doi) for doi in dois]
+       all_direct_urls = loop.run_until_complete(asyncio.gather(*tasks))
+       print(all_direct_urls)
 
-        # 下载所有论文
-        loop.run_until_complete(sh.async_download(loop, all_direct_urls, path=path))
-        loop.close()
+       # 下载所有论文
+       loop.run_until_complete(sh.async_download(loop, all_direct_urls, path=path))
+       loop.close()
 
-    if __name__ == '__main__':
-        fetch_by_doi(["10.1088/1751-8113/42/50/504005"], f"files/")
+   if __name__ == '__main__':
+       fetch_by_doi(["10.1088/1751-8113/42/50/504005"], f"files/")
 
 默认存储到files文件夹中，你也可以根据自己的需求对代码进行修改。
 
 **7.工作原理**
 
-这个API的源代码其实非常好读懂\ |image6|
+这个API的源代码其实非常好读懂\ |image14|
 
 **7.1、找到sci-hub目前可用的域名**
 
@@ -487,13 +530,11 @@ total=300，把这个请求总时间调高即可。
 
 https://whereisscihub.now.sh/
 
-.. figure:: https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/7fd6788588ff464586e94d4675738ff6~tplv-k3u1fbpfcp-zoom-1.image
-   :alt: 
+|image15|
 
 可惜的是，作者常年不维护，该地址已经失效了，我们就是在这里修改了该域名，使得项目得以重新正常运作：
 
-.. figure:: https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/fe631767c0fd465a8dfe6fe67a1f13d5~tplv-k3u1fbpfcp-zoom-1.image
-   :alt: 
+|image16|
 
 **7.2、对用户输入的论文地址进行解析，找到相应论文**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -503,8 +544,7 @@ https://whereisscihub.now.sh/
 2.
 如果scihub的网址无法使用则切换另一个网址使用，除非所有网址都无法使用。
 
-.. figure:: https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/225c7a5201ee43dc9ddf7d81e9c6074b~tplv-k3u1fbpfcp-zoom-1.image
-   :alt: 
+|image17|
 
 3.值得注意的是，如果用户输入的是论文的关键词，我们将调用sciencedirect的接口，拿到论文地址，再使用scihub进行论文的下载。
 
@@ -515,8 +555,7 @@ https://whereisscihub.now.sh/
 
 2. 然后将data变量存储为文件即可
 
-.. figure:: https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/876380c67b5b4b02a4e6f2aa953790f3~tplv-k3u1fbpfcp-zoom-1.image
-   :alt: 
+|image18|
 
 此外，代码用到了一个retry装饰器，这个装饰器可以用来进行错误重试，作者设定了重试次数为10次，每次重试最大等待时间不超过1秒。
 
@@ -535,13 +574,27 @@ https://whereisscihub.now.sh/
 | 不只是一个宝典
 | 欢迎关注公众号：Python实用宝典
 
-.. figure:: https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/98075aacf0c14ac9920cbc74a64e20a6~tplv-k3u1fbpfcp-zoom-1.image
-   :alt: 
+|image19|
 
 .. |image0| image:: https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/880f5b5d72e54ed6b86913494b8c1cd9~tplv-k3u1fbpfcp-zoom-1.image
 .. |image1| image:: https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/dcb414b1082c47408d7e4cfb4ccef5b4~tplv-k3u1fbpfcp-zoom-1.image
 .. |image2| image:: https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/985a5a6ffa484e1a92742b064c374b59~tplv-k3u1fbpfcp-zoom-1.image
-.. |image3| image:: https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/50d43ab74bf74707873c3cb40be0a87e~tplv-k3u1fbpfcp-zoom-1.image
-.. |image4| image:: https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/4488c5ae98544f92b293fbe7e7fd72f8~tplv-k3u1fbpfcp-zoom-1.image
-.. |image5| image:: https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/90e09c851d8448c0898b77483a05d299~tplv-k3u1fbpfcp-zoom-1.image
-.. |image6| image:: https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6d17291433304019bcca7ecb5da7296b~tplv-k3u1fbpfcp-zoom-1.image
+.. |image3| image:: https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/aa82fbe1ba1342fb8c124cafeb4e0f30~tplv-k3u1fbpfcp-zoom-1.image
+.. |image4| image:: https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/50d43ab74bf74707873c3cb40be0a87e~tplv-k3u1fbpfcp-zoom-1.image
+.. |image5| image:: https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/4488c5ae98544f92b293fbe7e7fd72f8~tplv-k3u1fbpfcp-zoom-1.image
+.. |image6| image:: https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6ccd905b9ab94e798cd039f08ce87a28~tplv-k3u1fbpfcp-zoom-1.image
+.. |image7| image:: https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/90e09c851d8448c0898b77483a05d299~tplv-k3u1fbpfcp-zoom-1.image
+.. |image8| image:: https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/7568bf21fec347c193a573dc2015d65e~tplv-k3u1fbpfcp-zoom-1.image
+.. |image9| image:: https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b881bec169884a9c82f82c8469be17b1~tplv-k3u1fbpfcp-zoom-1.image
+.. |image10| image:: https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/4865fed715f044c7be2e85bd0f405261~tplv-k3u1fbpfcp-zoom-1.image
+.. |image11| image:: https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/1bd1c541b9334e6892bfe49c1b6b8ae8~tplv-k3u1fbpfcp-zoom-1.image
+.. |image12| image:: https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/e157d17f977748469081ea93013bff45~tplv-k3u1fbpfcp-zoom-1.image
+.. |image13| image:: https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/5cd59e2d2ade48968b35a80c438a2cd0~tplv-k3u1fbpfcp-zoom-1.image
+.. |image14| image:: https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6d17291433304019bcca7ecb5da7296b~tplv-k3u1fbpfcp-zoom-1.image
+.. |image15| image:: https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/7fd6788588ff464586e94d4675738ff6~tplv-k3u1fbpfcp-zoom-1.image
+.. |image16| image:: https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/fe631767c0fd465a8dfe6fe67a1f13d5~tplv-k3u1fbpfcp-zoom-1.image
+.. |image17| image:: https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/225c7a5201ee43dc9ddf7d81e9c6074b~tplv-k3u1fbpfcp-zoom-1.image
+.. |image18| image:: https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/876380c67b5b4b02a4e6f2aa953790f3~tplv-k3u1fbpfcp-zoom-1.image
+.. |image19| image:: https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/98075aacf0c14ac9920cbc74a64e20a6~tplv-k3u1fbpfcp-zoom-1.image
+
+

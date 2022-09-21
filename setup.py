@@ -29,7 +29,7 @@ else:
 
 setup(
     name='scihub-cn',
-    version='0.0.13',
+    version='0.0.14',
     author='ckend',
     author_email='admin@pythondict.com',
     url='https://github.com/Ckend/scihub-cn',

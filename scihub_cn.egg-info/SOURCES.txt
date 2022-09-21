@@ -3,15 +3,6 @@ LICENSE
 README.md
 README.rst
 setup.py
-.idea/.gitignore
-.idea/deployment.xml
-.idea/misc.xml
-.idea/modules.xml
-.idea/other.xml
-.idea/scihub-cn.iml
-.idea/vcs.xml
-.idea/inspectionProfiles/Project_Default.xml
-.idea/inspectionProfiles/profiles_settings.xml
 __pycache__/scihub.cpython-36.pyc
 dist/scihub-cn-0.0.1.tar.gz
 dist/scihub-cn-0.0.2.tar.gz
