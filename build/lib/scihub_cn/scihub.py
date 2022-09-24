@@ -647,8 +647,11 @@ class SciHub(object):
         """
         res = None
         try:
-            logger.info(f"获取 {info.url} 中...")
-            url_handler = await session.get(info.url, proxy=proxy)
+            url = info.url
+            if url.startswith("/"):
+                url = self.base_url.strip("/") + info.url
+            logger.info(f"获取 {url} 中...")
+            url_handler = await session.get(url, proxy=proxy)
             res = await url_handler.read()
         except Exception as e:
             logger.error(f"获取源文件出错: {e}，大概率是下载超时，请检查")
