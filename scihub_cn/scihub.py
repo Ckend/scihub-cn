@@ -446,7 +446,15 @@ class SciHub(object):
         Sci-Hub embeds papers in an iframe. This function finds the actual
         source url which looks something like https://moscow.sci-hub.io/.../....pdf.
         """
-        res = self.sess.request(method='GET', url=self.base_url + identifier, verify=False, proxies=self.proxies)
+        
+        for available_base_url in self.available_base_url_list:
+            res = self.sess.request(method='GET', url=available_base_url + '/' + identifier, verify=False, proxies=self.proxies)
+            if res.status_code == 200:
+                self.base_url = available_base_url + '/'
+                break
+        else:
+            raise Exception('http://tool.yovisun.com/scihub/中各个链接均无法在程序中正常运行，下载失败！')
+            
         logger.info(f"获取 {self.base_url + identifier} 中...")
         s = self._get_soup(res.content)
         frame = s.find('iframe') or s.find('embed')
